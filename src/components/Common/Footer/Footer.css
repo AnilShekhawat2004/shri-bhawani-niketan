@@ -1,0 +1,17 @@
+/* Footer.css */
+.yellowHover {
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition for both color and transform */
+}
+  
+.yellowHover:hover {
+    color: #FDB714; /* Yellow on hover */
+    transform: scale(1.1); /* Slightly enlarge the icon */
+}
+
+.textHover {
+    transition: color 0.3s ease; /* Smooth transition for both color and transform */
+}
+  
+.textHover:hover {
+    color: #FDB714; /* Yellow on hover */
+}

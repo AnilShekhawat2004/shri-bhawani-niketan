@@ -1,0 +1,11 @@
+.RGroup:hover .RHover {
+    width: 100%;
+    background-color: white;
+    
+  }
+  
+  .RGroup:hover .RText,
+  .RGroup:hover .RChild {
+    color: #a41e34;
+  }
+  
