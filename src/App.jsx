@@ -31,9 +31,10 @@ import CourseDetails from "./components/core/Courses/CourseDetails"
 import Login from "./Pages/Login";
 import Faculty from "./components/core/DashBoard/Faculty";
 import PrivateRoute from "./components/core/Auth/PrivateRoute"
-import AddFaculty from "./components/core/Faculty/addFaculty";
-import FacultyNext from "./components/core/Faculty/FacultyNext"
-import EditFaculty from "./components/core/Faculty/EditFaculty";
+import AddFaculty from "./components/core/Faculty/AddFaculty/addFaculty";
+import FacultyNext from "./components/core/Faculty/AddFaculty/FacultyNext"
+import EditFaculty from "./components/core/Faculty/EditFaculty/EditFaculty";
+import EditFacultyNext from "./components/core/Faculty/EditFaculty/EditFacultyNext";
 
 function App() {
   
@@ -122,6 +123,12 @@ function App() {
                 <Route path="/dashboard/faculty/editFaculty" element={
                   <PrivateRoute>
                     <EditFaculty/>
+                  </PrivateRoute>
+                }/>
+
+                <Route path="/dashboard/faculty/editFacultyDetails" element={
+                  <PrivateRoute>
+                    <EditFacultyNext/>
                   </PrivateRoute>
                 }/>
                 </Route>

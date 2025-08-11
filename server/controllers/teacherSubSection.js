@@ -43,6 +43,14 @@ exports.createSubSection = async(req, res) => {
                 })
             }
 
+        const existingSubSection = await teacherSubSection.findOne({teacherSubSection:sectionDetails._id})
+        if (existingSubSection) {
+            return res.status(400).json({
+                success: false,
+                message: "A SubSection already exists for this TeacherSection."
+            });
+        }
+        
         const SubSectionDetails = await teacherSubSection.create({
             contactNumber: contactNumber,
             email: email,

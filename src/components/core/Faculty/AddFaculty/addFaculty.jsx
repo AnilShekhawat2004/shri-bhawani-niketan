@@ -7,9 +7,9 @@ import {
   createSection,
   editSection,
   getAllTeacherCategories,
-} from "../../../services/operations/teacherAPI";
-import { setEditTeacher, setTeacher } from "../../../slices/teacherSlice";
-import Upload from "./Upload";
+} from "../../../../services/operations/teacherAPI";
+import { setEditTeacher, setTeacher } from "../../../../slices/teacherSlice";
+import Upload from "../Upload";
 
 function AddFaculty() {
   const {
@@ -27,9 +27,6 @@ function AddFaculty() {
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
 
-  console.log("This is the teacher : ", teacher);
-  console.log("This is the editTeacher : ", editTeacher);
-  console.log("This is the setTeacher : ", setTeacher);
   useEffect(() => {
     const getCategories = async () => {
       setLoading(true);
@@ -47,8 +44,6 @@ function AddFaculty() {
       setValue("teachCategory", teacher.teachCat);
     }
 
-    console.log("Redux editTeacher in AddFaculty:", editTeacher);
-    console.log("Redux teacher in AddFaculty:", teacher);
     getCategories();
   }, [editTeacher, teacher, setValue]);
 
@@ -90,7 +85,7 @@ function AddFaculty() {
         if (result) {
           // dispatch(setStep(2));
           dispatch(setTeacher(result));
-          navigate("/dashboard/faculty/addFacultyDetails");
+          navigate(`/dashboard/faculty/editFacultyDetails?id=${teacher._id}`);
         } else {
           toast.error("No changes made to the form");
         }
@@ -106,7 +101,6 @@ function AddFaculty() {
     setLoading(true);
     const result = await createSection(formData, token);
     if (result) {
-      // dispatch(setStep(2));
       dispatch(setTeacher(result));
       navigate("/dashboard/faculty/addFacultyDetails");
     }

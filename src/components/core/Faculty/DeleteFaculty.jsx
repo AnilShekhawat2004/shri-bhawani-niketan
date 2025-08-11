@@ -7,7 +7,7 @@ import {
 } from "../../../services/operations/teacherAPI";
 import ConfirmationModal from "../../Common/ConfirmationModal";
 
-function DeleteFaculty({ sectionId, setTeachDetails }) {
+function DeleteFaculty({ sectionId }) {
   const { token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);

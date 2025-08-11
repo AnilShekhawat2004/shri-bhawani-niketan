@@ -5,7 +5,6 @@ import { IoSearch } from "react-icons/io5";
 import { PiEye } from "react-icons/pi";
 import { RiGroupLine } from "react-icons/ri";
 import DeleteFaculty from "./DeleteFaculty";
-import EditFaculty from "./EditFaculty";
 import { useNavigate } from "react-router-dom";
 
 function Table({ teachDetails, setTeachDetails, teachCat }) {
@@ -64,7 +63,7 @@ function Table({ teachDetails, setTeachDetails, teachCat }) {
               placeholder="Search faculty..."
               value={searchTerm}
               onChange={handleSearchChange}
-              className="form-input-style pl-10"
+              className="form-input-style !pl-9"
             />
           </div>
           <select
