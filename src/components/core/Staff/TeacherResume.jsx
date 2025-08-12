@@ -4,12 +4,15 @@ import { teacherEndpoints } from "../../../services/apis";
 import { getAllSubSections } from "../../../services/operations/teacherAPI";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaArrowLeftLong } from "react-icons/fa6";
-import Error from "../../../Pages/Error"
+import { toast } from "react-hot-toast";
+import { useLocation } from "react-router-dom";
+import Error from "../../../Pages/Error";
 
 const TeacherResume = () => {
   const [loading, setLoading] = useState(true);
   const [teachSectionDetails, setTeachSectionDetails] = useState(null);
   const [teachSubData, setTeachSubData] = useState([]);
+  const location = useLocation();
 
   const { teachId } = useParams();
   const navigate = useNavigate();
@@ -17,7 +20,10 @@ const TeacherResume = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const sectionRes = await apiConnector("GET", teacherEndpoints.GET_ALL_SECTION_API);
+        const sectionRes = await apiConnector(
+          "GET",
+          teacherEndpoints.GET_ALL_SECTION_API
+        );
         const section = sectionRes?.data?.data?.find(
           (ct) => ct.name.split(" ").join("-").toLowerCase() === teachId
         );
@@ -42,15 +48,23 @@ const TeacherResume = () => {
     fetchData();
   }, [teachId]);
 
-  if (loading) return (
+  if (loading)
+    return (
       <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
         <div className="loader"></div>
       </div>
-  );
+    );
 
-  if (!teachSubData.length) return(
-    <Error/>
-  );
+  if (!teachSubData.length) {
+    if (location.pathname.includes("/dashboard/faculty")) {
+      toast.error("Faculty Details not found");
+      setTimeout(() => navigate(-1), 1200);
+      return null;
+    } else {
+      return <Error />;
+    }
+  }
+
 
   return (
     <div className="w-[80%] h-full mx-auto mt-20 grid grid-cols-1 lg:grid-cols-2 gap-10">
@@ -92,12 +106,20 @@ const TeacherResume = () => {
           {teachSubData.map((resume) => (
             <div key={resume._id} className="mb-10 space-y-2">
               <div className="flex gap-2">
-                <p className="font-helvetica font-bold text-[19px] text-bhawaniDark2">Phone:</p>
-                <p className="font-verdana text-[17px] text-bhawaniDark">{resume.contactNumber}</p>
+                <p className="font-helvetica font-bold text-[19px] text-bhawaniDark2">
+                  Phone:
+                </p>
+                <p className="font-verdana text-[17px] text-bhawaniDark">
+                  {resume.contactNumber}
+                </p>
               </div>
               <div className="flex gap-2">
-                <p className="font-helvetica font-bold text-[19px] text-bhawaniDark2">Email:</p>
-                <p className="font-verdana text-[17px] text-bhawaniDark">{resume.email}</p>
+                <p className="font-helvetica font-bold text-[19px] text-bhawaniDark2">
+                  Email:
+                </p>
+                <p className="font-verdana text-[17px] text-bhawaniDark">
+                  {resume.email}
+                </p>
               </div>
             </div>
           ))}
@@ -117,7 +139,9 @@ const TeacherResume = () => {
               ["What I Love Most About Bhawani", resume.love],
             ].map(([label, value]) => (
               <div key={label} className="flex flex-col gap-1">
-                <p className="font-bold font-sans text-[25px] text-bhawaniDark">{label}:</p>
+                <p className="font-bold font-sans text-[25px] text-bhawaniDark">
+                  {label}:
+                </p>
                 <p className="font-m1 text-[20px] text-bhawaniDark2">{value}</p>
               </div>
             ))}

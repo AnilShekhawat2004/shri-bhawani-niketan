@@ -108,7 +108,10 @@ function Table({ teachDetails, setTeachDetails, teachCat }) {
                     </td>
                     <td className="px-4 py-5">{item.designation}</td>
                     <td className="px-4 py-5 flex gap-5">
-                      <PiEye className="text-blue-600 text-[20px] cursor-pointer" />
+                      <PiEye 
+                        className="text-blue-600 text-[20px] cursor-pointer"
+                        onClick={() => navigate(`/dashboard/faculty/${item.name.split(" ").join("-").toLowerCase()}`)}
+                       />
                       <FaRegEdit
                         className="text-yellow-500 text-[18px] cursor-pointer"
                         onClick={() => navigate(`/dashboard/faculty/editFaculty?id=${item._id}`)}

@@ -7,7 +7,7 @@ import {
 } from "../../../services/operations/teacherAPI";
 import ConfirmationModal from "../../Common/ConfirmationModal";
 
-function DeleteFaculty({ sectionId }) {
+function DeleteFaculty({ sectionId, setTeachDetails }) {
   const { token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -17,8 +17,9 @@ function DeleteFaculty({ sectionId }) {
     try {
       setLoading(true);
       const res = await deleteSection(sectionId, token);
-
+      
       if (res?.success) {
+        setTeachDetails(prev => prev.filter(faculty => faculty._id !== sectionId));
         navigate("/dashboard/faculty", { state: { refresh: true } });
       }
       setConfirmationModal(null);

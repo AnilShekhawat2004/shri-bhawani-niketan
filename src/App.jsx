@@ -132,6 +132,12 @@ function App() {
                   </PrivateRoute>
                 }/>
                 </Route>
+
+                <Route path="/dashboard/faculty/:teachId" element={
+                  <PrivateRoute>
+                    <TeacherResume/>
+                  </PrivateRoute>
+                }/>
              </>
            )
          }
