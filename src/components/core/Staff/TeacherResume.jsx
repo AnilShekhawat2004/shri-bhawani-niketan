@@ -93,7 +93,7 @@ const TeacherResume = () => {
               <p className="font-bold font-m1 text-bhawaniDark text-[35px]">
                 {teachSectionDetails.name}
               </p>
-              <p className="font-helvetica text-[20px] text-bhawaniDark">
+              <p className="font-helvetica text-[20px]">
                 {teachSectionDetails.designation}
               </p>
             </div>
@@ -106,18 +106,18 @@ const TeacherResume = () => {
           {teachSubData.map((resume) => (
             <div key={resume._id} className="mb-10 space-y-2">
               <div className="flex gap-2">
-                <p className="font-helvetica font-bold text-[19px] text-bhawaniDark2">
+                <p className="font-helvetica font-bold text-[19px] text-bhawaniDark">
                   Phone:
                 </p>
-                <p className="font-verdana text-[17px] text-bhawaniDark">
+                <p className="font-verdana text-[17px]">
                   {resume.contactNumber}
                 </p>
               </div>
               <div className="flex gap-2">
-                <p className="font-helvetica font-bold text-[19px] text-bhawaniDark2">
+                <p className="font-helvetica font-bold text-[19px] text-bhawaniDark">
                   Email:
                 </p>
-                <p className="font-verdana text-[17px] text-bhawaniDark">
+                <p className="font-verdana text-[17px]">
                   {resume.email}
                 </p>
               </div>
@@ -142,7 +142,7 @@ const TeacherResume = () => {
                 <p className="font-bold font-sans text-[25px] text-bhawaniDark">
                   {label}:
                 </p>
-                <p className="font-m1 text-[20px] text-bhawaniDark2">{value}</p>
+                <p className="font-m1 text-[20px] ">{value}</p>
               </div>
             ))}
           </div>

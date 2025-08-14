@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import ChipInput from "../ChipInput"
 import {
   createSubSection,
   editSubSection,
@@ -215,7 +216,7 @@ function FacultyNext() {
       </div>
 
       <div className="relative">
-        <label
+        {/* <label
           htmlFor="strengths"
           className="text-sm font-medium text-gray-700"
         >
@@ -227,11 +228,19 @@ function FacultyNext() {
           placeholder="Enter your strengths"
           className="form-input-style resize-y"
           {...register("strengths")}
+        /> */}
+        <ChipInput
+          label="Strengths"
+          name="strengths"
+          placeholder="Enter strengths and Press Enter"
+          register={register}
+          setValue={setValue}
+          getValues={getValues}
         />
       </div>
 
       <div className="relative">
-        <label htmlFor="hobbies" className="text-sm font-medium text-gray-700">
+        {/* <label htmlFor="hobbies" className="text-sm font-medium text-gray-700">
           Hobbies <span className="text-red-500">*</span>
         </label>
         <textarea
@@ -240,6 +249,14 @@ function FacultyNext() {
           placeholder="Enter your hobbies"
           className="form-input-style resize-y"
           {...register("hobbies")}
+        /> */}
+        <ChipInput
+          label="Hobbies"
+          name="hobbies"
+          placeholder="Enter hobbie and Press Enter"
+          register={register}
+          setValue={setValue}
+          getValues={getValues}
         />
       </div>
 
