@@ -34,6 +34,7 @@ export const courseCategoryEndpoints = {
     CATEGORYPAGEDETAILS_API: BASE_URL + "/course/categoryPageDetails",
     EDIT_CATEGORY_API: BASE_URL + "/course/editCategory",
     DELETE_CATEGORY_API: BASE_URL + "/course/deleteCategory",
+    GET_COURSE_COUNT_API: BASE_URL + "/course/getCourseCounts",
 }
 
 //Course Category Program
@@ -41,7 +42,8 @@ export const courseCategoryProgramEndpoints = {
     CREATE_CATEGORYPROGRAM_API: BASE_URL + "/course/createCatProgram",
     EDIT_CATEGORYPROGRAM_API : BASE_URL + "/course/editCatProgram",
     DELETE_CATEGORYPROGRAM_API : BASE_URL + "/course/deleteCatProgram",
-    SHOW_ALL_CATEGORYPROGRAM_API : BASE_URL + "/course/showAllCategoryProgram"
+    SHOW_ALL_CATEGORYPROGRAM_API : BASE_URL + "/course/showAllCategoryProgram",
+    PROGRAM_CATEGORY_COUNT_API: BASE_URL + "/course/getCategoryProgramCount"
 }
 
 //Contact-Us Endpoints

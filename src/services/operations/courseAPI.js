@@ -17,6 +17,7 @@ const {
   CATEGORYPAGEDETAILS_API,
   EDIT_CATEGORY_API,
   DELETE_CATEGORY_API,
+  GET_COURSE_COUNT_API,
 } = courseCategoryEndpoints;
 
 const {
@@ -24,6 +25,7 @@ const {
   EDIT_CATEGORYPROGRAM_API,
   DELETE_CATEGORYPROGRAM_API,
   SHOW_ALL_CATEGORYPROGRAM_API,
+  PROGRAM_CATEGORY_COUNT_API,
 } = courseCategoryProgramEndpoints;
 
 export const getAllCourses = async () => {
@@ -240,6 +242,21 @@ export const deleteCategory = async (categoryId, token) => {
     toast.dismiss(toastId);
 };
 
+export const getCourseCounts = async () => {
+  let result = null;
+  try{
+    const response = await apiConnector("GET", GET_COURSE_COUNT_API)
+    if(!response?.data?.success){
+      throw new Error(response?.data?.message || "Could Not Fetch Counts")
+    }
+    result = response?.data?.data
+  }catch(error){
+    console.error("GET_COUNTS_API Error:", error)
+    toast.error(error?.response?.data?.message || error.message)
+  }
+  return result
+}
+
 // category program apis
 export const createCategoryProgram = async (data, token) => {
   const toastId = toast.loading("Creating Category Program...");
@@ -322,3 +339,18 @@ export const showAllCategoryPrograms = async () => {
   toast.dismiss(toastId);
   return result;
 };
+
+export const getCategoryProgramCount = async () => {
+  let result = null;
+  try{
+    const response = await apiConnector("GET", PROGRAM_CATEGORY_COUNT_API)
+    if(!response?.data?.success){
+      throw new Error(response?.data?.message || "Could Not Fetch Counts")
+    }
+    result = response?.data?.data
+  }catch(error){
+    console.error("GET_CATEGORY_PROGRAM_COUNTS_API Error:", error)
+    toast.error(error?.response?.data?.message || error.message)
+  }
+  return result
+}

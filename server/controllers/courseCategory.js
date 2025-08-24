@@ -2,6 +2,7 @@ const courseCategory = require("../models/courseCategory");
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
 const User = require("../models/User");
 const CategoryProgram = require("../models/CategoryProgram")
+const Course = require("../models/Course")
 
 require('dotenv').config();
 
@@ -218,6 +219,20 @@ exports.deleteCategory = async(req, res) => {
         //Delete category
         await courseCategory.findByIdAndDelete(courseCategoryId)
 
+        if(courseCategory.courses){
+            await Course.findByIdAndDelete(courseCategory.courses)
+        }
+
+        if(courseCategory.categoryProgram){
+            await CategoryProgram.findByIdAndUpdate(
+                courseCategory.categoryProgram,
+                {
+                    $pull: { category: courseCategoryId }
+                },
+                {new: true}
+            )
+        }
+
         //return response
         return res.status(200).json({
             success: true,
@@ -228,6 +243,25 @@ exports.deleteCategory = async(req, res) => {
         return res.status(500).json({
             success: false,
             message: error.message,
+        })
+    }
+}
+
+exports.getCourseCounts = async (req, res) => {
+    try{
+        const courseCount = await courseCategory.countDocuments()
+
+        return res.status(200).json({
+            success: true,
+            data:{
+                courseCount
+            }
+        })
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({
+            success: false,
+            message: error.message
         })
     }
 }

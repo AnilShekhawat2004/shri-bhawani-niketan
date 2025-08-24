@@ -27,7 +27,7 @@ function Sidebar({ isOpen }) {
     {
       SideIcon: IoBookOutline,
       title: "Courses",
-      link: "/",
+      link: "/dashboard/courses",
       color: "text-green-600",
     },
     {

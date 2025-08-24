@@ -35,6 +35,7 @@ import AddFaculty from "./components/core/Faculty/AddFaculty/addFaculty";
 import FacultyNext from "./components/core/Faculty/AddFaculty/FacultyNext"
 import EditFaculty from "./components/core/Faculty/EditFaculty/EditFaculty";
 import EditFacultyNext from "./components/core/Faculty/EditFaculty/EditFacultyNext";
+import DashboardCourses from "./components/core/DashBoard/Courses"
 
 function App() {
   
@@ -138,6 +139,14 @@ function App() {
                     <TeacherResume/>
                   </PrivateRoute>
                 }/>
+
+                <Route path="/dashboard/courses" element={
+                  <PrivateRoute>
+                    <DashboardCourses/>
+                  </PrivateRoute>
+                }>
+                  
+                </Route>
              </>
            )
          }

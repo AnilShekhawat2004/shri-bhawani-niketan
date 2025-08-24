@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { getCounts } from '../../../services/operations/teacherAPI' 
-import { RiGroupLine } from "react-icons/ri";
+import { useEffect, useState } from 'react';
 import { IoIosTrendingUp } from "react-icons/io";
+import { RiGroupLine } from "react-icons/ri";
+import { getCounts } from '../../../services/operations/teacherAPI';
 
 function Count() {
     const [counts, setCounts] = useState({

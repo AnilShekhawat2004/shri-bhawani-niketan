@@ -20,8 +20,6 @@ export function login(email, password, navigate){
                 password,
             })
 
-            console.log("Login API Response.......", response)
-
             if(!response.data.success){
                 throw new Error(response.data.message)
             }
@@ -62,8 +60,6 @@ export function getResetPasswordToken(email, setEmailSent){
         try{
             const response = await apiConnector("POST", RESETPASSWORDTOKEN_API, {email})
 
-            console.log("Reset Password Token Response...", response);
-
             if(!response.data.success){
                 throw new Error(response.data.message);
             }
@@ -82,8 +78,6 @@ export function resetPassword(password, confirmPassword, token){
         dispatch(setLoading(true));
         try{
             const response = await apiConnector("POST", RESETPASSWORD_API, {password, confirmPassword, token});
-
-            console.log("Reset Password Response...", response);
 
             if(!response.data.success){
                 throw new Error(response.data.message);

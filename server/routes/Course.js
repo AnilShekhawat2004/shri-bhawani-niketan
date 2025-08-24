@@ -21,6 +21,7 @@ const{
     categoryPageDetails,
     deleteCategory,
     editCategory,
+    getCourseCounts,
 } = require("../controllers/courseCategory");
 
 //import Category program
@@ -29,6 +30,7 @@ const{
     editCatProgram,
     showAllCategoryProgram,
     deleteCatProgram,
+    getCategoryProgramCount,
 } = require("../controllers/CategoryProgram")
 
 
@@ -46,11 +48,13 @@ router.get("/showAllCategories", showAllCategories)
 router.post("/categoryPageDetails", categoryPageDetails)
 router.delete("/deleteCategory", auth, isAdmin, deleteCategory)
 router.post("/editCategory", auth, isAdmin, editCategory)
+router.get("/getCourseCounts", getCourseCounts)
 
 //category program 
 router.post("/createCatProgram", auth, isAdmin, createCatProgram)
 router.post("/editCatProgram", auth, isAdmin, editCatProgram)
 router.delete("/deleteCatProgram", auth, isAdmin, deleteCatProgram)
 router.get("/showAllCategoryProgram", showAllCategoryProgram)
+router.get("/getCategoryProgramCount", getCategoryProgramCount)
 
 module.exports = router
