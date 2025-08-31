@@ -22,6 +22,7 @@ const{
     deleteCategory,
     editCategory,
     getCourseCounts,
+    getCourseCategoryDetails,
 } = require("../controllers/courseCategory");
 
 //import Category program
@@ -49,6 +50,7 @@ router.post("/categoryPageDetails", categoryPageDetails)
 router.delete("/deleteCategory", auth, isAdmin, deleteCategory)
 router.post("/editCategory", auth, isAdmin, editCategory)
 router.get("/getCourseCounts", getCourseCounts)
+router.post("/getCourseCategoryDetails", auth, isAdmin, getCourseCategoryDetails)
 
 //category program 
 router.post("/createCatProgram", auth, isAdmin, createCatProgram)

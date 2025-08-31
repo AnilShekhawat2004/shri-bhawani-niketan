@@ -11,7 +11,7 @@ function Table({ teachDetails, setTeachDetails, teachCat }) {
   const [page, setPage] = useState(1);
   const [selectCategory, setSelectCatgory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const limit = 5;
 
   const categories = [{ _id: "All", name: "All Departments" }, ...teachCat];
@@ -108,13 +108,24 @@ function Table({ teachDetails, setTeachDetails, teachCat }) {
                     </td>
                     <td className="px-4 py-5">{item.designation}</td>
                     <td className="px-4 py-5 flex gap-5">
-                      <PiEye 
+                      <PiEye
                         className="text-blue-600 text-[20px] cursor-pointer"
-                        onClick={() => navigate(`/dashboard/faculty/${item.name.split(" ").join("-").toLowerCase()}`)}
-                       />
+                        onClick={() =>
+                          navigate(
+                            `/dashboard/faculty/${item.name
+                              .split(" ")
+                              .join("-")
+                              .toLowerCase()}`
+                          )
+                        }
+                      />
                       <FaRegEdit
                         className="text-yellow-500 text-[18px] cursor-pointer"
-                        onClick={() => navigate(`/dashboard/faculty/editFaculty?id=${item._id}`)}
+                        onClick={() =>
+                          navigate(
+                            `/dashboard/faculty/editFaculty?id=${item._id}`
+                          )
+                        }
                       />
                       <DeleteFaculty
                         sectionId={item._id}

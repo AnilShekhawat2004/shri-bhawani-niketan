@@ -36,42 +36,41 @@ exports.createCourse = async (req, res) => {
       });
     }
 
-    duration = Number(duration);
-
     if (typeof fees === "string") {
-      fees = JSON.parse(fees);
+      try {
+        fees = JSON.parse(fees);
+      } catch (err) {
+        return res
+          .status(400)
+          .json({ success: false, message: "Invalid fees format" });
+      }
     }
+
     if (typeof semesterFees === "string") {
-      semesterFees = JSON.parse(semesterFees);
+      try {
+        semesterFees = JSON.parse(semesterFees);
+      } catch (err) {
+        return res
+          .status(400)
+          .json({ success: false, message: "Invalid semesterFees format" });
+      }
     }
 
-    if (fees.length !== duration) {
-      return res.status(404).json({
-        success: false,
-        message: "Enter the all fees fields",
-      });
+    if (status) {
+      if (status.toLowerCase() === "published") status = "Published";
+      else if (status.toLowerCase() === "draft") status = "Draft";
     }
 
-    let count = duration * 2;
-    if (semesterFees.length !== count) {
-      return res.status(404).json({
-        success: false,
-        message: "Enter the semester fees fields",
-      });
-    }
     if (!status || status == undefined) {
       status = "Draft";
     }
 
     //check if the user is Admin
-    const adminDetails = await User.findById(userId, {
-      accountType: "Admin",
-    });
-
-    if (!adminDetails) {
+    const adminDetails = await User.findById(userId);
+    if (!adminDetails || adminDetails.accountType !== "Admin") {
       return res.status(404).json({
         success: false,
-        message: "Admin Details not found",
+        message: "Only Admin can create a course",
       });
     }
 
@@ -104,21 +103,20 @@ exports.createCourse = async (req, res) => {
     });
 
     // Add the new course to the Categories
-    const categoryDetails2 = await Category.findByIdAndUpdate(
+    await Category.findByIdAndUpdate(
       { _id: categoryDetails._id },
       {
         $push: {
-          category: newCourse._id,
+          courses: newCourse._id,
         },
       },
       { new: true }
     );
-    console.log(categoryDetails2);
 
     return res.status(200).json({
       success: true,
       data: newCourse,
-      message: "Course Created Successfully",
+      message: "Course Details Created Successfully",
     });
   } catch (error) {
     console.error(error);
@@ -171,7 +169,9 @@ exports.editCourse = async (req, res) => {
 
     if (fees !== undefined) {
       if (!Array.isArray(fees)) {
-        return res.status(400).json({ success: false, message: "Fees must be an array" });
+        return res
+          .status(400)
+          .json({ success: false, message: "Fees must be an array" });
       }
       if (duration !== undefined && fees.length !== duration) {
         return res.status(400).json({
@@ -184,7 +184,9 @@ exports.editCourse = async (req, res) => {
 
     if (semesterFees !== undefined) {
       if (!Array.isArray(semesterFees)) {
-        return res.status(400).json({ success: false, message: "Semester Fees must be an array" });
+        return res
+          .status(400)
+          .json({ success: false, message: "Semester Fees must be an array" });
       }
       const count = (duration || course.duration) * 2; // use updated or existing duration
       if (semesterFees.length !== count) {

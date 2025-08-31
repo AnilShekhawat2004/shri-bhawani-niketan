@@ -20,7 +20,7 @@ const categorySchema = new mongoose.Schema({
     categoryProgram: [
         {
             type: mongoose.Schema.Types.ObjectId,
-			ref: "categoryProgram",
+			ref: "CatgoryProgram",
         }
     ]
 });

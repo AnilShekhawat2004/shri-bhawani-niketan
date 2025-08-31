@@ -4,9 +4,9 @@ import Sidebar from "./SideBar";
 import AddButton from "../../Common/Buttons/addButton";
 import { IoMdAdd } from "react-icons/io";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Count from "../DashboardCourse/Count";
-import Table from "../DashboardCourse/Table"
+import Table from "../DashboardCourse/Table";
 import { fetchCourseCategories } from "../../../services/operations/courseAPI";
 import { showAllCategoryPrograms } from "../../../services/operations/courseAPI";
 
@@ -66,6 +66,10 @@ function Courses() {
       </div>
     );
 
+  const isAddCourseOpen = ["/addCourse", "/editCourse"].some((path) =>
+    location.pathname.includes(path)
+  );
+
   return (
     <div className="bg-violet-50 w-full h-full overflow-x-hidden">
       <AdminNavBar toggleSidebar={toggleSidebar} />
@@ -90,7 +94,7 @@ function Courses() {
               <AddButton
                 className="w-[150px]"
                 text="Add Courses"
-                onClick={() => navigate("/dashboard/courses/addCourses")}
+                onClick={() => navigate("/dashboard/courses/addCourse")}
               >
                 <IoMdAdd />
               </AddButton>
@@ -106,6 +110,27 @@ function Courses() {
               courseCat={courseCat}
             />
           </div>
+          {isAddCourseOpen && (
+            <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50">
+              <div className="relative bg-white rounded-3xl space-y-6 shadow-xl max-w-2xl w-[90%]">
+                <div className="bg-gradient-to-r rounded-t-3xl font-m1 from-bhawaniDark to-bhawaniDark2 py-6 px-8">
+                  <h2 className="text-white text-3xl font-bold">
+                    {location.pathname.includes("editCourse")
+                      ? "Edit Course"
+                      : "Add Course"}
+                  </h2>
+                  <p className="text-white text-md">
+                    {location.pathname.includes("editCourse")
+                      ? "Update course details and ensure data accuracy."
+                      : "Transform ideas into expertise with our courses."}
+                  </p>
+                </div>
+                <div className="pl-10 pr-10 pb-10 max-h-[80vh] overflow-y-auto hide-scrollbar scroll-smooth">
+                  <Outlet/>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

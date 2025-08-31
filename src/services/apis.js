@@ -35,6 +35,7 @@ export const courseCategoryEndpoints = {
     EDIT_CATEGORY_API: BASE_URL + "/course/editCategory",
     DELETE_CATEGORY_API: BASE_URL + "/course/deleteCategory",
     GET_COURSE_COUNT_API: BASE_URL + "/course/getCourseCounts",
+    GET_COURSE_CATEGORY_DETAILS_API: BASE_URL + "/course/getCourseCategoryDetails"
 }
 
 //Course Category Program

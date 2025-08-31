@@ -5,7 +5,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import { PiEye } from "react-icons/pi";
 import { RiGroupLine } from "react-icons/ri";
-import DeleteCourses from "./DeleteCourses"
+import DeleteCourses from "./DeleteCourses";
 
 function Table({ courseDetails, setCourseDetails, courseCat }) {
   const [page, setPage] = useState(1);
@@ -51,9 +51,7 @@ function Table({ courseDetails, setCourseDetails, courseCat }) {
             </div>
             <p className="font-m2 text-[30px] font-bold">Course Catalog</p>
           </div>
-          <p className="text-gray-500">
-            Complete list of available courses
-          </p>
+          <p className="text-gray-500">Complete list of available courses</p>
         </div>
 
         <div className="flex gap-4">
@@ -101,8 +99,8 @@ function Table({ courseDetails, setCourseDetails, courseCat }) {
                         {item.categoryProgram
                           .map(
                             (catId) =>
-                              courseCat.find((cat) => cat._id === catId)?.name ||
-                              "Unknown"
+                              courseCat.find((cat) => cat._id === catId)
+                                ?.name || "Unknown"
                           )
                           .join(", ")}
                       </div>
@@ -112,10 +110,7 @@ function Table({ courseDetails, setCourseDetails, courseCat }) {
                         className="text-blue-600 text-[20px] cursor-pointer"
                         onClick={() =>
                           navigate(
-                            `/dashboard/faculty/${item.name
-                              .split(" ")
-                              .join("-")
-                              .toLowerCase()}`
+                            `/dashboard/courses/${item._id}`
                           )
                         }
                       />
@@ -123,7 +118,7 @@ function Table({ courseDetails, setCourseDetails, courseCat }) {
                         className="text-yellow-500 text-[18px] cursor-pointer"
                         onClick={() =>
                           navigate(
-                            `/dashboard/faculty/editFaculty?id=${item._id}`
+                            `/dashboard/courses/editCourse?id=${item._id}`
                           )
                         }
                       />

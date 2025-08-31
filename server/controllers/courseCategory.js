@@ -12,14 +12,14 @@ function getRandomInt(max){
 
 exports.createCategory = async(req, res) => {
     try{
-        const{ name, description, catProgramId} = req.body;
+        const{ name, description, categoryProgram} = req.body;
         const image = req.files.thumbnailImage;
         const userId = req.user.id;
-
-        if(!name || !description || !image || !catProgramId){
+        
+        if(!name || !description || !image || !categoryProgram){
             return res.status(404).json({
                 success:false,
-                message:"All fields are required to create Category for course",
+                message:"All fields are required to create course",
             })
         }
 
@@ -34,7 +34,7 @@ exports.createCategory = async(req, res) => {
             })
         }
 
-        const programDetails = await CategoryProgram.findById(catProgramId)
+        const programDetails = await CategoryProgram.findById(categoryProgram)
         if(!programDetails){
             return res.status(404).json({
                 success: false,
@@ -57,7 +57,7 @@ exports.createCategory = async(req, res) => {
 
         await CategoryProgram.findByIdAndUpdate(
             {
-                _id: catProgramId,
+                _id: categoryProgram,
             },
             {
                 $push:{
@@ -82,9 +82,9 @@ exports.createCategory = async(req, res) => {
 
 exports.editCategory = async(req, res) => {
     try{
-        const {categoryId, name, description} = req.body
-        const category = await courseCategory.findById(categoryId);
-
+        const {courseId, name, description} = req.body
+        const category = await courseCategory.findById(courseId);
+         
         if(!category){
             return res.status(404).json({
                 success: false,
@@ -114,7 +114,7 @@ exports.editCategory = async(req, res) => {
         await category.save();
 
         const updatedCategory = await courseCategory.findOne({
-            _id: categoryId
+            _id: courseId
         })
         .populate({
             path: "courses"
@@ -205,10 +205,10 @@ exports.categoryPageDetails = async (req, res) => {
 
 exports.deleteCategory = async(req, res) => {
     try{
-        const {courseCategoryId} = req.body;
+        const {courseId} = req.body;
 
         //Find the category
-        const category = await courseCategory.findById(courseCategoryId)
+        const category = await courseCategory.findById(courseId)
         if(!category){
             return res.status(404).json({
                 success: false,
@@ -217,7 +217,7 @@ exports.deleteCategory = async(req, res) => {
         }
 
         //Delete category
-        await courseCategory.findByIdAndDelete(courseCategoryId)
+        await courseCategory.findByIdAndDelete(courseId)
 
         if(courseCategory.courses){
             await Course.findByIdAndDelete(courseCategory.courses)
@@ -227,7 +227,7 @@ exports.deleteCategory = async(req, res) => {
             await CategoryProgram.findByIdAndUpdate(
                 courseCategory.categoryProgram,
                 {
-                    $pull: { category: courseCategoryId }
+                    $pull: { category: courseId }
                 },
                 {new: true}
             )
@@ -256,6 +256,34 @@ exports.getCourseCounts = async (req, res) => {
             data:{
                 courseCount
             }
+        })
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+exports.getCourseCategoryDetails = async(req, res) => {
+    try{
+        const { courseId } = req.body
+        const courseDetails = await courseCategory.findOne({
+            _id: courseId
+        }).populate("courses").populate("categoryProgram").exec()
+
+        if(!courseDetails){
+            return res.status(404).json({
+                success: false,
+                message: "Could not found course details"
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Details fetched successfully",
+            data: courseDetails
         })
     }catch(error){
         console.log(error)

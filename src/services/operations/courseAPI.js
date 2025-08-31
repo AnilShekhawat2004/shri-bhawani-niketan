@@ -18,6 +18,7 @@ const {
   EDIT_CATEGORY_API,
   DELETE_CATEGORY_API,
   GET_COURSE_COUNT_API,
+  GET_COURSE_CATEGORY_DETAILS_API,
 } = courseCategoryEndpoints;
 
 const {
@@ -63,7 +64,7 @@ export const fetchCourseDetails = async (courseId) => {
   return result;
 };
 
-export const editCourse = async (data, token) => {
+export const editCourses = async (data, token) => {
   const toastId = toast.loading("Loading...");
   let result = null;
   try {
@@ -166,7 +167,7 @@ export const getFullCourseDetails = async (courseId, token) => {
 
 //categories apis
 export const createCategory = async (data, token) => {
-    const toastId = toast.loading("Creating Category...");
+    const toastId = toast.loading("Creating Course...");
     let result = null;
     try {
       if (!token) throw new Error("Authorization Token Missing");
@@ -174,9 +175,9 @@ export const createCategory = async (data, token) => {
         Authorization: `Bearer ${token}`,
       });
       if (!response?.data?.success) {
-        throw new Error(response?.data?.message || "Could Not Create Category");
+        throw new Error(response?.data?.message || "Could Not Create Course");
       }
-      toast.success("Category Created Successfully");
+      toast.success("Course Created Successfully");
       result = response?.data?.data;
     } catch (error) {
       console.error("CREATE_CATEGORIES_API Error:", error);
@@ -208,7 +209,7 @@ export const editCategory = async (data, token) => {
     let result = null;
     try {
       if (!token) throw new Error("Authorization Token Missing");
-      const response = await apiConnector("PUT", EDIT_CATEGORY_API, data, {
+      const response = await apiConnector("POST", EDIT_CATEGORY_API, data, {
         Authorization: `Bearer ${token}`,
       });
       if (!response?.data?.success) {
@@ -224,17 +225,17 @@ export const editCategory = async (data, token) => {
     return result;
 };
   
-export const deleteCategory = async (categoryId, token) => {
-    const toastId = toast.loading("Deleting Category...");
+export const deleteCategory = async (courseId, token) => {
+    const toastId = toast.loading("Deleting Course...");
     try {
       if (!token) throw new Error("Authorization Token Missing");
-      const response = await apiConnector("DELETE", `${DELETE_CATEGORY_API}/${categoryId}`, null, {
+      const response = await apiConnector("DELETE", DELETE_CATEGORY_API, {courseId}, {
         Authorization: `Bearer ${token}`,
       });
       if (!response?.data?.success) {
-        throw new Error(response?.data?.message || "Could Not Delete Category");
+        throw new Error(response?.data?.message || "Could Not Delete Course");
       }
-      toast.success("Category Deleted Successfully");
+      toast.success("Course Deleted Successfully");
     } catch (error) {
       console.error("DELETE_CATEGORY_API Error:", error);
       toast.error(error?.response?.data?.message || error.message);
@@ -255,6 +256,29 @@ export const getCourseCounts = async () => {
     toast.error(error?.response?.data?.message || error.message)
   }
   return result
+}
+
+export const getCourseCategoryDetails = async(courseId, token) => {
+  const toastId = toast.loading("Loading...")
+  let result = null;
+  try{
+    const response = await apiConnector("POST", GET_COURSE_CATEGORY_DETAILS_API, {
+      courseId,
+    },
+    {
+      Authorization: `Bearer ${token}`,
+    }
+  );
+  if(!response?.data?.success){
+    throw new Error(response?.data?.message || "Could Not Get Course Details");
+  }
+  result = response?.data?.data;
+  }catch(error){
+    console.error("Get Course details API Error: ", error)
+    toast.error(error?.response?.data?.message || error.message)
+  }
+  toast.dismiss(toastId)
+  return result;
 }
 
 // category program apis

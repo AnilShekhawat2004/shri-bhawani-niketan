@@ -5,7 +5,7 @@ import Home from "./Pages/Home";
 import Navbar from "./components/Common/Navbar/Navbar";
 import Contact from "./Pages/Contact";
 import About from "./Pages/About";
-import { ACCOUNT_TYPE } from "./utils/constants"
+import { ACCOUNT_TYPE } from "./utils/constants";
 import Staff from "./Pages/Staff";
 import TeacherPage from "./components/core/Staff/TeacherPage";
 import TeacherResume from "./components/core/Staff/TeacherResume";
@@ -25,21 +25,24 @@ import Achievement from "./Pages/Achievement";
 import CampuSafety from "./Pages/CampuSafety";
 import CampusLife from "./Pages/CampusLife";
 import CampusImg from "./components/core/CampusLife/CampusImg";
-import CategoryProgram from "./Pages/CategoryProgram"
+import CategoryProgram from "./Pages/CategoryProgram";
 import Courses from "./components/core/Courses/Courses";
-import CourseDetails from "./components/core/Courses/CourseDetails"
+import CourseDetails from "./components/core/Courses/CourseDetails";
 import Login from "./Pages/Login";
 import Faculty from "./components/core/DashBoard/Faculty";
-import PrivateRoute from "./components/core/Auth/PrivateRoute"
+import PrivateRoute from "./components/core/Auth/PrivateRoute";
 import AddFaculty from "./components/core/Faculty/AddFaculty/addFaculty";
-import FacultyNext from "./components/core/Faculty/AddFaculty/FacultyNext"
+import FacultyNext from "./components/core/Faculty/AddFaculty/FacultyNext";
 import EditFaculty from "./components/core/Faculty/EditFaculty/EditFaculty";
 import EditFacultyNext from "./components/core/Faculty/EditFaculty/EditFacultyNext";
-import DashboardCourses from "./components/core/DashBoard/Courses"
+import DashboardCourses from "./components/core/DashBoard/Courses";
+import AddCourse from "./components/core/DashboardCourse/AddCourse/AddCourse";
+import AddCourseDetails from "./components/core/DashboardCourse/AddCourse/AddCourseDetails";
+import EditCourse from "./components/core/DashboardCourse/EditCourse/EditCourse";
+import EditCourseDetails from "./components/core/DashboardCourse/EditCourse/EditCourseDetails";
 
 function App() {
-  
-  const { user } = useSelector((state) => state.profile)
+  const { user } = useSelector((state) => state.profile);
 
   return (
     <div>
@@ -86,71 +89,135 @@ function App() {
 
         <Route path="/achievement" element={<Achievement />} />
 
-        <Route path="/campusSafety" element={<CampuSafety/>} />
-        
-        <Route path="/campusLife" element={<CampusLife/>} />
+        <Route path="/campusSafety" element={<CampuSafety />} />
 
-        <Route path="/campusLife/:campusLifeName" element={<CampusImg/>} />
+        <Route path="/campusLife" element={<CampusLife />} />
 
-        <Route path="/course" element={<CategoryProgram/>} />
+        <Route path="/campusLife/:campusLifeName" element={<CampusImg />} />
 
-        <Route path="/course/:courseCatName" element={<Courses/>} />
+        <Route path="/course" element={<CategoryProgram />} />
 
-        <Route path="/course/:courseCatName/:courseId" element={<CourseDetails/>} />
+        <Route path="/course/:courseCatName" element={<Courses />} />
 
-        <Route path="/auth/login" element={<Login/>}/>
+        <Route
+          path="/course/:courseCatName/:courseId"
+          element={<CourseDetails />}
+        />
 
-        {
-           user?.accountType === ACCOUNT_TYPE.ADMIN && (
-             <>
-              <Route path="/dashboard/faculty" element={
+        <Route path="/auth/login" element={<Login />} />
+
+        {user?.accountType === ACCOUNT_TYPE.ADMIN && (
+          <>
+            <Route
+              path="/dashboard/faculty"
+              element={
                 <PrivateRoute>
-                  <Faculty/>
+                  <Faculty />
                 </PrivateRoute>
-                }>
-
-                <Route path="/dashboard/faculty/addFaculty" element={
+              }
+            >
+              <Route
+                path="/dashboard/faculty/addFaculty"
+                element={
                   <PrivateRoute>
-                    <AddFaculty/>
+                    <AddFaculty />
                   </PrivateRoute>
-                }/>
+                }
+              />
 
-                <Route path="/dashboard/faculty/addFacultyDetails" element={
+              <Route
+                path="/dashboard/faculty/addFacultyDetails"
+                element={
                   <PrivateRoute>
-                    <FacultyNext/>
+                    <FacultyNext />
                   </PrivateRoute>
-                }/>
+                }
+              />
 
-                <Route path="/dashboard/faculty/editFaculty" element={
+              <Route
+                path="/dashboard/faculty/editFaculty"
+                element={
                   <PrivateRoute>
-                    <EditFaculty/>
+                    <EditFaculty />
                   </PrivateRoute>
-                }/>
+                }
+              />
 
-                <Route path="/dashboard/faculty/editFacultyDetails" element={
+              <Route
+                path="/dashboard/faculty/editFacultyDetails"
+                element={
                   <PrivateRoute>
-                    <EditFacultyNext/>
+                    <EditFacultyNext />
                   </PrivateRoute>
-                }/>
-                </Route>
+                }
+              />
+            </Route>
 
-                <Route path="/dashboard/faculty/:teachId" element={
-                  <PrivateRoute>
-                    <TeacherResume/>
-                  </PrivateRoute>
-                }/>
+            <Route
+              path="/dashboard/faculty/:teachId"
+              element={
+                <PrivateRoute>
+                  <TeacherResume />
+                </PrivateRoute>
+              }
+            />
 
-                <Route path="/dashboard/courses" element={
+            <Route
+              path="/dashboard/courses"
+              element={
+                <PrivateRoute>
+                  <DashboardCourses />
+                </PrivateRoute>
+              }
+            >
+              <Route
+                path="/dashboard/courses/addCourse"
+                element={
                   <PrivateRoute>
-                    <DashboardCourses/>
+                    <AddCourse />
                   </PrivateRoute>
-                }>
-                  
-                </Route>
-             </>
-           )
-         }
-      </Routes> 
+                }
+              />
+
+              <Route
+                path="/dashboard/courses/addCourseDetails"
+                element={
+                  <PrivateRoute>
+                    <AddCourseDetails />
+                  </PrivateRoute>
+                }
+              />
+
+              <Route
+                path="/dashboard/courses/editCourse"
+                element={
+                  <PrivateRoute>
+                    <EditCourse />
+                  </PrivateRoute>
+                }
+              />
+
+              <Route
+                path="/dashboard/courses/editCourseDetails"
+                element={
+                  <PrivateRoute>
+                    <EditCourseDetails />
+                  </PrivateRoute>
+                }
+              />
+            </Route>
+
+            <Route
+              path="/dashboard/courses/:courseId"
+              element={
+                <PrivateRoute>
+                  <CourseDetails />
+                </PrivateRoute>
+              }
+            />
+          </>
+        )}
+      </Routes>
     </div>
   );
 }

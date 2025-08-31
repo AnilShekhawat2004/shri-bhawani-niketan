@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
+import Red from "../../../assets/ImageLine/Red.png";
+import Yellow from "../../../assets/ImageLine/Yellow.png";
+import ContentArea from "../../../assets/Logo/ContentArea.svg";
+import Error from "../../../Pages/Error";
+import { fetchCourseCategories, getAllCourses } from "../../../services/operations/courseAPI";
+import YButton from "../../Common/Buttons/yButton";
+import Footer from "../../Common/Footer/Footer";
 import LandingImage from "../../Common/landingImage";
 import RedBar from "../../Common/redBar";
-import Error from "../../../Pages/Error";
-import Footer from "../../Common/Footer/Footer";
-import { Link, useParams } from "react-router-dom";
-import { fetchCourseCategories } from "../../../services/operations/courseAPI";
-import { getAllCourses } from "../../../services/operations/courseAPI";
-import Yellow from "../../../assets/ImageLine/Yellow.png"
-import Red from "../../../assets/ImageLine/Red.png"
-import ContentArea from "../../../assets/Logo/ContentArea.svg"
-import YButton from "../../Common/Buttons/yButton";
+import { FaArrowLeft } from "react-icons/fa";
+
 
 
 function CourseDetails() {
@@ -17,18 +18,18 @@ function CourseDetails() {
   const [loadingData, setLoadingData] = useState(true)
   const [courseCatDetails, setCourseCatDetails] = useState(null);
   const [courseData, setCourseData] = useState([]);
+  const location = useLocation()
+  const navigate = useNavigate()
 
   const { courseId } = useParams();
 
   useEffect(() => {
     const fetchCourseData = async () => {
       try {
-        console.log("course category id : ", courseId);
-        const res = await fetchCourseCategories(courseId);
+        const res = await fetchCourseCategories();
 
         const filtered = res.filter((item) => item._id.includes(courseId));
 
-        console.log("This is the catgory filtered data : ", filtered);
         setCourseCatDetails(filtered[0]);
       } catch (error) {
         console.log("Error fetching course details", error);
@@ -42,11 +43,9 @@ function CourseDetails() {
   useEffect(() => {
     const fetchCourseDetails = async () => {
       try {
-        console.log("This is the course cat details : ", courseId);
         const res = await getAllCourses(courseId);
 
         const filtered = res.filter((item) => item.category.includes(courseId));
-        console.log("This is the filtered data : ", filtered);
 
         setCourseData(filtered);
       } catch (error) {
@@ -59,6 +58,10 @@ function CourseDetails() {
     fetchCourseDetails();
   }, [courseId]);
 
+  const BackUpto = ["/dashboard/courses"].some((path) =>
+     location.pathname.includes(path)
+  )
+
   if (loading || loadingData)
     return (
       <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
@@ -69,7 +72,7 @@ function CourseDetails() {
 
   return (
     <div>
-      <div>
+      <div className={`${BackUpto ? "-mt-[136px]" : "mt-0"}`}>
         {courseCatDetails && (
           <div>
             <LandingImage
@@ -85,6 +88,13 @@ function CourseDetails() {
             />
           </div>
         )}
+
+        <div 
+          onClick={() => navigate(-1)}
+          className={ BackUpto ? "absolute z-50 flex gap-2 justify-center items-center px-4 py-3 bg-bhawaniRed shadow-md rounded-lg translate-y-10 translate-x-[80px] cursor-pointer" : "hidden"}>
+          <FaArrowLeft className=" text-white"/>
+          <p className="text-white">Back To Dashboard</p>
+        </div>
       </div>
 
       <div className="mt-32">
@@ -173,7 +183,7 @@ function CourseDetails() {
                     className="lg:w-[180px] translate-y-32"/>
                 </div>
 
-                <div className="mt-32 flex flex-col justify-center items-center ">
+                <div className="mt-32 flex flex-col justify-center items-center mb-10">
                    <p className="font-m1 text-[40px] font-bold text-bhawaniDark ">Every journey begins with a guide Meet yours.</p>
                    <div className="w-[60%] h-[3px] bg-bhawaniYellow"></div>
                    <div className="relative w-full flex justify-center lg:h-[300px] mx-auto bg-bhawaniDark mt-10">
@@ -198,7 +208,7 @@ function CourseDetails() {
             </div>
         ))}
       </div>
-      <Footer />
+      { !BackUpto && (<Footer />)}
     </div>
   );
 }
