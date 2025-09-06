@@ -7,6 +7,8 @@ const {
   EDIT_EVENTS_API,
   DELETE_EVENTS_API,
   GET_ALL_EVENTS_API,
+  GET_EVENT_COUNTS_API,
+  GET_EVENT_DETAILS_API,
 } = eventEndpoints;
 
 export const createEvent = async (data, token) => {
@@ -30,7 +32,7 @@ export const createEvent = async (data, token) => {
   return result;
 };
 
-export const editEvent = async (data, token) => {
+export const editEvents = async (data, token) => {
   const toastId = toast.loading("Updating Event...");
   let result = null;
   try {
@@ -56,7 +58,7 @@ export const deleteEvent = async (eventId, token) => {
   let success = false;
   try {
     if (!token) throw new Error("Authorization Token Missing");
-    const response = await apiConnector("DELETE", `${DELETE_EVENTS_API}/${eventId}`, null, {
+    const response = await apiConnector("DELETE", DELETE_EVENTS_API, {eventId}, {
       Authorization: `Bearer ${token}`,
     });
     if (!response?.data?.success) {
@@ -84,5 +86,44 @@ export const getAllEvents = async () => {
     console.log("GET_ALL_EVENTS_API Error........", error);
     toast.error(error?.response?.data?.message || error.message);
   }
+  return result;
+};
+
+export const getEventCounts = async () => {
+  let result = null;
+  try {
+    const response = await apiConnector("GET", GET_EVENT_COUNTS_API);
+    if (!response?.data?.success) {
+      throw new Error(response?.data?.message || "Could Not Fetch Counts");
+    }
+    result = response?.data?.data;
+  } catch (error) {
+    console.error("GET_EVENT_COUNTS_API Error:", error);
+    toast.error(error?.response?.data?.message || error.message);
+  }
+  return result;
+};
+
+export const getEventDetails = async (eventId, token) => {
+  const toastId = toast.loading("Loading...");
+  let result = null;
+  try {
+    const response = await apiConnector("POST", GET_EVENT_DETAILS_API, {
+      eventId,
+    },
+    {
+      Authorization: `Bearer ${token}`,
+    }
+  );
+    if (!response?.data?.success) {
+      throw new Error(response?.data?.message || "Could Not Get Event Details");
+    }
+
+    result = response?.data?.data;
+  } catch (error) {
+    console.error("Get Event Details Api Error:", error);
+    toast.error(error?.response?.data?.message || error.message);
+  }
+  toast.dismiss(toastId);
   return result;
 };

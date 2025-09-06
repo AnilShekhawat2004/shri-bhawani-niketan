@@ -33,7 +33,7 @@ function Sidebar({ isOpen }) {
     {
       SideIcon: HiOutlineCalendar,
       title: "Events",
-      link: "/",
+      link: "/dashboard/event",
       color: "text-purple-700",
     },
     {

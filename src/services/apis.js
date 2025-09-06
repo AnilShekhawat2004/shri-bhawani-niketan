@@ -81,6 +81,8 @@ export const eventEndpoints = {
     EDIT_EVENTS_API : BASE_URL + "/event/editEvent",
     DELETE_EVENTS_API : BASE_URL + "/event/deleteEvent",
     GET_ALL_EVENTS_API : BASE_URL + "/event/getAllEvent",
+    GET_EVENT_COUNTS_API : BASE_URL + "/event/getEventCounts",
+    GET_EVENT_DETAILS_API: BASE_URL + "/event/getEventDetails",
 }
 
 //News Endpoints 

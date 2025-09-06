@@ -163,3 +163,49 @@ exports.getAllEvent = async (req, res) => {
         });
     }
 }
+
+exports.getEventCounts = async(req, res) => {
+    try{
+        const EventCount = await Events.countDocuments();
+
+        return res.status(200).json({
+            success: true,
+            data: {
+                EventCount,
+            }
+        })
+    }catch(error){
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        })
+    }
+}
+
+exports.getEventDetails = async(req, res) => {
+    try{
+        const { eventId } = req.body
+        const eventDetails = await Events.findOne({
+            _id: eventId
+        })
+
+        if(!eventDetails){
+            return res.status(404).json({
+                success: false,
+                message: "Could not found event details"
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Events Details fetched successfully",
+            data: eventDetails,
+        })
+    }catch(error){
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+}

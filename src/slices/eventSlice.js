@@ -2,18 +2,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    eventList: [],        // Stores all events
+    event: {},
+    editEvent: false,
     loading: false,       // Loading state for API calls
     error: null,          // Stores API errors
     success: false,       // Indicates successful create/edit/delete
 };
 
 const eventSlice = createSlice({
-    name: "events",
+    name: "event",
     initialState,
     reducers: {
-        setEventList(state, action) {
-            state.eventList = action.payload;
+        setEvent(state, action) {
+            state.event = action.payload;
+        },
+        setEditEvent(state, action) {
+            state.editEvent = action.payload;
         },
         setEventLoading(state, action) {
             state.loading = action.payload;
@@ -25,7 +29,7 @@ const eventSlice = createSlice({
             state.success = action.payload;
         },
         resetEventState(state) {
-            state.eventList = [];
+            state.event = [];
             state.loading = false;
             state.error = null;
             state.success = false;
@@ -34,7 +38,8 @@ const eventSlice = createSlice({
 });
 
 export const {
-    setEventList,
+    setEvent,
+    setEditEvent,
     setEventLoading,
     setEventError,
     setEventSuccess,
