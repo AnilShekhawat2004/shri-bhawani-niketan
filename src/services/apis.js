@@ -92,6 +92,8 @@ export const newsEndpoints = {
     GET_ALL_NEWS: BASE_URL + "/news/getAllNews",
     GET_RECENT_NEWS: BASE_URL + "/news/getRecentNews",
     EDIT_NEWS: BASE_URL + "/news/editNews",
+    GET_NEWS_COUNTS: BASE_URL + "/news/getNewsCount",
+    GET_NEWS_DETAILS: BASE_URL + "/news/getNewsDetails",
 }
 
 //Achievement Endpoints

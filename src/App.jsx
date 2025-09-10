@@ -43,6 +43,9 @@ import EditCourseDetails from "./components/core/DashboardCourse/EditCourse/Edit
 import DashBoardEvent from "./components/core/DashBoard/Event";
 import AddEvent from "./components/core/DashBoardEvent/AddEvent/addEvent";
 import EditEvent from "./components/core/DashBoardEvent/EditEvent/editEvent";
+import DashBoardNews from "./components/core/DashBoard/News";
+import AddNews from "./components/core/DashBoardNews/AddNews/addNews";
+import EditNews from "./components/core/DashBoardNews/EditNews/editNews";
 
 function App() {
   const { user } = useSelector((state) => state.profile);
@@ -247,13 +250,49 @@ function App() {
             </Route>
 
             <Route
-                path="/dashboard/event/eventDetails"
+              path="/dashboard/event/eventDetails"
+              element={
+                <PrivateRoute>
+                  <Events />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="/dashboard/news"
+              element={
+                <PrivateRoute>
+                  <DashBoardNews />
+                </PrivateRoute>
+              }
+            >
+              <Route
+                path="/dashboard/news/addNews"
                 element={
                   <PrivateRoute>
-                    <Events/>
+                    <AddNews />
                   </PrivateRoute>
                 }
               />
+
+              <Route
+                path="/dashboard/news/editNews"
+                element={
+                  <PrivateRoute>
+                    <EditNews />
+                  </PrivateRoute>
+                }
+              />
+            </Route>
+
+            <Route
+              path="/dashboard/news/:NewsId"
+              element={
+                <PrivateRoute>
+                  <NewsDetails />
+                </PrivateRoute>
+              }
+            />
           </>
         )}
       </Routes>

@@ -16,7 +16,7 @@ const News_Card = ({ news }) => {
          hover:-translate-y-3">
       <div>
         <img
-          src={news?.newsImage}
+          src={news?.image}
           alt={news?.newsName}
           loading="lazy"
           className="h-[250px] w-full object-cover"

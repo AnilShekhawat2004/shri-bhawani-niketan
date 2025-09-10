@@ -18,7 +18,8 @@ function News () {
         const fetchNews = async () => {
             try {
                 const res = await getAllNews()
-                setNewsData(res)
+                let filteredData = res.filter((item) => item.status.includes("Published"))
+                setNewsData(filteredData)
             } catch(error) {
                 console.log("Error fetching news", error)
             }

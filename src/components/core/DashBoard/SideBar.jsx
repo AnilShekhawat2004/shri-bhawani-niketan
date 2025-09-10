@@ -39,7 +39,7 @@ function Sidebar({ isOpen }) {
     {
       SideIcon: IoNewspaperOutline,
       title: "News",
-      link: "/",
+      link: "/dashboard/news",
       color: "text-orange-700",
     },
     {
