@@ -102,6 +102,8 @@ export const achievementEndpoints = {
     DELETE_ACHIEVEMENT_API: BASE_URL + "/achievement/deleteAchievement",
     GET_ALL_ACHIEVEMENT_API: BASE_URL + "/achievement/getAllAchievement",
     EDIT_ACHIEVEMENT_API: BASE_URL + "/achievement/editAchievement",
+    GET_ACHIEVEMENT_COUNT_API: BASE_URL + "/achievement/getAchievementCounts",
+    GET_ACHIEVEMENT_DETAILS_API: BASE_URL + "/achievement/getAchieveDetails",
 }
 
 //Teacher Endpoints

@@ -57,7 +57,7 @@ function Sidebar({ isOpen }) {
     {
       SideIcon: LuTrophy,
       title: "Achievements",
-      link: "/",
+      link: "/dashboard/achievement",
       color: "text-yellow-600",
     },
     {

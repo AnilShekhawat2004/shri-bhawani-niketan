@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    achievementsList: [],  // Stores all achievements
+    achievement: {},
+    editAchievement: false,
     loading: false,        // Loading state for API calls
     error: null,           // Stores API errors
 };
@@ -10,8 +11,11 @@ const achievementSlice = createSlice({
     name: "achievement",
     initialState,
     reducers: {
-        setAchievementsList(state, action) {
-            state.achievementsList = action.payload;
+        setAchievement(state, action) {
+            state.achievement = action.payload;
+        },
+        setEditAchievement(state, action) {
+            state.editAchievement = action.payload;
         },
         setLoading(state, action) {
             state.loading = action.payload;
@@ -22,5 +26,5 @@ const achievementSlice = createSlice({
     },
 });
 
-export const { setAchievementsList, setLoading, setError } = achievementSlice.actions;
+export const { setAchievement, setEditAchievement, setLoading, setError } = achievementSlice.actions;
 export default achievementSlice.reducer;

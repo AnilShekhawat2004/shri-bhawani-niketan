@@ -46,6 +46,9 @@ import EditEvent from "./components/core/DashBoardEvent/EditEvent/editEvent";
 import DashBoardNews from "./components/core/DashBoard/News";
 import AddNews from "./components/core/DashBoardNews/AddNews/addNews";
 import EditNews from "./components/core/DashBoardNews/EditNews/editNews";
+import DashBoardAchievement from "./components/core/DashBoard/Achievement";
+import AddAchievement from "./components/core/DashBoardAchievement/AddAchievement/addAchievement";
+import EditAchievement from "./components/core/DashBoardAchievement/EditAchievement/editAchievement";
 
 function App() {
   const { user } = useSelector((state) => state.profile);
@@ -290,6 +293,42 @@ function App() {
               element={
                 <PrivateRoute>
                   <NewsDetails />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="/dashboard/achievement"
+              element={
+                <PrivateRoute>
+                  <DashBoardAchievement />
+                </PrivateRoute>
+              }
+            >
+              <Route
+                path="/dashboard/achievement/addAchievement"
+                element={
+                  <PrivateRoute>
+                    <AddAchievement />
+                  </PrivateRoute>
+                }
+              />
+
+              <Route
+                path="/dashboard/achievement/editAchievement"
+                element={
+                  <PrivateRoute>
+                    <EditAchievement />
+                  </PrivateRoute>
+                }
+              />
+            </Route>
+
+            <Route
+              path="/dashboard/achievement/achievementDetails"
+              element={
+                <PrivateRoute>
+                  <Achievement />
                 </PrivateRoute>
               }
             />

@@ -138,6 +138,7 @@ exports.editCourse = async (req, res) => {
       fees,
       semesterFees,
       instructorName,
+      status,
     } = req.body;
     const course = await Course.findById(courseId);
 
@@ -165,6 +166,10 @@ exports.editCourse = async (req, res) => {
 
     if (instructorName !== undefined) {
       course.instructorName = instructorName;
+    }
+
+    if (status !== undefined) {
+      course.status = status;
     }
 
     if (fees !== undefined) {
