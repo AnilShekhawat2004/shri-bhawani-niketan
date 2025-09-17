@@ -63,8 +63,11 @@ export const settingsEndpoints = {
 //Photos page Endpoints
 export const photoEndpoints = {
     ADD_PHOTO_API: BASE_URL + "/images/addPhoto",
+    EDIT_PHOTO_API: BASE_URL +"/images/editPhoto",
     DELETE_PHOTO_API: BASE_URL + "/images/deletePhoto",
     GET_ALL_PHOTO_API: BASE_URL + "/images/getAllPhotos",
+    GET_PHOTOS_COUNT: BASE_URL + "/images/getPhotosCount",
+    GET_PHOTOS_DETAILS: BASE_URL + "/images/getPhotosDetails",
     PHOTO_CATEGORIES_API: BASE_URL + "/images/showAllCategories",
 }
 

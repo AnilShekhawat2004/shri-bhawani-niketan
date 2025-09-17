@@ -7,8 +7,11 @@ const {auth, isAdmin} = require("../middlewares/auth")
 //import the college photo controllers
 const{
     addPhoto,
+    editPhoto,
     deletePhoto,
     getAllPhotos,
+    getPhotosCount,
+    getPhotosDetails,
 } = require("../controllers/collegePhoto")
 
 //import the image category controllers
@@ -22,8 +25,11 @@ const{
 
 //college photo route
 router.post("/addPhoto", auth, isAdmin, addPhoto)
+router.post("/editPhoto", auth, isAdmin, editPhoto)
 router.delete("/deletePhoto", auth, isAdmin, deletePhoto)
 router.get("/getAllPhotos", getAllPhotos)
+router.get("/getPhotosCount", getPhotosCount)
+router.post("/getPhotosDetails", auth, isAdmin, getPhotosDetails)
 
 //image category route
 router.post("/createCategory", auth, isAdmin, createCategory)

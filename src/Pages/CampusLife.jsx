@@ -59,7 +59,7 @@ function CampusLife() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-y-10 mt-32">
            {imgCategory.map(imageCat => (
             <Link
-              to={`/campusLife/${imageCat.name.split(" ").join("-").toLowerCase()}`}
+              to={`/campusLife/${imageCat._id}`}
               key={imageCat._id}
               className="bg-gray-100 w-[80%] lg:h-[120px] flex justify-center items-center border-8 border-bhawaniLight shadow-lg lg:hover:shadow-2xl cursor-pointer transition-all duration-500"
             >

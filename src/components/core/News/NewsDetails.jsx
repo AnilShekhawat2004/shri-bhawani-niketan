@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import Footer from "../../Common/Footer/Footer";
-import { Link, useLocation, useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { FaArrowLeft } from "react-icons/fa";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   getAllNews,
   getRecentNews,
 } from "../../../services/operations/newsAPI";
-import { FaArrowLeft } from "react-icons/fa";
+import Footer from "../../Common/Footer/Footer";
 
 function NewsDetails() {
   const [loading, setLoading] = useState(true);

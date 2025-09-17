@@ -49,6 +49,9 @@ import EditNews from "./components/core/DashBoardNews/EditNews/editNews";
 import DashBoardAchievement from "./components/core/DashBoard/Achievement";
 import AddAchievement from "./components/core/DashBoardAchievement/AddAchievement/addAchievement";
 import EditAchievement from "./components/core/DashBoardAchievement/EditAchievement/editAchievement";
+import DashBoardPhoto from "./components/core/DashBoard/Photos"
+import AddPhoto from "./components/core/DashBoardPhotos/AddPhotos/addPhoto"
+import EditPhoto from "./components/core/DashBoardPhotos/EditPhotos/editPhoto"
 
 function App() {
   const { user } = useSelector((state) => state.profile);
@@ -329,6 +332,42 @@ function App() {
               element={
                 <PrivateRoute>
                   <Achievement />
+                </PrivateRoute>
+              }
+            />
+
+            <Route 
+              path="/dashboard/photos" 
+              element={
+                <PrivateRoute>
+                  <DashBoardPhoto/>
+                </PrivateRoute>
+              }
+            >
+              <Route
+                path="/dashboard/photos/addPhoto"
+                element={
+                  <PrivateRoute>
+                    <AddPhoto/>
+                  </PrivateRoute>
+                }
+              />
+
+              <Route
+                path="/dashboard/photos/editPhoto"
+                element={
+                  <PrivateRoute>
+                    <EditPhoto/>
+                  </PrivateRoute>
+                }
+              />
+            </Route>
+
+            <Route
+              path="/dashboard/photos/:campusLifeName"
+              element={
+                <PrivateRoute>
+                  <CampusImg/>
                 </PrivateRoute>
               }
             />

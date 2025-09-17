@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    photos: [], 
+    photo: {},
+    editPhoto: false,
     categories: [],
     loading: false,
     error: null,
@@ -11,8 +12,11 @@ const photoSlice = createSlice({
     name: "photo",
     initialState,
     reducers: {
-        setPhotos(state, action) {
-            state.photos = action.payload;
+        setPhoto(state, action) {
+            state.photo = action.payload;
+        },
+        setEditPhoto(state, action){
+            state.editPhoto = action.payload
         },
         setCategories(state, action) {
             state.categories = action.payload;
@@ -26,5 +30,5 @@ const photoSlice = createSlice({
     },
 });
 
-export const { setPhotos, setCategories, setLoading, setError } = photoSlice.actions;
+export const { setPhoto, setEditPhoto, setCategories, setLoading, setError } = photoSlice.actions;
 export default photoSlice.reducer;

@@ -5,31 +5,52 @@ import { useEffect, useState } from "react";
 import AddButton from "../../Common/Buttons/addButton";
 import { IoMdAdd } from "react-icons/io";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { getAllAchievements } from "../../../services/operations/achievementAPI";
-import Table from "../DashBoardAchievement/Table";
-import Count from "../DashBoardAchievement/Count";
+import {
+  getAllPhotos,
+  fetchPhotoCategories,
+} from "../../../services/operations/imageAPI";
+import Table from "../DashBoardPhotos/Table";
+import Count from "../DashBoardPhotos/Count";
 
-function Achievement() {
+function Photos() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [achieveDetails, setAchieveDetails] = useState([]);
+  const [photoDetails, setPhotoDetails] = useState([]);
+  const [imageCat, setImageCat] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    const getAllAchievementDetails = async () => {
+    const fetchImageCat = async () => {
       try {
-        const res = await getAllAchievements();
+        const res = await fetchPhotoCategories();
         if (res && res.length > 0) {
-          setAchieveDetails(res);
+          setImageCat(res);
         }
       } catch (error) {
-        console.log("Error in Fetching the Achievement Data : ", error);
+        console.error("Error fetching image categoires : ", error);
       } finally {
         setLoading(false);
       }
     };
-    getAllAchievementDetails();
+
+    fetchImageCat();
+  }, []);
+
+  useEffect(() => {
+    const getAllPhotosDetails = async () => {
+      try {
+        const res = await getAllPhotos();
+        if (res && res.length > 0) {
+          setPhotoDetails(res);
+        }
+      } catch (error) {
+        console.log("Error in Fetching the Photos Data : ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getAllPhotosDetails();
 
     if (location.state?.refresh) {
       window.history.replaceState({}, document.title);
@@ -47,8 +68,8 @@ function Achievement() {
       </div>
     );
 
-  const isAddAchievementOpen = ["/addAchievement", "/editAchievement"].some(
-    (path) => location.pathname.includes(path)
+  const isAddPhotoOpen = ["/addPhoto", "/editPhoto"].some((path) =>
+    location.pathname.includes(path)
   );
 
   return (
@@ -59,26 +80,24 @@ function Achievement() {
 
         <div
           className={`transition-all mt-[75px] duration-300 pl-10 pt-5 w-full
-                      ${isSidebarOpen ? "ml-64" : "ml-0"}`}
+                          ${isSidebarOpen ? "ml-64" : "ml-0"}`}
         >
           <Breadcrumb />
           <div className="flex flex-row justify-between mr-8">
             <div>
               <h1 className="text-[35px] font-m2 font-bold md-2">
-                Achievements Management
+                Campus Life Management
               </h1>
               <p className="text-gray-400">
-                Track and manage awards and recognitions
+                Manage campus activites and student life content
               </p>
             </div>
 
             <div>
               <AddButton
-                className="w-[200px]"
-                text="Add Achievement"
-                onClick={() =>
-                  navigate("/dashboard/achievement/addAchievement")
-                }
+                className="w-[150px]"
+                text="Add Photos"
+                onClick={() => navigate("/dashboard/photos/addPhoto")}
               >
                 <IoMdAdd />
               </AddButton>
@@ -89,23 +108,24 @@ function Achievement() {
           </div>
           <div>
             <Table
-              achieveDetails={achieveDetails}
-              setAchieveDetails={setAchieveDetails}
+              photoDetails={photoDetails}
+              setPhotoDetails={setPhotoDetails}
+              imageCat={imageCat}
             />
           </div>
-          {isAddAchievementOpen && (
+          {isAddPhotoOpen && (
             <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50">
               <div className="relative bg-white rounded-3xl space-y-6 shadow-xl max-w-2xl w-[90%]">
                 <div className="bg-gradient-to-r rounded-t-3xl font-m1 from-bhawaniDark to-bhawaniDark2 py-6 px-8">
                   <h2 className="text-white text-3xl font-bold">
-                    {location.pathname.includes("editAchievement")
-                      ? "Edit Achievement"
-                      : "Add Achievement"}
+                    {location.pathname.includes("editPhoto")
+                      ? "Edit Photo"
+                      : "Add Photo"}
                   </h2>
                   <p className="text-white text-md">
-                    {location.pathname.includes("editAchievement")
-                      ? "Update track records and award ensure data accuracy."
-                      : "Showcasing your proudest moments."}
+                    {location.pathname.includes("editPhoto")
+                      ? "Update your moments and relive your campus story."
+                      : "Capture the moments that matter."}
                   </p>
                 </div>
                 <div className="pl-10 pr-10 pb-10 max-h-[80vh] overflow-y-auto hide-scrollbar scroll-smooth">
@@ -120,4 +140,4 @@ function Achievement() {
   );
 }
 
-export default Achievement;
+export default Photos;

@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const collegePhotoSchema = new mongoose.Schema({
+    name: {
+        type:String,
+        required: true,
+    },
     thumbnail: {
         type:String,
     },

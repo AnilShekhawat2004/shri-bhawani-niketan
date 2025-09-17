@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import Masonry from "react-masonry-css";
+import { useParams } from "react-router-dom";
+import Error from "../../../Pages/Error";
+import { getAllPhotos, fetchPhotoCategories } from "../../../services/operations/imageAPI";
+import Footer from "../../Common/Footer/Footer";
 import LandingImage from "../../Common/landingImage";
 import RedBar from "../../Common/redBar";
-import Footer from "../../Common/Footer/Footer";
-import { useParams } from "react-router-dom";
-import { apiConnector } from "../../../services/apiconnector";
-import { photoEndpoints } from "../../../services/apis";
-import { getAllPhotos } from "../../../services/operations/imageAPI";
-import Error from "../../../Pages/Error";
-import Masonry from "react-masonry-css";
+import { FaArrowLeft } from "react-icons/fa";
 
 function CampusImg() {
   const [loading, setLoading] = useState(true);
@@ -15,19 +15,15 @@ function CampusImg() {
   const [imgCatId, setImgCatId] = useState("");
   const [imgCategory, setImgCategory] = useState(null);
   const [campusData, setCampusData] = useState([]);
-
   const [showError, setShowError] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getAllCampCat = async () => {
       try {
-        const res = await apiConnector(
-          "GET",
-          photoEndpoints.PHOTO_CATEGORIES_API
-        );
-        const imgCat_id = res?.data?.data?.filter(
-          (ct) => ct.name.split(" ").join("-").toLowerCase() === campusLifeName
-        )[0];
+        const res = await fetchPhotoCategories()
+        const imgCat_id = res.find((item) => item._id === campusLifeName)
         setImgCatId(imgCat_id._id);
         setImgCategory(imgCat_id);
       } catch (error) {
@@ -69,6 +65,10 @@ function CampusImg() {
     }
   }, [loading, campusData]);
 
+  const BackUpto = ["/dashboard/photos"].some((path) =>
+    location.pathname.includes(path)
+  );
+
   if (loading)
     return (
       <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
@@ -81,7 +81,7 @@ function CampusImg() {
     <div>
       <div className="relative">
         {imgCategory && (
-          <div>
+          <div className={`${BackUpto ? "-mt-[136px]" : "mt-0"}`}>
             <LandingImage
               LineImage={imgCategory.image}
               text={imgCategory.name}
@@ -95,6 +95,18 @@ function CampusImg() {
             />
           </div>
         )}
+      </div>
+
+      <div
+        onClick={() => navigate(-1)}
+        className={
+          BackUpto
+            ? "absolute z-50 flex gap-2 justify-center items-center px-4 py-3 bg-bhawaniRed shadow-md rounded-lg translate-y-10 translate-x-[80px] cursor-pointer"
+            : "hidden"
+        }
+      >
+        <FaArrowLeft className=" text-white" />
+        <p className="text-white">Back To Dashboard</p>
       </div>
       <div className="mt-32 w-[90%] mx-auto">
         <Masonry
@@ -118,7 +130,7 @@ function CampusImg() {
           ))}
         </Masonry>
       </div>
-      <Footer />
+      {!BackUpto && <Footer />}
     </div>
   );
 }

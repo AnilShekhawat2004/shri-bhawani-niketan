@@ -51,7 +51,7 @@ function Sidebar({ isOpen }) {
     {
       SideIcon: PiCameraBold,
       title: "Campus Life",
-      link: "/",
+      link: "/dashboard/photos",
       color: "text-pink-700",
     },
     {
