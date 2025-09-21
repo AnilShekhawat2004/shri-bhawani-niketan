@@ -9,7 +9,10 @@ export const endpoints = {
 
 export const paymentEndpoints = {
     PAYMENT_API: BASE_URL + "/payment/capturePayment",
-    VERIFYPAYMENT_API: BASE_URL + "/payment/verifyPayment"
+    VERIFYPAYMENT_API: BASE_URL + "/payment/verifyPayment",
+    GET_ALL_PAYMENT_API: BASE_URL + "/payment/getAllPayments",
+    GET_PAYMENT_COUNT_API: BASE_URL + "/payment/getPaymentCount",
+    GET_PAYMENT_DETAILS_API: BASE_URL + "/payment/getPaymentDetails"
 }
 
 //Profile Endpoints

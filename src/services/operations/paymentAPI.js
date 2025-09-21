@@ -7,7 +7,7 @@ import {
   setPaymentError,
 } from "../../slices/paymentSlice"
 
-const { PAYMENT_API, VERIFYPAYMENT_API } = paymentEndpoints
+const { PAYMENT_API, VERIFYPAYMENT_API, GET_ALL_PAYMENT_API, GET_PAYMENT_COUNT_API, GET_PAYMENT_DETAILS_API } = paymentEndpoints
 
 // Capture Payment (Order Creation)
 export function capturePayment(formData) {
@@ -60,3 +60,62 @@ export function verifyPayment(verifyData, navigate) {
     toast.dismiss(toastId)
   }
 }
+
+export const getAllPayments = async () => {
+  let result = [];
+  try {
+    const response = await apiConnector("GET", GET_ALL_PAYMENT_API);
+    if (!response?.data?.success) {
+      throw new Error(response?.data?.message || "Could Not Fetch All Payments");
+    }
+    result = response?.data?.data;
+  } catch (error) {
+    console.error("GET_ALL_PAYMENT_API Error:", error);
+    toast.error(error?.response?.data?.message || error.message);
+  }
+  return result;
+};
+
+export const getPaymentCount = async () => {
+  let result = null;
+  try {
+    const response = await apiConnector("GET", GET_PAYMENT_COUNT_API);
+    if (!response?.data?.success) {
+      throw new Error(response?.data?.message || "Could Not Fetch Payment Counts");
+    }
+    result = response?.data?.data;
+  } catch (error) {
+    console.error("GET_PAYMENT_COUNT_API Error:", error);
+    toast.error(error?.response?.data?.message || error.message);
+  }
+  return result;
+};
+
+export const getPaymentDetails = async (paymentId, token) => {
+  const toastId = toast.loading("Loading...");
+  let result = null;
+  try {
+    const response = await apiConnector(
+      "POST",
+      GET_PAYMENT_DETAILS_API,
+      {
+        paymentId,
+      },
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
+    if (!response?.data?.success) {
+      throw new Error(
+        response?.data?.message || "Could Not Get Payment Details"
+      );
+    }
+
+    result = response?.data?.data;
+  } catch (error) {
+    console.error("Get Payment Details Api Error:", error);
+    toast.error(error?.response?.data?.message || error.message);
+  }
+  toast.dismiss(toastId);
+  return result;
+};

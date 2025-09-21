@@ -1,109 +1,109 @@
 exports.contactUsEmail = (
-    firstName,
-    lastName,
-    email,
-    inquiry,
-    contactNumber,
-    city,
-    state,
-    pincode,
-    countryCode,    
-  ) => {
-    return `<!DOCTYPE html>
+  firstName,
+  lastName,
+  email,
+  inquiry,
+  contactNumber,
+  city,
+  state,
+  pincode,
+) => {
+  return `<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Contact Form Confirmation</title>
-    <style>
-        body {
-            background-color: #F5EFE0; /* Soft beige background */
-            font-family: "InterVariable", -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif;
-            font-size: 16px;
-            line-height: 1.5;
-            color: #4A2C2A; /* Dark maroon for text */
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
+  <meta charset="UTF-8">
+  <title>Contact Form Confirmation</title>
+  <style>
+    body {
+      background-color: #f9fafb;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #1f2937;
+      margin: 0;
+      padding: 0;
+    }
 
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 30px;
-            background: #EDE0C8; /* Light beige */
-            border-radius: 12px;
-            box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);
-        }
+    .container {
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 40px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      text-align: center;
+    }
 
-        .logo {
-            max-width: 180px;
-            margin-bottom: 20px;
-        }
+    .logo {
+      max-width: 150px;
+      margin-bottom: 25px;
+    }
 
-        .message {
-            font-size: 28px;
-            font-weight: bold;
-            color: #6A1B1A; /* Strong maroon */
-            margin-bottom: 15px;
-        }
+    .message {
+      font-size: 26px;
+      font-weight: 600;
+      color: #2563eb; /* blue accent */
+      margin-bottom: 20px;
+    }
 
-        .body {
-            background-color: #D6C3A5;
-            padding: 20px;
-            border-radius: 10px;
-            font-size: 16px;
-            color: #3D1F1E;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-            text-align: left;
-        }
+    .body {
+      text-align: left;
+      margin-top: 20px;
+    }
 
-        .body p {
-            margin: 8px 0;
-        }
+    .body p {
+      margin: 10px 0;
+    }
 
-        .highlight {
-            font-weight: bold;
-            color: #6A1B1A;
-        }
+    .label {
+      font-weight: 600;
+      color: #111827;
+    }
 
-        .support {
-            font-size: 14px;
-            color: #6A1B1A;
-            margin-top: 15px;
-        }
+    .support {
+      font-size: 14px;
+      color: #6b7280;
+      margin-top: 25px;
+    }
 
-        .support a {
-            color: #4A2C2A;
-            font-weight: bold;
-            text-decoration: none;
-        }
+    .support a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 500;
+    }
 
-        .support a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    .support a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <a href=""><img class="logo" src="https://res.cloudinary.com/dlxddzakp/image/upload/v1741791186/SBN/kexe4sv2xrzyczuqxcqg.png" alt="Shri Bhawani Niketan College Logo"></a>
-        <div class="message">Contact Form Confirmation</div>
-        <div class="body">
-            <p>Dear <span class="highlight">${firstName} ${lastName}</span>,</p>
-            <p>Thank you for contacting us. We have received your message and will respond to you as soon as possible.</p>
-            <p><span class="highlight">Here are the details you provided:</span></p>
-            <p><strong>Name:</strong> ${firstName} ${lastName}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Phone Number:</strong> ${contactNumber}</p>
-            <p><strong>Address:</strong> ${city}, ${state}, ${pincode}</p>
-            <p><strong>Message:</strong> ${inquiry}</p>
-            <p>We appreciate your interest and will get back to you shortly.</p>
-        </div>
-        <div class="support">
-            If you have any further questions or need immediate assistance, please contact us at 
-            <a href="mailto:info@shribhawaniniketan.com">info@shribhawaniniketan.com</a>. We are here to help!
-        </div>
+  <div class="container">
+    <img class="logo" src="https://res.cloudinary.com/dlxddzakp/image/upload/v1741791186/SBN/kexe4sv2xrzyczuqxcqg.png" alt="Shri Bhawani Niketan College Logo">
+    
+    <div class="message">Thank You for Contacting Us</div>
+    
+    <div class="body">
+      <p>Dear <span class="label">${firstName} ${lastName}</span>,</p>
+      <p>We have received your message and our team will get back to you shortly.</p>
+      <p><span class="label">Here are the details you shared:</span></p>
+      
+      <p><span class="label">Name:</span> ${firstName} ${lastName}</p>
+      <p><span class="label">Email:</span> ${email}</p>
+      <p><span class="label">Phone Number:</span> ${contactNumber}</p>
+      <p><span class="label">Address:</span> ${city}, ${state}, ${pincode}</p>
+      <p><span class="label">Message:</span> ${inquiry}</p>
+      
+      <p>We appreciate your interest in Shri Bhawani Niketan College and will respond soon.</p>
     </div>
+    
+    <div class="support">
+      Need immediate help? Contact us at  
+      <a href="mailto:info@shribhawaniniketan.com">info@shribhawaniniketan.com</a>
+    </div>
+  </div>
 </body>
 </html>
-`
-  }
+`;
+};

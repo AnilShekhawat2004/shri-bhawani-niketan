@@ -29,7 +29,7 @@ function Contact () {
             {/* Contact Form and Map */}
             <div className="mt-28 flex flex-wrap justify-center gap-16 px-4">
                 {/* Contact Form */}
-                <div className="w-full max-w-2xl rounded-3xl hover:-translate-y-[15px] transition-all duration-700 hover:shadow-xl hover:shadow-gray-500">
+                <div className="w-full max-w-2xl rounded-3xl  transition-all duration-700 hover:shadow-xl hover:shadow-gray-500">
                     <ContactForm />
                 </div>
 

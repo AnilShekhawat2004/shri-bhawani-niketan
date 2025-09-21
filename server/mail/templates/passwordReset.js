@@ -1,101 +1,113 @@
 exports.passwordReset = (url, email) => {
-	return `<!DOCTYPE html>
+  return `<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Password Reset</title>
-    <style>
-        body {
-            background-color: #F5EFE0; /* Soft beige background */
-            font-family: "InterVariable", -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif;
-            font-size: 16px;
-            line-height: 1.5;
-            color: #4A2C2A; /* Dark maroon for text */
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
+  <meta charset="UTF-8">
+  <title>Password Reset</title>
+  <style>
+    body {
+      background-color: #f9fafb;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #1f2937;
+      margin: 0;
+      padding: 0;
+    }
 
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 30px;
-            background: #EDE0C8; /* Light beige */
-            border-radius: 12px;
-            box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);
-        }
+    .container {
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 40px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      text-align: center;
+    }
 
-        .logo {
-            max-width: 180px;
-            margin-bottom: 20px;
-        }
+    .logo {
+      max-width: 150px;
+      margin-bottom: 25px;
+    }
 
-        .message {
-            font-size: 28px;
-            font-weight: bold;
-            color: #6A1B1A; /* Strong maroon */
-            margin-bottom: 15px;
-        }
+    .message {
+      font-size: 26px;
+      font-weight: 600;
+      color: #2563eb; /* blue accent */
+      margin-bottom: 20px;
+    }
 
-        .body {
-            background-color: #D6C3A5;
-            padding: 20px;
-            border-radius: 10px;
-            font-size: 16px;
-            color: #3D1F1E;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-        }
+    .body {
+      text-align: left;
+      margin-top: 20px;
+    }
 
-        .button {
-            display: inline-block;
-            padding: 12px 24px;
-            background: #6A1B1A; /* Maroon button */
-            color: #FFF !important;
-            text-decoration: none !important;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 8px;
-            border: 2px solid #4A2C2A;
-            transition: background 300ms ease, transform 200ms ease;
-        }
+    .body p {
+      margin: 12px 0;
+    }
 
-        .button:hover {
-            background: #8A2E2A;
-            transform: scale(1.05);
-        }
+    .button {
+      display: inline-block;
+      margin: 20px 0;
+      padding: 14px 28px;
+      background: #2563eb;
+      color: #ffffff !important;
+      text-decoration: none !important;
+      font-size: 16px;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: background 0.3s ease;
+    }
 
-        .support {
-            font-size: 14px;
-            color: #6A1B1A;
-            margin-top: 15px;
-        }
+    .button:hover {
+      background: #1d4ed8;
+    }
 
-        .support a {
-            color: #6A1B1A !important;
-            font-weight: bold;
-            text-decoration: none !important;
-        }
+    .highlight {
+      font-weight: 600;
+      color: #111827;
+    }
 
-        .support a:hover {
-            text-decoration: none;
-        }
-    </style>
+    .support {
+      font-size: 14px;
+      color: #6b7280;
+      margin-top: 25px;
+    }
+
+    .support a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .support a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <a href=""><img class="logo" src="https://res.cloudinary.com/dlxddzakp/image/upload/v1741791186/SBN/kexe4sv2xrzyczuqxcqg.png" alt="Shri Bhawani Niketan College Logo"></a>
-        <div class="message">Password Reset</div>
-        <div class="body">
-            <p>Trouble accessing your Admin account? No problem, we're here to help.</p>
-            <p>Select the button below to reset your password. The link is valid for 2 hours.</p>
-            <a href="${url}" class="button">Reset Password</a>
-            <p><strong>Your Email:</strong> ${email}</p>
-            <p>If you didn't request this, you can safely ignore this email.</p>
-        </div>
-        <div class="support">
-            Need help? Contact us at <a href="mailto:info@shribhawaniniketan.com">info@shribhawaniniketan.com</a>
-        </div>
+  <div class="container">
+    <img class="logo" src="https://res.cloudinary.com/dlxddzakp/image/upload/v1741791186/SBN/kexe4sv2xrzyczuqxcqg.png" alt="Shri Bhawani Niketan College Logo">
+    
+    <div class="message">Password Reset Request</div>
+    
+    <div class="body">
+      <p>Hello,</p>
+      <p>We received a request to reset the password for your Admin account.</p>
+      <p>Click the button below to reset your password. This link will be valid for <span class="highlight">2 hours</span>.</p>
+      
+      <a href="${url}" class="button">Reset Password</a>
+      
+      <p><strong>Your Email:</strong> ${email}</p>
+      <p>If you did not request this, please ignore this email. Your password will remain unchanged.</p>
     </div>
+    
+    <div class="support">
+      Need help? Contact us at  
+      <a href="mailto:info@shribhawaniniketan.com">info@shribhawaniniketan.com</a>
+    </div>
+  </div>
 </body>
 </html>
 `;

@@ -49,9 +49,11 @@ import EditNews from "./components/core/DashBoardNews/EditNews/editNews";
 import DashBoardAchievement from "./components/core/DashBoard/Achievement";
 import AddAchievement from "./components/core/DashBoardAchievement/AddAchievement/addAchievement";
 import EditAchievement from "./components/core/DashBoardAchievement/EditAchievement/editAchievement";
-import DashBoardPhoto from "./components/core/DashBoard/Photos"
-import AddPhoto from "./components/core/DashBoardPhotos/AddPhotos/addPhoto"
-import EditPhoto from "./components/core/DashBoardPhotos/EditPhotos/editPhoto"
+import DashBoardPhoto from "./components/core/DashBoard/Photos";
+import AddPhoto from "./components/core/DashBoardPhotos/AddPhotos/addPhoto";
+import EditPhoto from "./components/core/DashBoardPhotos/EditPhotos/editPhoto";
+import DashBoardPayment from "./components/core/DashBoard/Payment";
+import PaymentDetails from "./components/core/DashBoardPayment/PaymentDetails";
 
 function App() {
   const { user } = useSelector((state) => state.profile);
@@ -336,11 +338,11 @@ function App() {
               }
             />
 
-            <Route 
-              path="/dashboard/photos" 
+            <Route
+              path="/dashboard/photos"
               element={
                 <PrivateRoute>
-                  <DashBoardPhoto/>
+                  <DashBoardPhoto />
                 </PrivateRoute>
               }
             >
@@ -348,7 +350,7 @@ function App() {
                 path="/dashboard/photos/addPhoto"
                 element={
                   <PrivateRoute>
-                    <AddPhoto/>
+                    <AddPhoto />
                   </PrivateRoute>
                 }
               />
@@ -357,7 +359,7 @@ function App() {
                 path="/dashboard/photos/editPhoto"
                 element={
                   <PrivateRoute>
-                    <EditPhoto/>
+                    <EditPhoto />
                   </PrivateRoute>
                 }
               />
@@ -367,10 +369,28 @@ function App() {
               path="/dashboard/photos/:campusLifeName"
               element={
                 <PrivateRoute>
-                  <CampusImg/>
+                  <CampusImg />
                 </PrivateRoute>
               }
             />
+
+            <Route
+              path="/dashboard/payment"
+              element={
+                <PrivateRoute>
+                  <DashBoardPayment />
+                </PrivateRoute>
+              }
+            >
+              <Route
+                path="/dashboard/payment/:paymentId"
+                element={
+                  <PrivateRoute>
+                    <PaymentDetails />
+                  </PrivateRoute>
+                }
+              />
+            </Route>
           </>
         )}
       </Routes>

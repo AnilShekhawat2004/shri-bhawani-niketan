@@ -6,14 +6,14 @@ const { CONTACT_US_API, GET_ALL_CONTACT } = contactusEndpoints;
 
 // Submit Contact Us Form
 export const submitContactForm = async (data) => {
-  const toastId = toast.loading("Submitting Inquiry...");
+  const toastId = toast.loading("Sending message...");
   let result = null;
   try {
     const response = await apiConnector("POST", CONTACT_US_API, data);
     if (!response?.data?.success) {
       throw new Error(response?.data?.message || "Could Not Submit Inquiry");
     }
-    toast.success("Inquiry Submitted Successfully");
+    toast.success("Message send successfully");
     result = response?.data;
   } catch (error) {
     console.error("CONTACT_US_API Error:", error);

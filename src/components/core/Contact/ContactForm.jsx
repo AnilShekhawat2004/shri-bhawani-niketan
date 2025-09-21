@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-hot-toast";
-import { apiConnector } from "../../../services/apiconnector";
-import { contactusEndpoints } from "../../../services/apis";
 import CountryCode from "../../../data/countryCode.json";
-import SButton from "../../Common/Buttons/mButton"
+import { submitContactForm } from "../../../services/operations/contactUs";
+import SButton from "../../Common/Buttons/mButton";
 
 const ContactForm = () => {
   const [loading, setLoading] = useState(false);
@@ -20,26 +18,23 @@ const ContactForm = () => {
     },
   });
 
-  const submitContactForm = async (data) => {
-    try {
-      setLoading(true);
-      const res = await apiConnector(
-        "POST",
-        contactusEndpoints.CONTACT_US_API,
-        data
-      );
+  const submitContactDetails = async (data) => {
+    const formData = new FormData();
+    formData.append("firstName", data.firstName);
+    formData.append("lastName", data.lastName);
+    formData.append("email", data.email);
+    formData.append("contactNumber", data.contactNumber);
+    formData.append("city", data.city);
+    formData.append("state", data.state);
+    formData.append("pincode", data.pincode);
+    formData.append("inquiry", data.inquiry);
+    formData.append("countryCode", data.countryCode);
 
-      if (res?.status === 200 || res?.data?.success) {
-        toast.success("Your message has been sent successfully!");
-      } else {
-        toast.error("Something went wrong. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error in Submit Contact -", error.message);
-      toast.error("Failed to send message. Please try again later.");
-    } finally {
-      setLoading(false);
+    const res = await submitContactForm(formData);
+    if (res) {
+      setLoading(true);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -60,7 +55,7 @@ const ContactForm = () => {
 
   return (
     <form
-      onSubmit={handleSubmit(submitContactForm)}
+      onSubmit={handleSubmit(submitContactDetails)}
       className="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-200"
     >
       {/* Header */}
@@ -74,10 +69,14 @@ const ContactForm = () => {
         {/* First & Last Name */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="relative">
-            <label className="text-sm font-medium text-gray-700">
+            <label
+              htmlFor="firstName"
+              className="text-sm font-medium text-gray-700"
+            >
               First Name <span className="text-red-500">*</span>
             </label>
             <input
+              id="firstName"
               type="text"
               placeholder="Enter your first name"
               className="form-input-style"
@@ -89,10 +88,14 @@ const ContactForm = () => {
           </div>
 
           <div className="relative">
-            <label className="text-sm font-medium text-gray-700">
+            <label
+              htmlFor="lastName"
+              className="text-sm font-medium text-gray-700"
+            >
               Last Name
             </label>
             <input
+              id="lastName"
               type="text"
               placeholder="Enter your last name"
               className="form-input-style"
@@ -103,10 +106,11 @@ const ContactForm = () => {
 
         {/* Email */}
         <div>
-          <label className="text-sm font-medium text-gray-700">
+          <label htmlFor="email" className="text-sm font-medium text-gray-700">
             Email Address <span className="text-red-500">*</span>
           </label>
           <input
+            id="email"
             type="email"
             placeholder="example@domain.com"
             className="form-input-style"
@@ -119,7 +123,10 @@ const ContactForm = () => {
 
         {/* Phone */}
         <div>
-          <label className="text-sm font-medium text-gray-700">
+          <label
+            htmlFor="contactNumber"
+            className="text-sm font-medium text-gray-700"
+          >
             Phone Number <span className="text-red-500">*</span>
           </label>
           <div className="flex gap-4">
@@ -134,6 +141,7 @@ const ContactForm = () => {
               ))}
             </select>
             <input
+              id="contactNumber"
               type="number"
               placeholder="12345 67890"
               className="flex-1 form-input-style"
@@ -157,8 +165,11 @@ const ContactForm = () => {
         {/* City/State/Pincode */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
-            <label className="text-sm font-medium text-gray-700">City</label>
+            <label htmlFor="city" className="text-sm font-medium text-gray-700">
+              City
+            </label>
             <input
+              id="city"
               type="text"
               placeholder="Your City"
               className="form-input-style"
@@ -166,8 +177,14 @@ const ContactForm = () => {
             />
           </div>
           <div>
-            <label className="text-sm font-medium text-gray-700">State</label>
+            <label
+              htmlFor="state"
+              className="text-sm font-medium text-gray-700"
+            >
+              State
+            </label>
             <input
+              id="state"
               type="text"
               placeholder="Your State"
               className="form-input-style"
@@ -175,8 +192,14 @@ const ContactForm = () => {
             />
           </div>
           <div>
-            <label className="text-sm font-medium text-gray-700">Pincode</label>
+            <label
+              htmlFor="pincode"
+              className="text-sm font-medium text-gray-700"
+            >
+              Pincode
+            </label>
             <input
+              id="pincode"
               type="number"
               placeholder="123456"
               className="form-input-style"
@@ -187,10 +210,14 @@ const ContactForm = () => {
 
         {/* Message */}
         <div>
-          <label className="text-sm font-medium text-gray-700">
+          <label
+            htmlFor="inquiry"
+            className="text-sm font-medium text-gray-700"
+          >
             Your Message <span className="text-red-500">*</span>
           </label>
           <textarea
+            id="inquiry"
             rows="5"
             placeholder="Type your question or message here..."
             className="form-input-style"

@@ -45,7 +45,7 @@ function Sidebar({ isOpen }) {
     {
       SideIcon: FaRupeeSign,
       title: "Donations",
-      link: "/",
+      link: "/dashboard/payment",
       color: "text-green-700",
     },
     {

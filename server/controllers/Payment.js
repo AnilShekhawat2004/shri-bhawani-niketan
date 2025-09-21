@@ -2,7 +2,9 @@ const { instance } = require("../config/Razorpay");
 const mailSender = require("../utils/mailSender");
 const crypto = require("crypto");
 const Payment = require("../models/Payment");
-const { paymentSuccessEmail } = require("../mail/templates/PaymentSuccessEmail");
+const {
+  paymentSuccessEmail,
+} = require("../mail/templates/PaymentSuccessEmail");
 
 exports.capturePayment = async (req, res) => {
   try {
@@ -97,7 +99,14 @@ exports.verifyPayment = async (req, res) => {
     await mailSender(
       email,
       `Payment Received`,
-      paymentSuccessEmail(`${firstName}`, `${lastName}`, `${email}`, `${number}`, `${amount}`, `${comment}`)
+      paymentSuccessEmail(
+        `${firstName}`,
+        `${lastName}`,
+        `${email}`,
+        `${number}`,
+        `${amount}`,
+        `${comment}`
+      )
     );
 
     return res.status(200).json({
@@ -106,6 +115,81 @@ exports.verifyPayment = async (req, res) => {
     });
   } catch (error) {
     console.error("Error verifying payment:", error);
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+exports.getAllPayments = async (req, res) => {
+  try {
+    const allPayments = await Payment.find();
+
+    return res.status(200).json({
+      success: true,
+      message: "All Payment data",
+      data: allPayments,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+exports.getPaymentCount = async (req, res) => {
+  try {
+    const donationCount = await Payment.aggregate([
+      {
+        $group:{
+          _id: null,
+          amountCount: { $sum: "$amount" }
+        }
+      }
+    ]);
+    const amountCount = donationCount[0].amountCount
+    const donorCount = await Payment.countDocuments();
+    
+    return res.status(200).json({
+      success: true,
+      data: {
+        amountCount,
+        donorCount,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+exports.getPaymentDetails = async (req, res) => {
+  try {
+    const { paymentId } = req.body;
+    const paymentDetails = await Payment.findById({
+      _id: paymentId,
+    });
+
+    if (!paymentDetails) {
+      return res.status(404).json({
+        success: false,
+        message: "Could not found payment details",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Details Fetched successfully",
+      data: paymentDetails,
+    });
+  } catch (error) {
+    console.error(error);
     return res.status(500).json({
       success: false,
       message: error.message,

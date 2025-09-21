@@ -5,16 +5,19 @@ import { Bar } from "react-chartjs-2";
 Chart.register(...registerables, ChartDataLabels);
 
 function DataChart({ teacher }) {
-  // All bars will be gray
-  const grayColor = "#a3a3a3";
+  // Classic single color scheme (blue)
+  const baseColor = "#2563eb"; // blue-600
+  const hoverColor = "#1d4ed8"; // blue-700
 
   const chartData = {
-    labels: teacher.map((teach) => teach.name), // internal use only
+    labels: teacher.map((teach) => teach.name),
     datasets: [
       {
         label: "Total Faculty",
         data: teacher.map((teach) => Object.keys(teach.Section).length),
-        backgroundColor: grayColor,
+        backgroundColor: baseColor,
+        borderRadius: 8,
+        hoverBackgroundColor: hoverColor,
       },
     ],
   };
@@ -39,34 +42,18 @@ function DataChart({ teacher }) {
     },
     scales: {
       x: {
-        ticks: {
-          display: false, // keep names hidden
-        },
-        grid: {
-          display: false, // remove grid lines
-          drawBorder: true, // draw X-axis line
-          color: "#00000", // axis line color
-        },
-        border: {
-          display: true,
-          color: "#00000", // ensures axis is white
-        },
+        ticks: { display: false },
+        grid: { display: false, drawBorder: true, color: "#000" },
+        border: { display: true, color: "#000" },
       },
       y: {
         ticks: {
-          color: "#00000", // show numbers in white
+          color: "#000",
           stepSize: 1,
           precision: 0,
         },
-        grid: {
-          display: false, // remove grid lines
-          drawBorder: true, // draw Y-axis line
-          color: "#00000", // axis line color
-        },
-        border: {
-          display: true,
-          color: "#00000",
-        },
+        grid: { display: false, drawBorder: true, color: "#000" },
+        border: { display: true, color: "#000" },
         beginAtZero: true,
       },
     },
@@ -75,7 +62,7 @@ function DataChart({ teacher }) {
   return (
     <div className="mt-10 bg-white border-gray-300 border-[1px] rounded-2xl shadow-2xl pt-16 pb-10 pl-14 pr-14 w-[80%] h-auto">
       <div className="mb-8 ml-4">
-        <p className="text-bhawaniDark font-m1 font-extrabold text-[35px] ">
+        <p className="text-bhawaniDark font-m1 font-extrabold text-[35px]">
           Faculty by Department
         </p>
       </div>
