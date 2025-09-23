@@ -27,6 +27,7 @@ const ContactForm = () => {
     formData.append("city", data.city);
     formData.append("state", data.state);
     formData.append("pincode", data.pincode);
+    formData.append("subject", data.subject);
     formData.append("inquiry", data.inquiry);
     formData.append("countryCode", data.countryCode);
 
@@ -47,6 +48,7 @@ const ContactForm = () => {
         city: "",
         state: "",
         pincode: "",
+        subject: "",
         inquiry: "",
         CountryCode: "+91",
       });
@@ -206,6 +208,25 @@ const ContactForm = () => {
               {...register("pincode")}
             />
           </div>
+        </div>
+
+        <div>
+          <label
+            htmlFor="subject"
+            className="text-sm font-medium text-gray-700"
+          >
+            Message subject <span className="text-red-500">*</span>
+          </label>
+          <input
+            id="subject"
+            type="subject"
+            placeholder="Enter subject"
+            className="form-input-style"
+            {...register("subject", { required: true })}
+          />
+          {errors.subject && (
+            <span className="text-red-500 text-sm">Enter a valid subject.</span>
+          )}
         </div>
 
         {/* Message */}

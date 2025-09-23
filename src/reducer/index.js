@@ -9,6 +9,7 @@ import profileReducer from "../slices/profileSlice"
 import teacherReducer from "../slices/teacherSlice"
 import paymentReducer from "../slices/paymentSlice"
 import eventReducer from "../slices/eventSlice"
+import contactReducer from "../slices/contactSlice"
 
 const rootReducer = combineReducers({
     achievement: achievementReducer,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
     teacher: teacherReducer,
     payment: paymentReducer,
     event: eventReducer,
+    contact: contactReducer,
 })
 
 export default rootReducer

@@ -2,6 +2,7 @@ exports.contactUsEmail = (
   firstName,
   lastName,
   email,
+  subject,
   inquiry,
   contactNumber,
   city,
@@ -93,6 +94,7 @@ exports.contactUsEmail = (
       <p><span class="label">Email:</span> ${email}</p>
       <p><span class="label">Phone Number:</span> ${contactNumber}</p>
       <p><span class="label">Address:</span> ${city}, ${state}, ${pincode}</p>
+      <p><span class="label">Subject:</span> ${subject}</p>
       <p><span class="label">Message:</span> ${inquiry}</p>
       
       <p>We appreciate your interest in Shri Bhawani Niketan College and will respond soon.</p>

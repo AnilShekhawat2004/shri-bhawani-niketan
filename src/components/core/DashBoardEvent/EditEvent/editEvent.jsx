@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { getEventDetails } from "../../../../services/operations/eventAPI"
-import { setEvent, setEditEvent } from "../../../../slices/eventSlice"
-import AddEvent from "../AddEvent/addEvent"
+import { getEventDetails } from "../../../../services/operations/eventAPI";
+import { setEvent, setEditEvent } from "../../../../slices/eventSlice";
+import AddEvent from "../AddEvent/addEvent";
 
 export default function EditEvent() {
   const dispatch = useDispatch();

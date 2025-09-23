@@ -54,6 +54,9 @@ import AddPhoto from "./components/core/DashBoardPhotos/AddPhotos/addPhoto";
 import EditPhoto from "./components/core/DashBoardPhotos/EditPhotos/editPhoto";
 import DashBoardPayment from "./components/core/DashBoard/Payment";
 import PaymentDetails from "./components/core/DashBoardPayment/PaymentDetails";
+import DashBoardContact from "./components/core/DashBoard/ContactUs";
+import ContactDetails from "./components/core/DashBoardContact/ContactDetails";
+import EditContact from "./components/core/DashBoardContact/EditContact";
 
 function App() {
   const { user } = useSelector((state) => state.profile);
@@ -387,6 +390,33 @@ function App() {
                 element={
                   <PrivateRoute>
                     <PaymentDetails />
+                  </PrivateRoute>
+                }
+              />
+            </Route>
+
+            <Route
+              path="/dashboard/contact"
+              element={
+                <PrivateRoute>
+                  <DashBoardContact />
+                </PrivateRoute>
+              }
+            >
+              <Route
+                path="/dashboard/contact/:contactId"
+                element={
+                  <PrivateRoute>
+                    <ContactDetails />
+                  </PrivateRoute>
+                }
+              />
+
+              <Route
+                path="/dashboard/contact/editInquiry"
+                element={
+                  <PrivateRoute>
+                    <EditContact />
                   </PrivateRoute>
                 }
               />

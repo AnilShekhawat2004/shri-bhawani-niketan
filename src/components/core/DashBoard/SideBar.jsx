@@ -63,7 +63,7 @@ function Sidebar({ isOpen }) {
     {
       SideIcon: LuMail,
       title: "Contact Us",
-      link: "/",
+      link: "/dashboard/contact",
       color: "text-blue-800",
     },
   ];
