@@ -83,7 +83,6 @@ function AddFaculty() {
         const result = await editSection(formData, token);
         setLoading(false);
         if (result) {
-          // dispatch(setStep(2));
           dispatch(setTeacher(result));
           navigate(`/dashboard/faculty/editFacultyDetails?id=${teacher._id}`);
         } else {

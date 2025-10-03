@@ -60,7 +60,7 @@ exports.deleteNews = async (req, res) => {
     const { newsId } = req.body;
 
     if (!newsId || !mongoose.Types.ObjectId.isValid(newsId)) {
-      return res.status(400).json({
+      return res.status(404).json({
         success: false,
         message: "Invalid or missing newsId.",
       });
@@ -117,7 +117,7 @@ exports.getRecentNews = async (req, res) => {
     const { newsId } = req.body;
 
     if (!newsId) {
-      return res.status(400).json({
+      return res.status(404).json({
         success: false,
         message: "newsId is required.",
       });

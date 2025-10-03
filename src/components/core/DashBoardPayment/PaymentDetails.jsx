@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
-import { getPaymentDetails } from "../../../services/operations/paymentAPI";
-import { useSelector } from "react-redux";
 import { FaRupeeSign } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-
+import { getPaymentDetails } from "../../../services/operations/paymentAPI";
 
 function PaymentDetails() {
   const [loading, setLoading] = useState(true);
   const [paymentData, setPaymentData] = useState(null);
   const { token } = useSelector((state) => state.auth);
-  const { paymentId } = useParams()
-  const navigate = useNavigate()
+  const { paymentId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getOnePaymentDetails = async () => {

@@ -1,16 +1,16 @@
-import Breadcrumb from "../../Common/Breadcrumb";
-import AdminNavBar from "./AdminNavbar";
-import Sidebar from "./SideBar";
 import { useEffect, useState } from "react";
-import AddButton from "../../Common/Buttons/addButton";
 import { IoMdAdd } from "react-icons/io";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
-  getAllPhotos,
   fetchPhotoCategories,
+  getAllPhotos,
 } from "../../../services/operations/imageAPI";
-import Table from "../DashBoardPhotos/Table";
+import Breadcrumb from "../../Common/Breadcrumb";
+import AddButton from "../../Common/Buttons/addButton";
 import Count from "../DashBoardPhotos/Count";
+import Table from "../DashBoardPhotos/Table";
+import AdminNavBar from "./AdminNavbar";
+import Sidebar from "./SideBar";
 
 function Photos() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);

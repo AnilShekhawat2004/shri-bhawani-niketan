@@ -1,13 +1,13 @@
-import Breadcrumb from "../../Common/Breadcrumb";
-import AdminNavBar from "./AdminNavbar";
-import Sidebar from "./SideBar";
 import { useEffect, useState } from "react";
-import AddButton from "../../Common/Buttons/addButton";
 import { IoMdAdd } from "react-icons/io";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { getAllNews } from "../../../services/operations/newsAPI";
+import Breadcrumb from "../../Common/Breadcrumb";
+import AddButton from "../../Common/Buttons/addButton";
 import Count from "../DashBoardNews/Count";
 import Table from "../DashBoardNews/Table";
-import { getAllNews } from "../../../services/operations/newsAPI";
+import AdminNavBar from "./AdminNavbar";
+import Sidebar from "./SideBar";
 
 function News() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);

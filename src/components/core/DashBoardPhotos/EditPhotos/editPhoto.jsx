@@ -2,11 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { getPhotosDetails } from "../../../../services/operations/imageAPI";
-import {
-  setPhoto,
-  setEditPhoto,
-} from "../../../../slices/photoSlice";
-import AddPhoto from "../AddPhotos/addPhoto"
+import { setEditPhoto, setPhoto } from "../../../../slices/photoSlice";
+import AddPhoto from "../AddPhotos/addPhoto";
 
 export default function EditPhoto() {
   const dispatch = useDispatch();

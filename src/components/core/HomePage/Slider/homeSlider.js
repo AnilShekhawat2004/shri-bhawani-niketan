@@ -1,18 +1,17 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import { Swiper, SwiperSlide } from "swiper/react";
-import sliderData from "./sliderData";
-import { SlArrowLeft } from "react-icons/sl";
-import { SlArrowRight } from "react-icons/sl";
 import BottomSection from "./bottomSection";
+import sliderData from "./sliderData";
 
 // Import Swiper Styles
 import "swiper/css";
-import "swiper/css/effect-fade";
 import "swiper/css/autoplay";
+import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 
 // Import required modules
-import { EffectFade, Autoplay, Navigation } from "swiper/modules";
+import { Autoplay, EffectFade, Navigation } from "swiper/modules";
 
 function HomeSlider() {
   const [active, setActive] = useState(0);
@@ -62,14 +61,22 @@ function HomeSlider() {
                     <h3 className="xl:text-[20px] lg:text-[18px] md:text-[16px] text-[14px]">
                       WELCOME TO SHRI BHAWANI NIKETAN INSTITUTE
                     </h3>
-                    <h1 className="uppercase xl:text-[60px] lg:text-[50px] md:text-[40px] text-[30px]">{slide.title}</h1>
+                    <h1 className="uppercase xl:text-[60px] lg:text-[50px] md:text-[40px] text-[30px]">
+                      {slide.title}
+                    </h1>
                   </div>
 
                   <div className="w-full flex flex-row -translate-y-8">
-                    <button onClick={() => swiperRef.current?.slidePrev()} className="flex w-full pl-5 justify-start" >
+                    <button
+                      onClick={() => swiperRef.current?.slidePrev()}
+                      className="flex w-full pl-5 justify-start"
+                    >
                       <SlArrowLeft className="lg:text-3xl transition-all duration-[3s] ease-in-out hover:-translate-x-2" />
                     </button>
-                    <button onClick={() => swiperRef.current?.slideNext()} className="flex w-full pr-5 justify-end">
+                    <button
+                      onClick={() => swiperRef.current?.slideNext()}
+                      className="flex w-full pr-5 justify-end"
+                    >
                       <SlArrowRight className="lg:text-3xl transition-all duration-[3s] ease-in-out hover:translate-x-2" />
                     </button>
                   </div>

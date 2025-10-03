@@ -17,7 +17,7 @@ export const paymentEndpoints = {
 
 //Profile Endpoints
 export const profileEndpoints = {
-  GET_USER_DETAILS_API: BASE_URL + "/profile/getUserDetails",
+  GET_USER_DETAILS_API: BASE_URL + "/profile/getAllUserDetails",
 };
 
 //Course Endpoints
@@ -60,6 +60,8 @@ export const contactusEndpoints = {
   DELETE_CONTACT_API: BASE_URL + "/reach/deleteContact",
   GET_CONTACT_COUNTS_API: BASE_URL + "/reach/getContactCounts",
   GET_CONTACT_DETAILS_API: BASE_URL + "/reach/getContactDetails",
+  GET_UNSEEN_CONTACT_API: BASE_URL + "/reach/getUnseenContact",
+  MARKING_SEEN_CONTACT_API: BASE_URL + "/reach/MarkingSeenContact",
 };
 
 //Settings Page Endpoints

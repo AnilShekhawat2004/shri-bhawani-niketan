@@ -3,16 +3,12 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import ChipInput from "../ChipInput"
 import {
   createSubSection,
   editSubSection,
 } from "../../../../services/operations/teacherAPI";
-import {
-  setEditTeacher,
-  // setStep,
-  setTeacher,
-} from "../../../../slices/teacherSlice";
+import { setEditTeacher, setTeacher } from "../../../../slices/teacherSlice";
+import ChipInput from "../ChipInput";
 
 function FacultyNext() {
   const { register, handleSubmit, setValue, getValues } = useForm();
@@ -44,7 +40,6 @@ function FacultyNext() {
   }, [teacher, setValue, editTeacher]);
 
   const isFormUpdated = () => {
-    // if (!teacher.SubSection || teacher.SubSection.length === 0) return false;
     const currentValues = getValues();
     const sub = teacher.SubSection[0];
     if (
@@ -62,7 +57,7 @@ function FacultyNext() {
     }
     return false;
   };
-  
+
   const onSubmit = async (data) => {
     if (editTeacher) {
       // Update existing SubSection
@@ -90,8 +85,7 @@ function FacultyNext() {
           formData.append("hobbies", data.hobbies);
         if (currentValues.professionalHistory !== sub.professionalHistory)
           formData.append("professionalHistory", data.professionalHistory);
-        if (currentValues.love !== sub.love)
-          formData.append("love", data.love);
+        if (currentValues.love !== sub.love) formData.append("love", data.love);
 
         setLoading(true);
         const result = await editSubSection(formData, token);
@@ -216,19 +210,6 @@ function FacultyNext() {
       </div>
 
       <div className="relative">
-        {/* <label
-          htmlFor="strengths"
-          className="text-sm font-medium text-gray-700"
-        >
-          Strengths <span className="text-red-500">*</span>
-        </label>
-        <textarea
-          id="strengths"
-          rows={1}
-          placeholder="Enter your strengths"
-          className="form-input-style resize-y"
-          {...register("strengths")}
-        /> */}
         <ChipInput
           label="Strengths"
           name="strengths"
@@ -240,16 +221,6 @@ function FacultyNext() {
       </div>
 
       <div className="relative">
-        {/* <label htmlFor="hobbies" className="text-sm font-medium text-gray-700">
-          Hobbies <span className="text-red-500">*</span>
-        </label>
-        <textarea
-          id="hobbies"
-          rows={1}
-          placeholder="Enter your hobbies"
-          className="form-input-style resize-y"
-          {...register("hobbies")}
-        /> */}
         <ChipInput
           label="Hobbies"
           name="hobbies"
@@ -293,7 +264,6 @@ function FacultyNext() {
       <div className="relative flex justify-between pt-5">
         <button
           type="button"
-          // onClick={() => navigate("/dashboard/faculty/addFaculty")}
           onClick={goBack}
           className="pl-6 pr-6 pt-3 pb-3 shadow-lg rounded-lg bg-gray-300 hover:bg-gray-400 font-m2 transition-all duration-500 "
         >

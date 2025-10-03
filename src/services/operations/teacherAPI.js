@@ -1,6 +1,6 @@
 import { toast } from "react-hot-toast";
 import { apiConnector } from "../apiconnector";
-import { teacherEndpoints, teachCategoryEndpoints } from "../apis";
+import { teachCategoryEndpoints, teacherEndpoints } from "../apis";
 
 const {
   CREATE_SECTION_API,
@@ -17,10 +17,10 @@ const {
 } = teacherEndpoints;
 
 const {
-    TEACHER_CREATE_CATEGORY_API,
-    TEACHER_EDIT_CATEGORY_API,
-    TEACHER_DELETE_CATEGORY_API,
-    TEACHER_CATEGORYPAGEDETAILS_API,
+  TEACHER_CREATE_CATEGORY_API,
+  TEACHER_EDIT_CATEGORY_API,
+  TEACHER_DELETE_CATEGORY_API,
+  TEACHER_CATEGORYPAGEDETAILS_API,
 } = teachCategoryEndpoints;
 
 export const createSection = async (data, token) => {
@@ -53,9 +53,11 @@ export const editSection = async (data, token) => {
       Authorization: `Bearer ${token}`,
     });
     if (!response?.data?.success) {
-      throw new Error(response?.data?.message || "Could Not Update Faculty Details");
+      throw new Error(
+        response?.data?.message || "Could Not Update Faculty Details"
+      );
     }
-    
+
     toast.success("Faculty Updated Successfully");
     result = response?.data?.data;
   } catch (error) {
@@ -85,9 +87,14 @@ export const deleteSection = async (sectionId, token) => {
   const toastId = toast.loading("Deleting...");
   try {
     if (!token) throw new Error("Authorization Token Missing");
-    const response = await apiConnector("DELETE", DELETE_SECTION_API, { sectionId }, {
-      Authorization: `Bearer ${token}`,
-    });
+    const response = await apiConnector(
+      "DELETE",
+      DELETE_SECTION_API,
+      { sectionId },
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
     if (!response?.data?.success) {
       throw new Error(response?.data?.message || "Could Not Delete Faculty");
     }
@@ -98,7 +105,6 @@ export const deleteSection = async (sectionId, token) => {
   }
   toast.dismiss(toastId);
 };
-
 
 export const getCounts = async () => {
   let result = null;
@@ -119,15 +125,20 @@ export const getTeachDetails = async (teachId, token) => {
   const toastId = toast.loading("Loading...");
   let result = null;
   try {
-    const response = await apiConnector("POST", GET_TEACH_DETAILS, {
-      teachId,
-    },
-    {
-      Authorization: `Bearer ${token}`,
-    }
-  );
+    const response = await apiConnector(
+      "POST",
+      GET_TEACH_DETAILS,
+      {
+        teachId,
+      },
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
     if (!response?.data?.success) {
-      throw new Error(response?.data?.message || "Could Not Get Teacher Details");
+      throw new Error(
+        response?.data?.message || "Could Not Get Teacher Details"
+      );
     }
 
     result = response?.data?.data;
@@ -148,7 +159,9 @@ export const createSubSection = async (data, token) => {
       Authorization: `Bearer ${token}`,
     });
     if (!response?.data?.success) {
-      throw new Error(response?.data?.message || "Could Not Create Faculty Details");
+      throw new Error(
+        response?.data?.message || "Could Not Create Faculty Details"
+      );
     }
     toast.success("Faculty Details Created Successfully");
     result = response?.data?.data;
@@ -169,7 +182,9 @@ export const editSubSection = async (data, token) => {
       Authorization: `Bearer ${token}`,
     });
     if (!response?.data?.success) {
-      throw new Error(response?.data?.message || "Could Not Update Faculty Details");
+      throw new Error(
+        response?.data?.message || "Could Not Update Faculty Details"
+      );
     }
     toast.success("Faculty Details Updated Successfully");
     result = response?.data?.data;
@@ -185,11 +200,18 @@ export const deleteSubSection = async (subSectionId, token) => {
   const toastId = toast.loading("Deleting Sub-Section...");
   try {
     if (!token) throw new Error("Authorization Token Missing");
-    const response = await apiConnector("DELETE", `${DELETE_SUBSECTION_API}/${subSectionId}`, null, {
-      Authorization: `Bearer ${token}`,
-    });
+    const response = await apiConnector(
+      "DELETE",
+      `${DELETE_SUBSECTION_API}/${subSectionId}`,
+      null,
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
     if (!response?.data?.success) {
-      throw new Error(response?.data?.message || "Could Not Delete Sub-Section");
+      throw new Error(
+        response?.data?.message || "Could Not Delete Sub-Section"
+      );
     }
     toast.success("Sub-Section Deleted Successfully");
   } catch (error) {
@@ -204,7 +226,9 @@ export const getAllSubSections = async () => {
   try {
     const response = await apiConnector("GET", GET_ALL_SUBSECTION_API);
     if (!response?.data?.success) {
-      throw new Error(response?.data?.message || "Could Not Fetch Sub-Sections");
+      throw new Error(
+        response?.data?.message || "Could Not Fetch Sub-Sections"
+      );
     }
     result = response?.data?.data;
   } catch (error) {
@@ -215,46 +239,59 @@ export const getAllSubSections = async () => {
 };
 
 export const getAllTeacherCategories = async () => {
-    let result = [];
-    try {
-      const response = await apiConnector("GET", TEACHER_CATEGORY_API);
-      if (!response?.data?.success) {
-        throw new Error(response?.data?.message || "Could Not Fetch Teacher Categories");
-      }
-      result = response?.data?.data;
-    } catch (error) {
-      console.error("TEACHER_CATEGORY_API Error:", error);
-      toast.error(error?.response?.data?.message || error.message);
+  let result = [];
+  try {
+    const response = await apiConnector("GET", TEACHER_CATEGORY_API);
+    if (!response?.data?.success) {
+      throw new Error(
+        response?.data?.message || "Could Not Fetch Teacher Categories"
+      );
     }
-    return result;
+    result = response?.data?.data;
+  } catch (error) {
+    console.error("TEACHER_CATEGORY_API Error:", error);
+    toast.error(error?.response?.data?.message || error.message);
+  }
+  return result;
 };
-  
+
 export const getTeacherCategoryPageDetails = async (categoryId) => {
-    let result = null;
-    try {
-      const response = await apiConnector("GET", `${TEACHER_CATEGORYPAGEDETAILS_API}/${categoryId}`);
-      if (!response?.data?.success) {
-        throw new Error(response?.data?.message || "Could Not Fetch Category Page Details");
-      }
-      result = response?.data?.data;
-    } catch (error) {
-      console.error("TEACHER_CATEGORYPAGEDETAILS_API Error:", error);
-      toast.error(error?.response?.data?.message || error.message);
+  let result = null;
+  try {
+    const response = await apiConnector(
+      "GET",
+      `${TEACHER_CATEGORYPAGEDETAILS_API}/${categoryId}`
+    );
+    if (!response?.data?.success) {
+      throw new Error(
+        response?.data?.message || "Could Not Fetch Category Page Details"
+      );
     }
-    return result;
+    result = response?.data?.data;
+  } catch (error) {
+    console.error("TEACHER_CATEGORYPAGEDETAILS_API Error:", error);
+    toast.error(error?.response?.data?.message || error.message);
+  }
+  return result;
 };
-  
 
 export const createTeacherCategory = async (data, token) => {
   const toastId = toast.loading("Creating Teacher Category...");
   let result = null;
   try {
     if (!token) throw new Error("Authorization Token Missing");
-    const response = await apiConnector("POST", TEACHER_CREATE_CATEGORY_API, data, {
-      Authorization: `Bearer ${token}`,
-    });
+    const response = await apiConnector(
+      "POST",
+      TEACHER_CREATE_CATEGORY_API,
+      data,
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
     if (!response?.data?.success) {
-      throw new Error(response?.data?.message || "Could Not Create Teacher Category");
+      throw new Error(
+        response?.data?.message || "Could Not Create Teacher Category"
+      );
     }
     toast.success("Teacher Category Created Successfully");
     result = response?.data?.data;
@@ -271,11 +308,18 @@ export const editTeacherCategory = async (data, token) => {
   let result = null;
   try {
     if (!token) throw new Error("Authorization Token Missing");
-    const response = await apiConnector("PUT", TEACHER_EDIT_CATEGORY_API, data, {
-      Authorization: `Bearer ${token}`,
-    });
+    const response = await apiConnector(
+      "PUT",
+      TEACHER_EDIT_CATEGORY_API,
+      data,
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
     if (!response?.data?.success) {
-      throw new Error(response?.data?.message || "Could Not Update Teacher Category");
+      throw new Error(
+        response?.data?.message || "Could Not Update Teacher Category"
+      );
     }
     toast.success("Teacher Category Updated Successfully");
     result = response?.data?.data;
@@ -291,11 +335,18 @@ export const deleteTeacherCategory = async (categoryId, token) => {
   const toastId = toast.loading("Deleting Teacher Category...");
   try {
     if (!token) throw new Error("Authorization Token Missing");
-    const response = await apiConnector("DELETE", `${TEACHER_DELETE_CATEGORY_API}/${categoryId}`, null, {
-      Authorization: `Bearer ${token}`,
-    });
+    const response = await apiConnector(
+      "DELETE",
+      `${TEACHER_DELETE_CATEGORY_API}/${categoryId}`,
+      null,
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
     if (!response?.data?.success) {
-      throw new Error(response?.data?.message || "Could Not Delete Teacher Category");
+      throw new Error(
+        response?.data?.message || "Could Not Delete Teacher Category"
+      );
     }
     toast.success("Teacher Category Deleted Successfully");
   } catch (error) {

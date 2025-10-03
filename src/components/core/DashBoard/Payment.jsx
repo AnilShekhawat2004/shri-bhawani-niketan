@@ -1,19 +1,16 @@
-import Breadcrumb from "../../Common/Breadcrumb";
-import AdminNavBar from "./AdminNavbar";
-import Sidebar from "./SideBar";
-// import AddButton from "../../Common/Buttons/addButton";
-// import { IoMdAdd } from "react-icons/io";
 import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { getAllPayments } from "../../../services/operations/paymentAPI";
-import Count from "../DashBoardPayment/PaymentCount"
-import Table from "../DashBoardPayment/PaymentTable"
+import Breadcrumb from "../../Common/Breadcrumb";
+import Count from "../DashBoardPayment/PaymentCount";
+import Table from "../DashBoardPayment/PaymentTable";
+import AdminNavBar from "./AdminNavbar";
+import Sidebar from "./SideBar";
 
 function Payment() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [paymentDetails, setPaymentDetails] = useState([]);
-  // const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
@@ -66,40 +63,16 @@ function Payment() {
                 Track donation, manage donors and analyze giving patterns
               </p>
             </div>
-
-            {/* <div>
-              <AddButton
-                className="w-[150px]"
-                text="Add Event"
-                onClick={() => navigate("/dashboard/event/addEvent")}
-              >
-                <IoMdAdd />
-              </AddButton>
-            </div> */}
           </div>
           <div className="mt-10">
-            <Count/>
+            <Count />
           </div>
           <div>
-            <Table
-              paymentDetails={paymentDetails}
-            />
+            <Table paymentDetails={paymentDetails} />
           </div>
           {isPaymentOpen && (
             <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50">
               <div className="relative bg-white rounded-3xl space-y-6 shadow-xl max-w-2xl w-[90%]">
-                {/* <div className="bg-gradient-to-r rounded-t-3xl font-m1 from-bhawaniDark to-bhawaniDark2 py-6 px-8">
-                  <h2 className="text-white text-3xl font-bold">
-                    {location.pathname.includes("editEvent")
-                      ? "Edit Event"
-                      : "Add Event"}
-                  </h2>
-                  <p className="text-white text-md">
-                    {location.pathname.includes("editEvent")
-                      ? "Update with purpose. Deliver with impact."
-                      : "Shape knowledge. Build community. Create unforgettable events.."}
-                  </p>
-                </div> */}
                 <div className="pl-10 pr-10 pb-10 max-h-[80vh] overflow-y-auto hide-scrollbar scroll-smooth">
                   <Outlet />
                 </div>

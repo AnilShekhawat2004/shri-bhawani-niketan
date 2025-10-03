@@ -10,12 +10,7 @@ import {
 import { setContact, setEditContact } from "../../../slices/contactSlice";
 
 function EditContact() {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    getValues,
-  } = useForm();
+  const { register, handleSubmit, setValue, getValues } = useForm();
 
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);

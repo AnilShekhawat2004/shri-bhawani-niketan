@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
+import { FaArrowLeft } from "react-icons/fa";
+import { useLocation, useNavigate } from "react-router-dom";
 import Success from "../assets/Student/success.webp";
 import Footer from "../components/Common/Footer/Footer";
 import LandingImage from "../components/Common/landingImage";
 import RedBar from "../components/Common/redBar";
 import { getAllAchievements } from "../services/operations/achievementAPI";
 import Error from "./Error";
-import { useLocation, useNavigate } from "react-router-dom";
-import { FaArrowLeft } from "react-icons/fa";
 
 function Achievement() {
   const [loading, setLoading] = useState(true);

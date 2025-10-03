@@ -33,6 +33,11 @@ const contactUsSchema = new mongoose.Schema({
   inquiry: {
     type: String,
   },
+  seen: {
+    type: String,
+    enum: ["true", "false"],
+    default: "false",
+  },
   status: {
     type: String,
     enum: ["Pending", "Resolved"],

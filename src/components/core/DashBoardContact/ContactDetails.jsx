@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getContactDetails } from "../../../services/operations/contactUs";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { getContactDetails } from "../../../services/operations/contactUs";
 
 function ContactDetails() {
   const [loading, setLoading] = useState(true);

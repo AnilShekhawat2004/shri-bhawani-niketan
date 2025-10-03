@@ -1,15 +1,14 @@
-import Breadcrumb from "../../Common/Breadcrumb";
-import AdminNavBar from "./AdminNavbar";
-import Sidebar from "./SideBar";
 import { useEffect, useState } from "react";
-import AddButton from "../../Common/Buttons/addButton";
 import { IoMdAdd } from "react-icons/io";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import Count from "../Faculty/Count";
+import { getAllSections, getAllTeacherCategories } from "../../../services/operations/teacherAPI";
+import Breadcrumb from "../../Common/Breadcrumb";
+import AddButton from "../../Common/Buttons/addButton";
 import Chart from "../Faculty/Chart";
+import Count from "../Faculty/Count";
 import Table from "../Faculty/Table";
-import { getAllTeacherCategories } from "../../../services/operations/teacherAPI";
-import { getAllSections } from "../../../services/operations/teacherAPI";
+import AdminNavBar from "./AdminNavbar";
+import Sidebar from "./SideBar";
 
 function Faculty() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -52,9 +51,9 @@ function Faculty() {
     getTeacherDetails();
 
     if (location.state?.refresh) {
-        window.history.replaceState({}, document.title);
-      }
-    }, [location]);
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);

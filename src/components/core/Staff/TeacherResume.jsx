@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import Error from "../../../Pages/Error";
 import { apiConnector } from "../../../services/apiconnector";
 import { teacherEndpoints } from "../../../services/apis";
 import { getAllSubSections } from "../../../services/operations/teacherAPI";
-import { useNavigate, useParams } from "react-router-dom";
-import { FaArrowLeftLong } from "react-icons/fa6";
-import { toast } from "react-hot-toast";
-import { useLocation } from "react-router-dom";
-import Error from "../../../Pages/Error";
 
 const TeacherResume = () => {
   const [loading, setLoading] = useState(true);
@@ -65,7 +64,6 @@ const TeacherResume = () => {
     }
   }
 
-
   return (
     <div className="w-[80%] h-full mx-auto mt-20 grid grid-cols-1 lg:grid-cols-2 gap-10">
       {/* Left Column */}
@@ -117,9 +115,7 @@ const TeacherResume = () => {
                 <p className="font-helvetica font-bold text-[19px] text-bhawaniDark">
                   Email:
                 </p>
-                <p className="font-verdana text-[17px]">
-                  {resume.email}
-                </p>
+                <p className="font-verdana text-[17px]">{resume.email}</p>
               </div>
             </div>
           ))}

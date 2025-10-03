@@ -12,6 +12,8 @@ const {
   deleteContact,
   getContactCounts,
   getContactDetails,
+  getUnseenContact,
+  MarkingSeenContact,
 } = require("../controllers/contactUs");
 
 //contact us route
@@ -21,5 +23,7 @@ router.get("/getAllContact", getAllContact);
 router.delete("/deleteContact", auth, isAdmin, deleteContact);
 router.get("/getContactCounts", getContactCounts);
 router.post("/getContactDetails", auth, isAdmin, getContactDetails);
+router.get("/getUnseenContact", getUnseenContact);
+router.post("/MarkingSeenContact", MarkingSeenContact);
 
 module.exports = router;

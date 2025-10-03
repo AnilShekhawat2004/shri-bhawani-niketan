@@ -1,11 +1,10 @@
+import Course from "../assets/College/Course.png";
+import Footer from "../components/Common/Footer/Footer";
 import LandingImage from "../components/Common/landingImage";
 import RedBar from "../components/Common/redBar";
-import Footer from "../components/Common/Footer/Footer";
-import Course from "../assets/College/Course.png";
-import ProgramCard from "../components/core/Courses/ProgramCard"
+import ProgramCard from "../components/core/Courses/ProgramCard";
 
 function CategoryProgram() {
-
   return (
     <div>
       <LandingImage
@@ -21,12 +20,14 @@ function CategoryProgram() {
       />
       <div className="w-[80%] mx-auto mt-32 mb-20">
         <div className="flex flex-col gap-3 justify-center items-center">
-            <p className="text-[40px] font-m1 font-extrabold text-bhawaniDark">Your journey of a thousand dreams begins with a single programme.</p>
-            <div className="bg-bhawaniYellow w-[70%] h-[2px]"></div>
+          <p className="text-[40px] font-m1 font-extrabold text-bhawaniDark">
+            Your journey of a thousand dreams begins with a single programme.
+          </p>
+          <div className="bg-bhawaniYellow w-[70%] h-[2px]"></div>
         </div>
 
         <div>
-            <ProgramCard/>
+          <ProgramCard />
         </div>
       </div>
       <Footer />

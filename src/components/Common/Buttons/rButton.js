@@ -25,7 +25,9 @@ export default function RButton({
       </span>
 
       {children && (
-        <span className="RChild z-10 transition-all duration-500">{children}</span>
+        <span className="RChild z-10 transition-all duration-500">
+          {children}
+        </span>
       )}
     </button>
   );

@@ -1,8 +1,8 @@
 export const ACCOUNT_TYPE = {
-    ADMIN : "Admin",
-}
+  ADMIN: "Admin",
+};
 
-export const STATUS = { 
-    DRAFT : "Draft",
-    PUBLISHED: "Published",
-}
+export const STATUS = {
+  DRAFT: "Draft",
+  PUBLISHED: "Published",
+};

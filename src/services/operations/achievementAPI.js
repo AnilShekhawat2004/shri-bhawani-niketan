@@ -77,11 +77,18 @@ export const getAllAchievements = async () => {
 export const deleteAchievement = async (achieveId, token) => {
   const toastId = toast.loading("Deleting Achievement...");
   try {
-    const response = await apiConnector("DELETE", DELETE_ACHIEVEMENT_API, {achieveId}, {
-      Authorization: `Bearer ${token}`,
-    });
+    const response = await apiConnector(
+      "DELETE",
+      DELETE_ACHIEVEMENT_API,
+      { achieveId },
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
     if (!response?.data?.success) {
-      throw new Error(response?.data?.message || "Could Not Delete Achievement");
+      throw new Error(
+        response?.data?.message || "Could Not Delete Achievement"
+      );
     }
     toast.success("Achievement Deleted Successfully");
   } catch (error) {

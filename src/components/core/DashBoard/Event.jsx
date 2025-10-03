@@ -1,13 +1,13 @@
-import Breadcrumb from "../../Common/Breadcrumb";
-import AdminNavBar from "./AdminNavbar";
-import Sidebar from "./SideBar";
-import AddButton from "../../Common/Buttons/addButton";
-import { IoMdAdd } from "react-icons/io";
 import { useEffect, useState } from "react";
+import { IoMdAdd } from "react-icons/io";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { getAllEvents } from "../../../services/operations/eventAPI";
-import Count from "../DashBoardEvent/Count"
-import Table from "../DashBoardEvent/Table"
+import Breadcrumb from "../../Common/Breadcrumb";
+import AddButton from "../../Common/Buttons/addButton";
+import Count from "../DashBoardEvent/Count";
+import Table from "../DashBoardEvent/Table";
+import AdminNavBar from "./AdminNavbar";
+import Sidebar from "./SideBar";
 
 function Event() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -78,7 +78,7 @@ function Event() {
             </div>
           </div>
           <div className="mt-10">
-            <Count/>
+            <Count />
           </div>
           <div>
             <Table

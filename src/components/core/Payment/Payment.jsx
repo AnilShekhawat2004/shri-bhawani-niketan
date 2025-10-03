@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import Footer from '../../Common/Footer/Footer';
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { apiConnector } from '../../../services/apiconnector';
-import { paymentEndpoints } from '../../../services/apis';
-import { useForm } from 'react-hook-form';
 import Donate from "../../../assets/ImageLine/Donate.png";
 import Price from "../../../assets/ImageLine/Price.jpg";
-import LandingImage from "../../Common/landingImage";
-import RedBar from '../../Common/redBar';
 import CountryCode from "../../../data/countryCode.json";
+import { apiConnector } from "../../../services/apiconnector";
+import { paymentEndpoints } from "../../../services/apis";
 import SButton from "../../Common/Buttons/sButton";
-import ThankMessage from './thankMessage';
+import Footer from "../../Common/Footer/Footer";
+import LandingImage from "../../Common/landingImage";
+import RedBar from "../../Common/redBar";
+import ThankMessage from "./thankMessage";
 
 const Payment = () => {
   const [loading, setLoading] = useState(false);
@@ -50,7 +50,11 @@ const Payment = () => {
       }
 
       // Create Razorpay order from backend
-      const res = await apiConnector("POST", paymentEndpoints.PAYMENT_API, data);
+      const res = await apiConnector(
+        "POST",
+        paymentEndpoints.PAYMENT_API,
+        data
+      );
       if (!res?.data?.success || !res?.data?.data) {
         throw new Error("Order creation failed");
       }
@@ -67,12 +71,16 @@ const Payment = () => {
         order_id, // ✅ Fixed this line
         handler: async function (response) {
           try {
-            const verifyRes = await apiConnector("POST", paymentEndpoints.VERIFYPAYMENT_API, {
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_signature: response.razorpay_signature,
-              ...data,
-            });
+            const verifyRes = await apiConnector(
+              "POST",
+              paymentEndpoints.VERIFYPAYMENT_API,
+              {
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_signature: response.razorpay_signature,
+                ...data,
+              }
+            );
 
             if (verifyRes?.data?.success) {
               toast.success("Payment Successful");
@@ -102,7 +110,6 @@ const Payment = () => {
 
       const rzp = new window.Razorpay(options);
       rzp.open();
-
     } catch (error) {
       console.error("Payment error:", error);
       toast.error("Something went wrong. Please try again.");
@@ -155,7 +162,9 @@ const Payment = () => {
         >
           <div className="bg-gradient-to-r from-bhawaniDark to-bhawaniDark2 py-6 px-8 rounded-t-3xl">
             <h2 className="text-white text-3xl font-bold">Join Our Cause</h2>
-            <p className="text-white text-sm">Your support means the world to us!</p>
+            <p className="text-white text-sm">
+              Your support means the world to us!
+            </p>
           </div>
 
           <div className="p-8 space-y-6">
@@ -170,7 +179,9 @@ const Payment = () => {
                   className="form-input-style"
                   {...register("firstName", { required: true })}
                 />
-                {errors.firstName && <span className="text-red-500 text-sm">Required field</span>}
+                {errors.firstName && (
+                  <span className="text-red-500 text-sm">Required field</span>
+                )}
               </div>
 
               <div>
@@ -197,7 +208,9 @@ const Payment = () => {
                 {...register("email", { required: true })}
               />
               {errors.email && (
-                <span className="text-red-500 text-sm">Enter a valid email.</span>
+                <span className="text-red-500 text-sm">
+                  Enter a valid email.
+                </span>
               )}
             </div>
 
@@ -221,14 +234,19 @@ const Payment = () => {
                   placeholder="12345 67890"
                   className="flex-1 form-input-style"
                   {...register("number", {
-                    required: { value: true, message: "Phone number required." },
+                    required: {
+                      value: true,
+                      message: "Phone number required.",
+                    },
                     maxLength: { value: 12, message: "Too long" },
                     minLength: { value: 10, message: "Too short" },
                   })}
                 />
               </div>
               {errors.number && (
-                <span className="text-red-500 text-sm">{errors.number.message}</span>
+                <span className="text-red-500 text-sm">
+                  {errors.number.message}
+                </span>
               )}
             </div>
 
@@ -243,7 +261,9 @@ const Payment = () => {
                 {...register("amount", { required: "Amount is required" })}
               />
               {errors.amount && (
-                <span className="text-red-500 text-sm">{errors.amount.message}</span>
+                <span className="text-red-500 text-sm">
+                  {errors.amount.message}
+                </span>
               )}
             </div>
 
@@ -258,7 +278,9 @@ const Payment = () => {
                 {...register("comment", { required: "Message is required" })}
               />
               {errors.comment && (
-                <span className="text-red-500 text-sm">{errors.comment.message}</span>
+                <span className="text-red-500 text-sm">
+                  {errors.comment.message}
+                </span>
               )}
             </div>
 
@@ -275,7 +297,7 @@ const Payment = () => {
         </form>
       </div>
 
-      <ThankMessage/>
+      <ThankMessage />
       <Footer />
     </div>
   );

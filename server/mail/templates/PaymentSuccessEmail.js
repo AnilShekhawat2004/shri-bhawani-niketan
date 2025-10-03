@@ -4,7 +4,7 @@ exports.paymentSuccessEmail = (
   email,
   number,
   amount,
-  comment,
+  comment
 ) => {
   return `<!DOCTYPE html>
 <html>

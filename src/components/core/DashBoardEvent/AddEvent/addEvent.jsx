@@ -7,7 +7,7 @@ import {
   createEvent,
   editEvents,
 } from "../../../../services/operations/eventAPI";
-import { setEvent, setEditEvent } from "../../../../slices/eventSlice";
+import { setEditEvent, setEvent } from "../../../../slices/eventSlice";
 import Upload from "../../Faculty/Upload";
 
 const monthsBranch = [

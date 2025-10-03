@@ -1,295 +1,303 @@
 const courseCategory = require("../models/courseCategory");
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
 const User = require("../models/User");
-const CategoryProgram = require("../models/CategoryProgram")
-const Course = require("../models/Course")
+const CategoryProgram = require("../models/CategoryProgram");
+const Course = require("../models/Course");
 
-require('dotenv').config();
+require("dotenv").config();
 
-function getRandomInt(max){
-    return Math.floor(Math.random() * max)
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
 }
 
-exports.createCategory = async(req, res) => {
-    try{
-        const{ name, description, categoryProgram} = req.body;
-        const image = req.files.thumbnailImage;
-        const userId = req.user.id;
-        
-        if(!name || !description || !image || !categoryProgram){
-            return res.status(404).json({
-                success:false,
-                message:"All fields are required to create course",
-            })
-        }
+exports.createCategory = async (req, res) => {
+  try {
+    const { name, description, categoryProgram } = req.body;
+    const image = req.files.thumbnailImage;
+    const userId = req.user.id;
 
-        const adminDetails = await User.findById(userId,{
-            accountType:"Admin",
-        })
-
-        if(!adminDetails){
-            return res.status(404).json({
-                success: false,
-                message: "Admin details are not found",
-            })
-        }
-
-        const programDetails = await CategoryProgram.findById(categoryProgram)
-        if(!programDetails){
-            return res.status(404).json({
-                success: false,
-                message: "Category Program does not exist",
-            })
-        }
-
-        const thumbnailImage = await uploadImageToCloudinary(
-            image,
-            process.env.FOLDER_NAME
-        )
-        console.log(thumbnailImage);
-
-        const CategorysDetails = await courseCategory.create({
-            name: name,
-            description: description,
-            image: thumbnailImage.secure_url,
-            categoryProgram: programDetails._id 
-        });
-
-        await CategoryProgram.findByIdAndUpdate(
-            {
-                _id: categoryProgram,
-            },
-            {
-                $push:{
-                    category: CategorysDetails._id
-                },
-            },
-            {new: true},
-        )
-        return res.status(200).json({
-            success:true,
-            message:"Category created successfully",
-            data: CategorysDetails,
-        })
-    }catch(error){
-        console.error(error)
-        return res.status(500).json({
-            success: false,
-            message: "Something went wrong while creating the category"
-        })
+    if (!name || !description || !image || !categoryProgram) {
+      return res.status(404).json({
+        success: false,
+        message: "All fields are required to create course",
+      });
     }
-}
 
-exports.editCategory = async(req, res) => {
-    try{
-        const {courseId, name, description} = req.body
-        const category = await courseCategory.findById(courseId);
-         
-        if(!category){
-            return res.status(404).json({
-                success: false,
-                message:"Category id is not found",
-            })
-        }
+    const adminDetails = await User.findById(userId, {
+      accountType: "Admin",
+    });
 
-        //update the name 
-        if(name !== undefined){
-            category.name = name
-        }
-
-        if(description !== undefined){
-            category.description = description
-        }
-
-        if(req.files){
-            console.log("Image Update")
-            const image = req.files.thumbnailImage
-            const thumbnailImage = await uploadImageToCloudinary(
-                image,
-                process.env.FOLDER_NAME
-            )
-            category.image = thumbnailImage.secure_url
-        }
-
-        await category.save();
-
-        const updatedCategory = await courseCategory.findOne({
-            _id: courseId
-        })
-        .populate({
-            path: "courses"
-        }).populate({
-            path: "categoryProgram"
-        })
-        .exec()
-
-        return res.status(200).json({
-            success: true,
-            message: "Course Category is Edited Successfully",
-            data: updatedCategory,
-        })
-    }catch(error){
-        console.error(error);
-        return res.status(500).json({
-            success: false,
-            message: error.message,
-        })
+    if (!adminDetails) {
+      return res.status(404).json({
+        success: false,
+        message: "Admin details are not found",
+      });
     }
-}
 
-exports.showAllCategories = async(req, res) => {
-    try{
-        const allCategorys = await courseCategory.find({});
-        res.status(200).json({
-            success:true,
-            data: allCategorys,
-        });
-    }catch(error){
-        console.error(error);
-        return res.status(500).json({
-            success: false,
-            message: error.message,
-        })
+    const programDetails = await CategoryProgram.findById(categoryProgram);
+    if (!programDetails) {
+      return res.status(404).json({
+        success: false,
+        message: "Category Program does not exist",
+      });
     }
-}
+
+    const thumbnailImage = await uploadImageToCloudinary(
+      image,
+      process.env.FOLDER_NAME
+    );
+    console.log(thumbnailImage);
+
+    const CategorysDetails = await courseCategory.create({
+      name: name,
+      description: description,
+      image: thumbnailImage.secure_url,
+      categoryProgram: programDetails._id,
+    });
+
+    await CategoryProgram.findByIdAndUpdate(
+      {
+        _id: categoryProgram,
+      },
+      {
+        $push: {
+          category: CategorysDetails._id,
+        },
+      },
+      { new: true }
+    );
+    return res.status(200).json({
+      success: true,
+      message: "Category created successfully",
+      data: CategorysDetails,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong while creating the category",
+    });
+  }
+};
+
+exports.editCategory = async (req, res) => {
+  try {
+    const { courseId, name, description } = req.body;
+    const category = await courseCategory.findById(courseId);
+
+    if (!category) {
+      return res.status(404).json({
+        success: false,
+        message: "Category id is not found",
+      });
+    }
+
+    //update the name
+    if (name !== undefined) {
+      category.name = name;
+    }
+
+    if (description !== undefined) {
+      category.description = description;
+    }
+
+    if (req.files) {
+      console.log("Image Update");
+      const image = req.files.thumbnailImage;
+      const thumbnailImage = await uploadImageToCloudinary(
+        image,
+        process.env.FOLDER_NAME
+      );
+      category.image = thumbnailImage.secure_url;
+    }
+
+    await category.save();
+
+    const updatedCategory = await courseCategory
+      .findOne({
+        _id: courseId,
+      })
+      .populate({
+        path: "courses",
+      })
+      .populate({
+        path: "categoryProgram",
+      })
+      .exec();
+
+    return res.status(200).json({
+      success: true,
+      message: "Course Category is Edited Successfully",
+      data: updatedCategory,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+exports.showAllCategories = async (req, res) => {
+  try {
+    const allCategorys = await courseCategory.find({});
+    res.status(200).json({
+      success: true,
+      data: allCategorys,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 exports.categoryPageDetails = async (req, res) => {
-    try {
-        const { categoryId } = req.body;
+  try {
+    const { categoryId } = req.body;
 
-        if (!categoryId) {
-            return res.status(400).json({
-                success: false,
-                message: "Category ID is required",
-            });
-        }
-
-        // Find the selected category and populate courses
-        const selectedCategory = await courseCategory.findById(categoryId)
-            .populate({
-                path: "courses",
-                model: "Course", // Ensure correct reference to Course model
-            })
-            .populate({
-                path: "categoryProgram"
-            })
-            .exec();
-
-        if (!selectedCategory) {
-            return res.status(404).json({
-                success: false,
-                message: "Category not found",
-            });
-        }
-
-        console.log("Fetched Category:", selectedCategory);
-
-        return res.status(200).json({
-            success: true,
-            data: {
-                selectedCategory,
-            },
-            message: selectedCategory.courses.length === 0
-                ? "No courses found for this category, but category details are returned."
-                : "Category details retrieved successfully.",
-        });
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({
-            success: false,
-            message: "Internal Server Error",
-            error: error.message,
-        });
+    if (!categoryId) {
+      return res.status(404).json({
+        success: false,
+        message: "Category ID is required",
+      });
     }
-}
 
-exports.deleteCategory = async(req, res) => {
-    try{
-        const {courseId} = req.body;
+    // Find the selected category and populate courses
+    const selectedCategory = await courseCategory
+      .findById(categoryId)
+      .populate({
+        path: "courses",
+        model: "Course", // Ensure correct reference to Course model
+      })
+      .populate({
+        path: "categoryProgram",
+      })
+      .exec();
 
-        //Find the category
-        const category = await courseCategory.findById(courseId)
-        if(!category){
-            return res.status(404).json({
-                success: false,
-                message: "Course Category not found",
-            })
-        }
-
-        //Delete category
-        await courseCategory.findByIdAndDelete(courseId)
-
-        if(courseCategory.courses){
-            await Course.findByIdAndDelete(courseCategory.courses)
-        }
-
-        if(courseCategory.categoryProgram){
-            await CategoryProgram.findByIdAndUpdate(
-                courseCategory.categoryProgram,
-                {
-                    $pull: { category: courseId }
-                },
-                {new: true}
-            )
-        }
-
-        //return response
-        return res.status(200).json({
-            success: true,
-            message: "Course Category deleted successfully",
-        })
-    }catch(error){
-        console.error(error);
-        return res.status(500).json({
-            success: false,
-            message: error.message,
-        })
+    if (!selectedCategory) {
+      return res.status(404).json({
+        success: false,
+        message: "Category not found",
+      });
     }
-}
+
+    console.log("Fetched Category:", selectedCategory);
+
+    return res.status(200).json({
+      success: true,
+      data: {
+        selectedCategory,
+      },
+      message:
+        selectedCategory.courses.length === 0
+          ? "No courses found for this category, but category details are returned."
+          : "Category details retrieved successfully.",
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      error: error.message,
+    });
+  }
+};
+
+exports.deleteCategory = async (req, res) => {
+  try {
+    const { courseId } = req.body;
+
+    //Find the category
+    const category = await courseCategory.findById(courseId);
+    if (!category) {
+      return res.status(404).json({
+        success: false,
+        message: "Course Category not found",
+      });
+    }
+
+    //Delete category
+    await courseCategory.findByIdAndDelete(courseId);
+
+    if (courseCategory.courses) {
+      await Course.findByIdAndDelete(courseCategory.courses);
+    }
+
+    if (courseCategory.categoryProgram) {
+      await CategoryProgram.findByIdAndUpdate(
+        courseCategory.categoryProgram,
+        {
+          $pull: { category: courseId },
+        },
+        { new: true }
+      );
+    }
+
+    //return response
+    return res.status(200).json({
+      success: true,
+      message: "Course Category deleted successfully",
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 exports.getCourseCounts = async (req, res) => {
-    try{
-        const courseCount = await courseCategory.countDocuments()
+  try {
+    const courseCount = await courseCategory.countDocuments();
 
-        return res.status(200).json({
-            success: true,
-            data:{
-                courseCount
-            }
-        })
-    }catch(error){
-        console.log(error)
-        return res.status(500).json({
-            success: false,
-            message: error.message
-        })
+    return res.status(200).json({
+      success: true,
+      data: {
+        courseCount,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+exports.getCourseCategoryDetails = async (req, res) => {
+  try {
+    const { courseId } = req.body;
+    const courseDetails = await courseCategory
+      .findOne({
+        _id: courseId,
+      })
+      .populate("courses")
+      .populate("categoryProgram")
+      .exec();
+
+    if (!courseDetails) {
+      return res.status(404).json({
+        success: false,
+        message: "Could not found course details",
+      });
     }
-}
 
-exports.getCourseCategoryDetails = async(req, res) => {
-    try{
-        const { courseId } = req.body
-        const courseDetails = await courseCategory.findOne({
-            _id: courseId
-        }).populate("courses").populate("categoryProgram").exec()
-
-        if(!courseDetails){
-            return res.status(404).json({
-                success: false,
-                message: "Could not found course details"
-            })
-        }
-
-        return res.status(200).json({
-            success: true,
-            message: "Details fetched successfully",
-            data: courseDetails
-        })
-    }catch(error){
-        console.log(error)
-        return res.status(500).json({
-            success: false,
-            message: error.message
-        })
-    }
-}
+    return res.status(200).json({
+      success: true,
+      message: "Details fetched successfully",
+      data: courseDetails,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

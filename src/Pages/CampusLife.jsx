@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Campus from "../assets/College/CampusLife.png";
+import Footer from "../components/Common/Footer/Footer";
 import LandingImage from "../components/Common/landingImage";
 import RedBar from "../components/Common/redBar";
-import Footer from "../components/Common/Footer/Footer";
-import Error from "./Error";
 import { fetchPhotoCategories } from "../services/operations/imageAPI";
-import Campus from "../assets/College/CampusLife.png";
-import { Link } from "react-router-dom";
+import Error from "./Error";
 
 function CampusLife() {
   const [loading, setLoading] = useState(true);
@@ -52,23 +52,27 @@ function CampusLife() {
 
       <div className="w-[80%] mx-auto mt-32">
         <div className="flex flex-col gap-3 justify-center items-center">
-           <p className="text-[40px] font-m1 font-extrabold text-bhawaniDark">Campus Life: The Spirit That Connects Us</p>
-           <div className="bg-bhawaniYellow w-[70%] h-[2px]"></div>
+          <p className="text-[40px] font-m1 font-extrabold text-bhawaniDark">
+            Campus Life: The Spirit That Connects Us
+          </p>
+          <div className="bg-bhawaniYellow w-[70%] h-[2px]"></div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-y-10 mt-32">
-           {imgCategory.map(imageCat => (
+          {imgCategory.map((imageCat) => (
             <Link
               to={`/campusLife/${imageCat._id}`}
               key={imageCat._id}
               className="bg-gray-100 w-[80%] lg:h-[120px] flex justify-center items-center border-8 border-bhawaniLight shadow-lg lg:hover:shadow-2xl cursor-pointer transition-all duration-500"
             >
-              <p className="text-[22px] text-bhawaniDark font-verdana font-bold">{imageCat.name}</p>
+              <p className="text-[22px] text-bhawaniDark font-verdana font-bold">
+                {imageCat.name}
+              </p>
             </Link>
-           ))}
+          ))}
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

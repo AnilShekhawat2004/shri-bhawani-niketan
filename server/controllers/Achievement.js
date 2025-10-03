@@ -63,7 +63,7 @@ exports.deleteAchieve = async (req, res) => {
       req.body.achieveId || req.params.achieveId || req.query.achieveId;
 
     if (!achieveId || achieveId.length !== 24) {
-      return res.status(400).json({
+      return res.status(404).json({
         success: false,
         message: "Invalid Achievement ID",
       });
@@ -122,7 +122,7 @@ exports.getAllAchievement = async (req, res) => {
 
 exports.editAchievement = async (req, res) => {
   try {
-    const { achieveId, title, descritption,status } = req.body;
+    const { achieveId, title, descritption, status } = req.body;
     const achieve = await Achievement.findById(achieveId);
 
     if (!achieve) {

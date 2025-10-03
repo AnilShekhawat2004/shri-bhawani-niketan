@@ -1,14 +1,13 @@
-import Breadcrumb from "../../Common/Breadcrumb";
-import AdminNavBar from "./AdminNavbar";
-import Sidebar from "./SideBar";
-import AddButton from "../../Common/Buttons/addButton";
-import { IoMdAdd } from "react-icons/io";
 import { useEffect, useState } from "react";
+import { IoMdAdd } from "react-icons/io";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { fetchCourseCategories, showAllCategoryPrograms } from "../../../services/operations/courseAPI";
+import Breadcrumb from "../../Common/Breadcrumb";
+import AddButton from "../../Common/Buttons/addButton";
 import Count from "../DashboardCourse/Count";
 import Table from "../DashboardCourse/Table";
-import { fetchCourseCategories } from "../../../services/operations/courseAPI";
-import { showAllCategoryPrograms } from "../../../services/operations/courseAPI";
+import AdminNavBar from "./AdminNavbar";
+import Sidebar from "./SideBar";
 
 function Courses() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -126,7 +125,7 @@ function Courses() {
                   </p>
                 </div>
                 <div className="pl-10 pr-10 pb-10 max-h-[80vh] overflow-y-auto hide-scrollbar scroll-smooth">
-                  <Outlet/>
+                  <Outlet />
                 </div>
               </div>
             </div>

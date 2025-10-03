@@ -1,16 +1,13 @@
 import { useState } from "react";
-// import { FaRegEdit } from "react-icons/fa";
+import { FaRupeeSign } from "react-icons/fa";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
-// import { PiEye } from "react-icons/pi";
-import { FaRupeeSign } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-// import DeleteAchievement from "./DeleteAchievement";
 
 function Table({ paymentDetails }) {
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const limit = 5;
 
   let filteredData = paymentDetails;
@@ -31,7 +28,6 @@ function Table({ paymentDetails }) {
   return (
     <div className="flex flex-col bg-white w-[97%] h-auto rounded-xl shadow-xl border-gray-300 border-[1px] pt-5 pb-12 mt-20 mb-20">
       <div className="flex flex-row items-center justify-between pl-10 pr-16 pt-5">
- 
         <div className="flex flex-col justify-start items-start">
           <div className="flex justify-center items-center gap-3">
             <div className="bg-gray-300 p-2 rounded-md ">
@@ -84,20 +80,17 @@ function Table({ paymentDetails }) {
                       </div>
                     </td>
                     <td className="px-4 py-5">
-                      {new Date(item.createdAt).toLocaleDateString(
-                        "en-GB",
-                        {
-                          day: "2-digit",
-                          month: "long",
-                          year: "numeric",
-                        }
-                      )}
+                      {new Date(item.createdAt).toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "long",
+                        year: "numeric",
+                      })}
                     </td>
                     <td className="px-4 py-5">
                       <button
                         className="inline-block text-[14px] border border-gray-500 text-black text-center py-[2px] px-3 rounded-2xl"
                         onClick={() => {
-                          navigate(`/dashboard/payment/${item._id}`)
+                          navigate(`/dashboard/payment/${item._id}`);
                         }}
                       >
                         View

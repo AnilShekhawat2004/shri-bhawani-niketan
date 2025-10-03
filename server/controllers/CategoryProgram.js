@@ -82,7 +82,7 @@ exports.editCatProgram = async(req, res) => {
         if (req.files.image) {
             const image = req.files.image;
             if (!image.tempFilePath) {
-                return res.status(400).json({
+                return res.status(404).json({
                     success: false,
                     message: "Uploaded file is missing tempFilePath",
                 });

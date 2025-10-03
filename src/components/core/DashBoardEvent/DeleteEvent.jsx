@@ -2,9 +2,7 @@ import { useState } from "react";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  deleteEvent
-} from "../../../services/operations/eventAPI";
+import { deleteEvent } from "../../../services/operations/eventAPI";
 import ConfirmationModal from "../../Common/ConfirmationModal";
 
 function DeleteEvent({ eventId, setEventDetails }) {
@@ -17,9 +15,11 @@ function DeleteEvent({ eventId, setEventDetails }) {
     try {
       setLoading(true);
       const res = await deleteEvent(eventId, token);
-      
+
       if (res?.success) {
-        setEventDetails(prev => prev.filter(faculty => faculty._id !== eventId));
+        setEventDetails((prev) =>
+          prev.filter((faculty) => faculty._id !== eventId)
+        );
         navigate("/dashboard/event", { state: { refresh: true } });
       }
       setConfirmationModal(null);

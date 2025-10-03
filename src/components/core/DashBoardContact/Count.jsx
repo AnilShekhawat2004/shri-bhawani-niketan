@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { IoIosTrendingUp } from "react-icons/io";
-import { IoIosMail } from "react-icons/io";
+import { IoIosMail, IoIosTrendingUp, IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { MdOutlineWatchLater } from "react-icons/md";
-import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { getContactCounts } from "../../../services/operations/contactUs";
 
 function Count() {

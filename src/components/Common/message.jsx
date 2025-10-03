@@ -1,12 +1,11 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 function Message({
   LineImage,
   heading,
   name,
   text,
-  className = '',
+  className = "",
   delay = 0, // add delay for staggered effect
 }) {
   return (
@@ -24,7 +23,9 @@ function Message({
       />
 
       <h2 className="text-xl font-bold font-m1 text-center">{name}</h2>
-      <h3 className="text-base font-medium text-gray-700 text-center">{heading}</h3>
+      <h3 className="text-base font-medium text-gray-700 text-center">
+        {heading}
+      </h3>
       <p className="text-sm text-gray-600 text-center">{text}</p>
     </motion.div>
   );

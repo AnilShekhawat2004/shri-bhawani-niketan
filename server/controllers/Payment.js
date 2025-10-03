@@ -11,7 +11,7 @@ exports.capturePayment = async (req, res) => {
     const { firstName, lastName, email, number, amount, comment } = req.body;
 
     if (!firstName || !lastName || !email || !number || !amount) {
-      return res.status(400).json({
+      return res.status(404).json({
         success: false,
         message: "Please fill the required fields",
       });
@@ -63,7 +63,7 @@ exports.verifyPayment = async (req, res) => {
       !number ||
       !amount
     ) {
-      return res.status(400).json({
+      return res.status(404).json({
         success: false,
         message: "Missing required fields",
       });
@@ -76,7 +76,7 @@ exports.verifyPayment = async (req, res) => {
       .digest("hex");
 
     if (expectedSignature !== razorpay_signature) {
-      return res.status(400).json({
+      return res.status(404).json({
         success: false,
         message: "Payment verification failed",
       });
@@ -144,15 +144,15 @@ exports.getPaymentCount = async (req, res) => {
   try {
     const donationCount = await Payment.aggregate([
       {
-        $group:{
+        $group: {
           _id: null,
-          amountCount: { $sum: "$amount" }
-        }
-      }
+          amountCount: { $sum: "$amount" },
+        },
+      },
     ]);
-    const amountCount = donationCount[0].amountCount
+    const amountCount = donationCount[0].amountCount;
     const donorCount = await Payment.countDocuments();
-    
+
     return res.status(200).json({
       success: true,
       data: {

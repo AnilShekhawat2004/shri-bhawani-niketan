@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
-import useOnClickOutside from "../../../hooks/useOnClickOutside";
+import { useRef, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { Link } from "react-router-dom";
+import useOnClickOutside from "../../../hooks/useOnClickOutside";
 
 function Admission({
   className,
@@ -39,9 +39,7 @@ function Admission({
         >
           <ul>
             {item.map((item, index) => (
-              <Link key={index} to={item.link}
-                onClick={() => setOpen(false)}
-              >
+              <Link key={index} to={item.link} onClick={() => setOpen(false)}>
                 <li>
                   <p className="py-2 cursor-pointer font-m1 text-center text-[18px] lg:hover:text-bhawaniDark transition-all duration-500 text-gray-500">
                     {item.label}

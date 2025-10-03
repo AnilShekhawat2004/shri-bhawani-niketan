@@ -231,3 +231,43 @@ exports.getContactDetails = async (req, res) => {
     });
   }
 };
+
+exports.getUnseenContact = async (req, res) => {
+  try {
+    const recentNotification = await contactUs.find().sort({ createdAt: -1 });
+    const unseenCount = await contactUs.countDocuments({ seen: false });
+
+    return res.status(200).json({
+      success: true,
+      message: "Count of contact notification",
+      data: {
+        recentNotification,
+        unseenCount,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+exports.MarkingSeenContact = async (req, res) => {
+  try {
+    const response = await contactUs.updateMany(
+      { seen: false },
+      { $set: { seen: true } }
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Notification marked seen",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

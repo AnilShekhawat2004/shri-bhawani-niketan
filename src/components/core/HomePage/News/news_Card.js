@@ -1,6 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import RButton from '../../../Common/Buttons/rButton';
+import { Link } from "react-router-dom";
+import RButton from "../../../Common/Buttons/rButton";
 
 const News_Card = ({ news }) => {
   const getLimitedDescription = (text, wordLimit = 20) => {
@@ -11,9 +10,11 @@ const News_Card = ({ news }) => {
   };
 
   return (
-    <div className="lg:w-full lg:max-w-[500px] w-[400px] group relative bg-bhawaniShine rounded-md shadow-lg shadow-gray-300 
+    <div
+      className="lg:w-full lg:max-w-[500px] w-[400px] group relative bg-bhawaniShine rounded-md shadow-lg shadow-gray-300 
          hover:shadow-xl hover:shadow-gray-400 transition-all duration-700 overflow-hidden
-         hover:-translate-y-3">
+         hover:-translate-y-3"
+    >
       <div>
         <img
           src={news?.image}
@@ -34,7 +35,10 @@ const News_Card = ({ news }) => {
         </p>
 
         <Link to={`/news/${news._id}`}>
-          <RButton text="Read more" className="text-white w-[150px] h-[50px] rounded-md" />
+          <RButton
+            text="Read more"
+            className="text-white w-[150px] h-[50px] rounded-md"
+          />
         </Link>
       </div>
     </div>

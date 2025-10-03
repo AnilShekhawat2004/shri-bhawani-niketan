@@ -2,9 +2,7 @@ import { useState } from "react";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  deleteSection
-} from "../../../services/operations/teacherAPI";
+import { deleteSection } from "../../../services/operations/teacherAPI";
 import ConfirmationModal from "../../Common/ConfirmationModal";
 
 function DeleteFaculty({ sectionId, setTeachDetails }) {
@@ -17,9 +15,11 @@ function DeleteFaculty({ sectionId, setTeachDetails }) {
     try {
       setLoading(true);
       const res = await deleteSection(sectionId, token);
-      
+
       if (res?.success) {
-        setTeachDetails(prev => prev.filter(faculty => faculty._id !== sectionId));
+        setTeachDetails((prev) =>
+          prev.filter((faculty) => faculty._id !== sectionId)
+        );
         navigate("/dashboard/faculty", { state: { refresh: true } });
       }
       setConfirmationModal(null);

@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { getCourseCounts } from "../../../services/operations/courseAPI";
-import { getCategoryProgramCount } from "../../../services/operations/courseAPI";
-import { PiBookOpenBold } from "react-icons/pi";
 import { IoIosTrendingUp } from "react-icons/io";
-
+import { PiBookOpenBold } from "react-icons/pi";
+import { getCategoryProgramCount, getCourseCounts } from "../../../services/operations/courseAPI";
 
 function Count() {
   const [counts, setCounts] = useState({
@@ -41,7 +39,7 @@ function Count() {
           </p>
 
           <div className="text-green-500 flex items-center gap-1">
-            <IoIosTrendingUp className="text-[20px]"/>
+            <IoIosTrendingUp className="text-[20px]" />
             <p>+10% this year</p>
           </div>
         </div>
@@ -59,7 +57,7 @@ function Count() {
           </p>
 
           <div className="text-blue-500 flex items-center gap-1">
-            <IoIosTrendingUp className="text-[20px]"/>
+            <IoIosTrendingUp className="text-[20px]" />
             <p>+5% this Semester</p>
           </div>
         </div>

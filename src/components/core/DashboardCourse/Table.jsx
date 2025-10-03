@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import { PiEye } from "react-icons/pi";
 import { RiGroupLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 import DeleteCourses from "./DeleteCourses";
 
 function Table({ courseDetails, setCourseDetails, courseCat }) {
@@ -109,9 +109,7 @@ function Table({ courseDetails, setCourseDetails, courseCat }) {
                       <PiEye
                         className="text-blue-600 text-[20px] cursor-pointer"
                         onClick={() =>
-                          navigate(
-                            `/dashboard/courses/${item._id}`
-                          )
+                          navigate(`/dashboard/courses/${item._id}`)
                         }
                       />
                       <FaRegEdit

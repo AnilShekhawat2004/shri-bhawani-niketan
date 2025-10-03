@@ -8,10 +8,7 @@ import {
   editPhotos,
   fetchPhotoCategories,
 } from "../../../../services/operations/imageAPI";
-import {
-  setPhoto,
-  setEditPhoto,
-} from "../../../../slices/photoSlice";
+import { setEditPhoto, setPhoto } from "../../../../slices/photoSlice";
 import Upload from "../../Faculty/Upload";
 
 function AddPhoto() {
@@ -26,30 +23,28 @@ function AddPhoto() {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
   const { photo, editPhoto } = useSelector((state) => state.photo);
-  const [imageCat, setImageCat] = useState([])
+  const [imageCat, setImageCat] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const getImageCat = async () => {
-        setLoading(true)
-        const imageCategory = await fetchPhotoCategories();
-        if(imageCategory.length > 0){
-            setImageCat(imageCategory)
-        }
-        setLoading(false)
-    }
+      setLoading(true);
+      const imageCategory = await fetchPhotoCategories();
+      if (imageCategory.length > 0) {
+        setImageCat(imageCategory);
+      }
+      setLoading(false);
+    };
 
     if (editPhoto && photo) {
       setValue("name", photo.name);
       setValue("thumbnail", photo.thumbnailImage);
       setValue("imageCategory", photo.imageCategory);
-      console.log("This is the imageCategory id : ", photo.imageCategory)
     }
 
     getImageCat();
   }, [editPhoto, photo, setValue]);
-        console.log("This si the image cat id : ", imageCat._id)
 
   const isFormUpdated = () => {
     const currentValues = getValues();
@@ -84,7 +79,7 @@ function AddPhoto() {
         setLoading(false);
         if (result) {
           dispatch(setPhoto(result));
-          dispatch(setEditPhoto(false))
+          dispatch(setEditPhoto(false));
           navigate(`/dashboard/photos`);
         } else {
           toast.error("No changes made to the form");

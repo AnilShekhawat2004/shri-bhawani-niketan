@@ -1,6 +1,6 @@
-import LoginForm from "../components/core/Auth/LoginForm";
-import Bhawani from "../assets/College/Bhawani.png";
 import { useSelector } from "react-redux";
+import Bhawani from "../assets/College/Bhawani.png";
+import LoginForm from "../components/core/Auth/LoginForm";
 
 function Login() {
   const { loading } = useSelector((state) => state.auth);

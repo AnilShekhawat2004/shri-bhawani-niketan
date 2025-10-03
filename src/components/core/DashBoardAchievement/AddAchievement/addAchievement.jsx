@@ -76,7 +76,7 @@ function AddAchievement() {
         setLoading(false);
         if (result) {
           dispatch(setAchievement(result));
-          dispatch(setEditAchievement(false))
+          dispatch(setEditAchievement(false));
           navigate(`/dashboard/achievement`);
         } else {
           toast.error("No changes made to the form");

@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { IoSearch } from "react-icons/io5";
+import { IoNewspaper, IoSearch } from "react-icons/io5";
 import { PiEye } from "react-icons/pi";
-import { IoNewspaper } from "react-icons/io5";
-import DeleteNews from "./DeleteNews";
 import { useNavigate } from "react-router-dom";
+import DeleteNews from "./DeleteNews";
 
 const statusDrop = [
   { id: "All", state: "All Status" },
@@ -105,14 +104,11 @@ function Table({ newsDetails, setNewsDetails }) {
                       </div>
                     </td>
                     <td className="px-4 py-5">
-                      {new Date(item.createdAt).toLocaleDateString(
-                        "en-GB",
-                        {
-                          day: "2-digit",
-                          month: "long",
-                          year: "numeric",
-                        }
-                      )}
+                      {new Date(item.createdAt).toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "long",
+                        year: "numeric",
+                      })}
                     </td>
                     <td className="px-4 py-5 flex gap-5">
                       <PiEye

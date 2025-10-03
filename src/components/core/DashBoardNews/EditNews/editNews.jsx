@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { getNewsDetails } from "../../../../services/operations/newsAPI";
-import { setNews, setEditNews } from "../../../../slices/newsSlice";
+import { setEditNews, setNews } from "../../../../slices/newsSlice";
 import AddNews from "../AddNews/addNews";
 
 export default function EditNews() {

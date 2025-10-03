@@ -58,9 +58,14 @@ export const deleteEvent = async (eventId, token) => {
   let success = false;
   try {
     if (!token) throw new Error("Authorization Token Missing");
-    const response = await apiConnector("DELETE", DELETE_EVENTS_API, {eventId}, {
-      Authorization: `Bearer ${token}`,
-    });
+    const response = await apiConnector(
+      "DELETE",
+      DELETE_EVENTS_API,
+      { eventId },
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
     if (!response?.data?.success) {
       throw new Error(response?.data?.message || "Could not Delete Event");
     }
@@ -108,13 +113,16 @@ export const getEventDetails = async (eventId, token) => {
   const toastId = toast.loading("Loading...");
   let result = null;
   try {
-    const response = await apiConnector("POST", GET_EVENT_DETAILS_API, {
-      eventId,
-    },
-    {
-      Authorization: `Bearer ${token}`,
-    }
-  );
+    const response = await apiConnector(
+      "POST",
+      GET_EVENT_DETAILS_API,
+      {
+        eventId,
+      },
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
     if (!response?.data?.success) {
       throw new Error(response?.data?.message || "Could Not Get Event Details");
     }

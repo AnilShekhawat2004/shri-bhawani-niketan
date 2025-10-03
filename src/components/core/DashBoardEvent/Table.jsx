@@ -1,11 +1,11 @@
 import { useState } from "react";
+import { CiCalendar } from "react-icons/ci";
 import { FaRegEdit } from "react-icons/fa";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import { PiEye } from "react-icons/pi";
-import { CiCalendar } from "react-icons/ci";
-import DeleteEvent from "./DeleteEvent";
 import { useNavigate } from "react-router-dom";
+import DeleteEvent from "./DeleteEvent";
 
 const monthsBranch = [
   { id: "All", month: "All Events" },

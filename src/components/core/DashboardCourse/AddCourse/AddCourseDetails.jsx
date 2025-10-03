@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
+import { RxCross1 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
@@ -8,7 +9,6 @@ import {
   editCourses,
 } from "../../../../services/operations/courseAPI";
 import { setCourse, setEditCourse } from "../../../../slices/courseSlice";
-import { RxCross1 } from "react-icons/rx";
 
 function AddCourseDetails() {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ function AddCourseDetails() {
   const { token } = useSelector((state) => state.auth);
   const { course, editCourse } = useSelector((state) => state.course);
   const [loading, setLoading] = useState(false);
-  const location = useLocation()
+  const location = useLocation();
 
   const { register, handleSubmit, setValue, getValues, control } = useForm({
     defaultValues: editCourse
@@ -138,7 +138,7 @@ function AddCourseDetails() {
     if (location.pathname.includes("editCourseDetails")) {
       navigate(`/dashboard/courses/editCourse?id=${course._id}`);
       dispatch(setEditCourse(true));
-    } else{
+    } else {
       navigate("/dashboard/courses/addCourse");
       dispatch(setEditCourse(true));
     }
@@ -317,7 +317,6 @@ function AddCourseDetails() {
       <div className="relative flex justify-between pt-5">
         <button
           type="button"
-          // onClick={() => navigate("/dashboard/faculty/addFaculty")}
           onClick={goBack}
           className="pl-6 pr-6 pt-3 pb-3 shadow-lg rounded-lg bg-gray-300 hover:bg-gray-400 font-m2 transition-all duration-500 "
         >

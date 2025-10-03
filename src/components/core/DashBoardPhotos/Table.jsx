@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
+import { ImCamera } from "react-icons/im";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import { PiEye } from "react-icons/pi";
-import { ImCamera } from "react-icons/im";
+import { useNavigate } from "react-router-dom";
 import DeletePhotos from "./DeletePhotos";
 
 function Table({ photoDetails, setPhotoDetails, imageCat }) {

@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
 import Masonry from "react-masonry-css";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Error from "../../../Pages/Error";
-import { getAllPhotos, fetchPhotoCategories } from "../../../services/operations/imageAPI";
+import {
+  fetchPhotoCategories,
+  getAllPhotos,
+} from "../../../services/operations/imageAPI";
 import Footer from "../../Common/Footer/Footer";
 import LandingImage from "../../Common/landingImage";
 import RedBar from "../../Common/redBar";
-import { FaArrowLeft } from "react-icons/fa";
 
 function CampusImg() {
   const [loading, setLoading] = useState(true);
@@ -22,8 +24,8 @@ function CampusImg() {
   useEffect(() => {
     const getAllCampCat = async () => {
       try {
-        const res = await fetchPhotoCategories()
-        const imgCat_id = res.find((item) => item._id === campusLifeName)
+        const res = await fetchPhotoCategories();
+        const imgCat_id = res.find((item) => item._id === campusLifeName);
         setImgCatId(imgCat_id._id);
         setImgCategory(imgCat_id);
       } catch (error) {

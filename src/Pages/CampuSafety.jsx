@@ -1,7 +1,7 @@
-import LandingImage from "../components/Common/landingImage";
-import RedBar from "../components/Common/redBar";
 import Safety from "../assets/College/Safety.png";
 import Footer from "../components/Common/Footer/Footer";
+import LandingImage from "../components/Common/landingImage";
+import RedBar from "../components/Common/redBar";
 
 function CampuSafety() {
   return (

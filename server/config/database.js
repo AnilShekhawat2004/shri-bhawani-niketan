@@ -2,13 +2,14 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 exports.connect = () => {
-    mongoose.connect(process.env.MONGODB_URL, {
-        serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds
+  mongoose
+    .connect(process.env.MONGODB_URL, {
+      serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds
     })
     .then(() => console.log("DB Connected Successfully"))
     .catch((error) => {
-        console.log("DB Connection Failed");
-        console.error(error);
-        process.exit(1);
+      console.log("DB Connection Failed");
+      console.error(error);
+      process.exit(1);
     });
 };

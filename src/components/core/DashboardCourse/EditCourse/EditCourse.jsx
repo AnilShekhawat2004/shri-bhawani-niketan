@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { getCourseCategoryDetails } from "../../../../services/operations/courseAPI";
-import { setEditCourse, setCourse } from "../../../../slices/courseSlice";
-import AddCourse from "../AddCourse/AddCourse";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { getCourseCategoryDetails } from "../../../../services/operations/courseAPI";
+import { setCourse, setEditCourse } from "../../../../slices/courseSlice";
+import AddCourse from "../AddCourse/AddCourse";
 
 export default function EditCourse() {
   const dispatch = useDispatch();

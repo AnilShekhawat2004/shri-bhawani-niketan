@@ -7,7 +7,7 @@ import {
   createNews,
   updateNews,
 } from "../../../../services/operations/newsAPI";
-import { setNews, setEditNews } from "../../../../slices/newsSlice";
+import { setEditNews, setNews } from "../../../../slices/newsSlice";
 import Upload from "../../Faculty/Upload";
 
 const statusDrop = [

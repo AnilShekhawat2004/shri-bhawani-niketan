@@ -4,8 +4,8 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import { PiEye } from "react-icons/pi";
 import { RiGroupLine } from "react-icons/ri";
-import DeleteFaculty from "./DeleteFaculty";
 import { useNavigate } from "react-router-dom";
+import DeleteFaculty from "./DeleteFaculty";
 
 function Table({ teachDetails, setTeachDetails, teachCat }) {
   const [page, setPage] = useState(1);

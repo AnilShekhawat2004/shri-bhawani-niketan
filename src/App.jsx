@@ -1,62 +1,64 @@
-import "./App.css";
 import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import Home from "./Pages/Home";
+import "./App.css";
 import Navbar from "./components/Common/Navbar/Navbar";
-import Contact from "./Pages/Contact";
-import About from "./Pages/About";
-import { ACCOUNT_TYPE } from "./utils/constants";
-import Staff from "./Pages/Staff";
-import TeacherPage from "./components/core/Staff/TeacherPage";
-import TeacherResume from "./components/core/Staff/TeacherResume";
-import Employment from "./Pages/Employment";
-import CampusMap from "./Pages/CampusMap";
-import Trustees from "./Pages/Trustees";
-import Policy from "./Pages/Policy";
-import HarassmentPolicy from "./Pages/HarassmentPolicy";
-import Visit from "./Pages/Visit";
-import Give from "./Pages/Give";
-import Payment from "./components/core/Payment/Payment";
-import News from "./Pages/News";
-import NewsDetails from "./components/core/News/NewsDetails";
-import Apply from "./Pages/Apply";
-import Events from "./Pages/Events";
-import Achievement from "./Pages/Achievement";
-import CampuSafety from "./Pages/CampuSafety";
-import CampusLife from "./Pages/CampusLife";
-import CampusImg from "./components/core/CampusLife/CampusImg";
-import CategoryProgram from "./Pages/CategoryProgram";
-import Courses from "./components/core/Courses/Courses";
-import CourseDetails from "./components/core/Courses/CourseDetails";
-import Login from "./Pages/Login";
-import Faculty from "./components/core/DashBoard/Faculty";
 import PrivateRoute from "./components/core/Auth/PrivateRoute";
-import AddFaculty from "./components/core/Faculty/AddFaculty/addFaculty";
-import FacultyNext from "./components/core/Faculty/AddFaculty/FacultyNext";
-import EditFaculty from "./components/core/Faculty/EditFaculty/EditFaculty";
-import EditFacultyNext from "./components/core/Faculty/EditFaculty/EditFacultyNext";
+import CampusImg from "./components/core/CampusLife/CampusImg";
+import CourseDetails from "./components/core/Courses/CourseDetails";
+import Courses from "./components/core/Courses/Courses";
+import DashBoardAchievement from "./components/core/DashBoard/Achievement";
+import DashBoardContact from "./components/core/DashBoard/ContactUs";
 import DashboardCourses from "./components/core/DashBoard/Courses";
+import DashBoardEvent from "./components/core/DashBoard/Event";
+import Faculty from "./components/core/DashBoard/Faculty";
+import DashBoardNews from "./components/core/DashBoard/News";
+import DashBoardPayment from "./components/core/DashBoard/Payment";
+import DashBoardPhoto from "./components/core/DashBoard/Photos";
+import AddAchievement from "./components/core/DashBoardAchievement/AddAchievement/addAchievement";
+import EditAchievement from "./components/core/DashBoardAchievement/EditAchievement/editAchievement";
+import ContactDetails from "./components/core/DashBoardContact/ContactDetails";
+import EditContact from "./components/core/DashBoardContact/EditContact";
 import AddCourse from "./components/core/DashboardCourse/AddCourse/AddCourse";
 import AddCourseDetails from "./components/core/DashboardCourse/AddCourse/AddCourseDetails";
 import EditCourse from "./components/core/DashboardCourse/EditCourse/EditCourse";
 import EditCourseDetails from "./components/core/DashboardCourse/EditCourse/EditCourseDetails";
-import DashBoardEvent from "./components/core/DashBoard/Event";
 import AddEvent from "./components/core/DashBoardEvent/AddEvent/addEvent";
 import EditEvent from "./components/core/DashBoardEvent/EditEvent/editEvent";
-import DashBoardNews from "./components/core/DashBoard/News";
 import AddNews from "./components/core/DashBoardNews/AddNews/addNews";
 import EditNews from "./components/core/DashBoardNews/EditNews/editNews";
-import DashBoardAchievement from "./components/core/DashBoard/Achievement";
-import AddAchievement from "./components/core/DashBoardAchievement/AddAchievement/addAchievement";
-import EditAchievement from "./components/core/DashBoardAchievement/EditAchievement/editAchievement";
-import DashBoardPhoto from "./components/core/DashBoard/Photos";
+import PaymentDetails from "./components/core/DashBoardPayment/PaymentDetails";
 import AddPhoto from "./components/core/DashBoardPhotos/AddPhotos/addPhoto";
 import EditPhoto from "./components/core/DashBoardPhotos/EditPhotos/editPhoto";
-import DashBoardPayment from "./components/core/DashBoard/Payment";
-import PaymentDetails from "./components/core/DashBoardPayment/PaymentDetails";
-import DashBoardContact from "./components/core/DashBoard/ContactUs";
-import ContactDetails from "./components/core/DashBoardContact/ContactDetails";
-import EditContact from "./components/core/DashBoardContact/EditContact";
+import AddFaculty from "./components/core/Faculty/AddFaculty/addFaculty";
+import FacultyNext from "./components/core/Faculty/AddFaculty/FacultyNext";
+import EditFaculty from "./components/core/Faculty/EditFaculty/EditFaculty";
+import EditFacultyNext from "./components/core/Faculty/EditFaculty/EditFacultyNext";
+import NewsDetails from "./components/core/News/NewsDetails";
+import Payment from "./components/core/Payment/Payment";
+import Settings from "./components/core/Profile/DashBoardSettings";
+import Profile from "./components/core/Profile/Profile";
+import TeacherPage from "./components/core/Staff/TeacherPage";
+import TeacherResume from "./components/core/Staff/TeacherResume";
+import About from "./Pages/About";
+import Achievement from "./Pages/Achievement";
+import Apply from "./Pages/Apply";
+import CampuSafety from "./Pages/CampuSafety";
+import CampusLife from "./Pages/CampusLife";
+import CampusMap from "./Pages/CampusMap";
+import CategoryProgram from "./Pages/CategoryProgram";
+import Contact from "./Pages/Contact";
+import Employment from "./Pages/Employment";
+import Events from "./Pages/Events";
+import Give from "./Pages/Give";
+import HarassmentPolicy from "./Pages/HarassmentPolicy";
+import Home from "./Pages/Home";
+import Login from "./Pages/Login";
+import News from "./Pages/News";
+import Policy from "./Pages/Policy";
+import Staff from "./Pages/Staff";
+import Trustees from "./Pages/Trustees";
+import Visit from "./Pages/Visit";
+import { ACCOUNT_TYPE } from "./utils/constants";
 
 function App() {
   const { user } = useSelector((state) => state.profile);
@@ -421,6 +423,24 @@ function App() {
                 }
               />
             </Route>
+
+            <Route
+              path="/dashboard/profile"
+              element={
+                <PrivateRoute>
+                  <Profile />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="/dashboard/settings"
+              element={
+                <PrivateRoute>
+                  <Settings />
+                </PrivateRoute>
+              }
+            />
           </>
         )}
       </Routes>

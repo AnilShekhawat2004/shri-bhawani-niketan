@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowBack, IoIosArrowForward, IoIosMail } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import { PiEye } from "react-icons/pi";
-import { IoIosMail } from "react-icons/io";
-import DeleteContact from "./DeleteContact";
 import { useNavigate } from "react-router-dom";
+import DeleteContact from "./DeleteContact";
 
 const statusDrop = [
   { id: "All", state: "All Status" },

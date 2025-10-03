@@ -15,7 +15,7 @@ const profileRoute = require("./routes/Profile");
 const teacherRoute = require("./routes/Teacher");
 const userRoute = require("./routes/User");
 const paymentRoute = require("./routes/Payment");
-const eventRoute = require("./routes/Events")
+const eventRoute = require("./routes/Events");
 
 // Load config from file
 const PORT = process.env.PORT || 4000;

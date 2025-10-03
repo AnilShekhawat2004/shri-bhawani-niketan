@@ -1,11 +1,11 @@
 import { useState } from "react";
+import { BsFillTrophyFill } from "react-icons/bs";
 import { FaRegEdit } from "react-icons/fa";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import { PiEye } from "react-icons/pi";
-import { BsFillTrophyFill } from "react-icons/bs";
-import DeleteAchievement from "./DeleteAchievement";
 import { useNavigate } from "react-router-dom";
+import DeleteAchievement from "./DeleteAchievement";
 
 function Table({ achieveDetails, setAchieveDetails }) {
   const [page, setPage] = useState(1);

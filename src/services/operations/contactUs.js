@@ -9,6 +9,8 @@ const {
   DELETE_CONTACT_API,
   GET_CONTACT_COUNTS_API,
   GET_CONTACT_DETAILS_API,
+  GET_UNSEEN_CONTACT_API,
+  MARKING_SEEN_CONTACT_API,
 } = contactusEndpoints;
 
 // Submit Contact Us Form
@@ -134,5 +136,38 @@ export const getContactDetails = async (contactId, token) => {
     toast.error(error?.response?.data?.message || error.message);
   }
   toast.dismiss(toastId);
+  return result;
+};
+
+export const getUnseenContact = async () => {
+  let result = [];
+  try {
+    const response = await apiConnector("GET", GET_UNSEEN_CONTACT_API);
+    if (!response?.data?.success) {
+      throw new Error(response?.data?.message || "Could not Fetch Notifcation");
+    }
+    result = response?.data?.data;
+  } catch (error) {
+    console.log("GET_UNSEEN_CONTACT_API Error........", error);
+    toast.error(error?.response?.data?.message || error.message);
+  }
+  return result;
+};
+
+export const markingSeenContact = async () => {
+  let result = [];
+  try {
+    const response = await apiConnector("POST", MARKING_SEEN_CONTACT_API);
+
+    if (!response?.data?.success) {
+      throw new Error(
+        response?.data?.message || "Could not Mark seen notfication"
+      );
+    }
+    result = response?.data?.data;
+  } catch (error) {
+    console.log("MARKING_SEEN_CONTACT_API Error........", error);
+    toast.error(error?.response?.data?.message || error.message);
+  }
   return result;
 };

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { showAllCategoryPrograms } from "../../../services/operations/courseAPI";
-import Error from "../../../Pages/Error";
-import RButton from "../../Common/Buttons/rButton";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Error from "../../../Pages/Error";
+import { showAllCategoryPrograms } from "../../../services/operations/courseAPI";
+import RButton from "../../Common/Buttons/rButton";
 
 function ProgramCard() {
   const [loading, setLoading] = useState(true);
@@ -75,8 +75,10 @@ function ProgramCard() {
               {category.description}
             </p>
 
-            <Link to={`/course/${category.name.split(" ").join("-").toLowerCase()}`}>
-                <RButton className="w-[200px] mt-2">{"Discover Program"}</RButton>
+            <Link
+              to={`/course/${category.name.split(" ").join("-").toLowerCase()}`}
+            >
+              <RButton className="w-[200px] mt-2">{"Discover Program"}</RButton>
             </Link>
           </div>
         </div>

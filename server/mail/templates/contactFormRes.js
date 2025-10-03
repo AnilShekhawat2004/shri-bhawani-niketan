@@ -7,7 +7,7 @@ exports.contactUsEmail = (
   contactNumber,
   city,
   state,
-  pincode,
+  pincode
 ) => {
   return `<!DOCTYPE html>
 <html>

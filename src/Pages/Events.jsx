@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { getAllEvents } from "../services/operations/eventAPI";
+import { useEffect, useState } from "react";
+import { FaArrowLeft } from "react-icons/fa";
+import { useLocation, useNavigate } from "react-router-dom";
+import EventImage from "../assets/College/Event.jpg";
 import Footer from "../components/Common/Footer/Footer";
 import LandingImage from "../components/Common/landingImage";
 import RedBar from "../components/Common/redBar";
+import { getAllEvents } from "../services/operations/eventAPI";
 import Error from "./Error";
-import EventImage from "../assets/College/Event.jpg";
-import { useLocation, useNavigate } from "react-router-dom";
-import { FaArrowLeft } from "react-icons/fa";
 
 function Events() {
   const [loading, setLoading] = useState(true);

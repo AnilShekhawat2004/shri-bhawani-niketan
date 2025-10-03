@@ -1,10 +1,9 @@
+import { Link, useLocation } from "react-router-dom";
 import ErrorImage from "../assets/College/Error.png";
 import MButton from "../components/Common/Buttons/mButton";
-import { Link, useLocation } from "react-router-dom";
 
 function Error() {
-
-  const location = useLocation()
+  const location = useLocation();
 
   const BackUpto = ["/dashboard"].some((path) =>
     location.pathname.includes(path)
@@ -23,8 +22,10 @@ function Error() {
         <div className="w-[80%] bg-bhawaniYellow h-[2px]"></div>
       </div>
 
-      <Link to={ BackUpto ? "/dashboard/faculty" : "/"} className="mt-10">
-        <MButton className="text-[20px]">{ BackUpto ? "Go to Dashboard" : "Go to HomePage"}</MButton>
+      <Link to={BackUpto ? "/dashboard/faculty" : "/"} className="mt-10">
+        <MButton className="text-[20px]">
+          {BackUpto ? "Go to Dashboard" : "Go to HomePage"}
+        </MButton>
       </Link>
     </div>
   );
