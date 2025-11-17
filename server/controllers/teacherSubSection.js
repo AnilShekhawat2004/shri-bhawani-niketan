@@ -30,7 +30,7 @@ exports.createSubSection = async (req, res) => {
       !professionalHistory ||
       !love
     ) {
-      return res.status(404).json({
+      return res.status(400).json({
         success: false,
         message: "All fields are required to create a subsection",
       });
@@ -38,7 +38,7 @@ exports.createSubSection = async (req, res) => {
 
     const sectionDetails = await TeacherSection.findById(teacherSection);
     if (!sectionDetails) {
-      return res.status(500).json({
+      return res.status(404).json({
         success: true,
         message: "Teacher Section not found",
       });
@@ -75,7 +75,7 @@ exports.createSubSection = async (req, res) => {
     ).populate("SubSection");
 
     //return response
-    return res.status(200).json({
+    return res.status(201).json({
       success: true,
       message: "SubSection is created successfully",
       data: updatedSection,
@@ -217,7 +217,6 @@ exports.getAllSubSection = async (req, res) => {
       data: allSubSection,
     });
   } catch (error) {
-    console.log("Error while fetching the Teacher SubSection details", error);
     return res.status(500).json({
       success: false,
       message: error.message,

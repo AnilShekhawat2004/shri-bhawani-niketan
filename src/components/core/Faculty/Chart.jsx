@@ -5,9 +5,8 @@ import { Bar } from "react-chartjs-2";
 Chart.register(...registerables, ChartDataLabels);
 
 function DataChart({ teacher }) {
-  // Classic single color scheme (blue)
-  const baseColor = "#2563eb"; // blue-600
-  const hoverColor = "#1d4ed8"; // blue-700
+  const baseColor = "#6366f1"; // Indigo-500
+  const hoverColor = "#4f46e5"; // Indigo-600
 
   const chartData = {
     labels: teacher.map((teach) => teach.name),
@@ -16,7 +15,7 @@ function DataChart({ teacher }) {
         label: "Total Faculty",
         data: teacher.map((teach) => Object.keys(teach.Section).length),
         backgroundColor: baseColor,
-        borderRadius: 8,
+        borderRadius: 10,
         hoverBackgroundColor: hoverColor,
       },
     ],
@@ -43,7 +42,7 @@ function DataChart({ teacher }) {
     scales: {
       x: {
         ticks: { display: false },
-        grid: { display: false, drawBorder: true, color: "#000" },
+        grid: { display: false },
         border: { display: true, color: "#000" },
       },
       y: {
@@ -52,7 +51,7 @@ function DataChart({ teacher }) {
           stepSize: 1,
           precision: 0,
         },
-        grid: { display: false, drawBorder: true, color: "#000" },
+        grid: { display: false },
         border: { display: true, color: "#000" },
         beginAtZero: true,
       },
@@ -60,13 +59,21 @@ function DataChart({ teacher }) {
   };
 
   return (
-    <div className="mt-10 bg-white border-gray-300 border-[1px] rounded-2xl shadow-2xl pt-16 pb-10 pl-14 pr-14 w-[80%] h-auto">
-      <div className="mb-8 ml-4">
-        <p className="text-bhawaniDark font-m1 font-extrabold text-[35px]">
+    <div className="relative flex flex-col items-center mt-12 w-full md:w-[85%]  bg-gradient-to-br from-white via-violet-50 to-violet-100 rounded-3xl shadow-xl border border-violet-200 backdrop-blur-sm p-10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
+      {/* Decorative glow effects */}
+      <div className="absolute -top-8 -right-8 w-32 h-32 bg-violet-300 rounded-full blur-3xl opacity-40"></div>
+      <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-blue-300 rounded-full blur-3xl opacity-40"></div>
+
+      {/* Header */}
+      <div className="z-10 mb-10 text-center">
+        <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-bhawaniDark to-blue-700 font-m1 font-extrabold text-3xl md:text-4xl mb-2 tracking-wide">
           Faculty by Department
-        </p>
+        </h2>
+        <div className="w-24 h-1 mx-auto rounded-full bg-gradient-to-r from-bhawaniDark to-blue-600"></div>
       </div>
-      <div className="h-[400px] w-full">
+
+      {/* Chart Box */}
+      <div className="z-10 relative bg-white/80 backdrop-blur-md rounded-2xl shadow-inner border border-gray-200 w-full h-[400px] p-6 hover:shadow-lg transition-all duration-500">
         <Bar data={chartData} options={options} plugins={[ChartDataLabels]} />
       </div>
     </div>
@@ -74,3 +81,4 @@ function DataChart({ teacher }) {
 }
 
 export default DataChart;
+

@@ -125,7 +125,6 @@ export const getNewsCounts = async () => {
 };
 
 export const getNewsDetails = async (newsId, token) => {
-  const toastId = toast.loading("Loading...");
   let result = null;
   try {
     const response = await apiConnector(
@@ -147,6 +146,5 @@ export const getNewsDetails = async (newsId, token) => {
     console.error("Get News Details Api Error:", error);
     toast.error(error?.response?.data?.message || error.message);
   }
-  toast.dismiss(toastId);
   return result;
 };

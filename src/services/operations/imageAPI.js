@@ -116,7 +116,6 @@ export const getPhotosCount = async () => {
 };
 
 export const getPhotosDetails = async (photoId, token) => {
-  const toastId = toast.loading("Loading...");
   let result = null;
   try {
     const response = await apiConnector(
@@ -140,7 +139,6 @@ export const getPhotosDetails = async (photoId, token) => {
     console.error("Get Photos Details Api Error:", error);
     toast.error(error?.response?.data?.message || error.message);
   }
-  toast.dismiss(toastId);
   return result;
 };
 

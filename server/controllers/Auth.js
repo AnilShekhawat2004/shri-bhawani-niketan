@@ -14,7 +14,7 @@ exports.login = async (req, res) => {
 
     // Validation
     if (!email || !password) {
-      return res.status(404).json({
+      return res.status(400).json({
         success: false,
         message: "Please provide both email and password",
       });
@@ -23,7 +23,7 @@ exports.login = async (req, res) => {
     // Check if user exists
     const user = await User.findOne({ email }).populate("additionalDetails");
     if (!user) {
-      return res.status(404).json({
+      return res.status(401).json({
         success: false,
         message: "User not found. Please enter a correct email.",
       });
@@ -32,7 +32,7 @@ exports.login = async (req, res) => {
     // Validate password
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
-      return res.status(404).json({
+      return res.status(401).json({
         success: false,
         message: "Incorrect password. Please try again.",
       });
@@ -51,10 +51,26 @@ exports.login = async (req, res) => {
       httpOnly: true,
     };
 
+    const safeUser = {
+      _id: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      accountType: user.accountType,
+      image: user.image || null,
+      
+      additionalDetails: user.additionalDetails
+        ? {
+            about: user.additionalDetails.about || "",
+            contactNumber: user.additionalDetails.contactNumber || "",
+          }
+        : null,
+    };
+
     return res.cookie("token", token, options).status(200).json({
       success: true,
       token,
-      user,
+      user : safeUser,
       message: "Login successful",
     });
   } catch (error) {
@@ -71,7 +87,7 @@ exports.changePassword = async (req, res) => {
   try {
     // Check if user is authenticated
     if (!req.user || !req.user.id) {
-      return res.status(404).json({
+      return res.status(403).json({
         success: false,
         message: "Unauthorized. Please log in again.",
       });
@@ -81,7 +97,7 @@ exports.changePassword = async (req, res) => {
     const { oldPassword, newPassword } = req.body;
 
     if (oldPassword === newPassword) {
-      return res.status(404).json({
+      return res.status(400).json({
         success: false,
         message: "Both passwords are same",
       });
@@ -93,9 +109,9 @@ exports.changePassword = async (req, res) => {
       userDetails.password
     );
     if (!isPasswordMatch) {
-      return res.status(404).json({
+      return res.status(401).json({
         success: false,
-        message: "Current pasword is incorrect",
+        message: "Enter same password in both fields",
       });
     }
 

@@ -12,7 +12,7 @@ import LandingImage from "../../Common/landingImage";
 import RedBar from "../../Common/redBar";
 
 function CampusImg() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(0);
   const { campusLifeName } = useParams();
   const [imgCatId, setImgCatId] = useState("");
   const [imgCategory, setImgCategory] = useState(null);
@@ -23,6 +23,7 @@ function CampusImg() {
 
   useEffect(() => {
     const getAllCampCat = async () => {
+      setLoading(prev => prev + 1)
       try {
         const res = await fetchPhotoCategories();
         const imgCat_id = res.find((item) => item._id === campusLifeName);
@@ -31,7 +32,7 @@ function CampusImg() {
       } catch (error) {
         console.log("Error fetching Campus id : ", error);
       } finally {
-        setLoading(false);
+        setLoading(prev => prev - 1)
       }
     };
 
@@ -40,6 +41,7 @@ function CampusImg() {
 
   useEffect(() => {
     const getCampusImgDetails = async () => {
+      setLoading(prev => prev + 1)
       try {
         const res = await getAllPhotos(imgCatId);
         const filtered = res.filter((item) =>
@@ -49,7 +51,7 @@ function CampusImg() {
       } catch (error) {
         console.log("Error in fetching campus image : ", error);
       } finally {
-        setLoading(false);
+        setLoading(prev => prev - 1)
       }
     };
 
@@ -71,7 +73,7 @@ function CampusImg() {
     location.pathname.includes(path)
   );
 
-  if (loading)
+  if (loading > 0)
     return (
       <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
         <div className="loader"></div>
@@ -80,21 +82,23 @@ function CampusImg() {
   if (showError) return <Error />;
 
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <div className="relative">
         {imgCategory && (
           <div className={`${BackUpto ? "-mt-[136px]" : "mt-0"}`}>
             <LandingImage
               LineImage={imgCategory.image}
               text={imgCategory.name}
-              className="absolute z-20"
-              textClassName="text-[50px] w-[800px] text-center uppercase font-bold"
+              className="z-10 lg:h-[750px] md:h-[600px] sm:h-full xs:h-full"
+              textClassName="text-[30px] sm:text-[40px] lg:text-[50px] text-center uppercase font-bold"
             />
-            <RedBar
-              className="absolute font-m1"
-              textClassName="font-m1 text-center flex justify-center text-[30px] translate-x-[150px] -translate-y-[20px]"
-              text={imgCategory.description}
-            />
+            <div className="absolute bottom-0 left-0 w-full z-20 xs: sm:translate-y-10 md:translate-y-18 lg:translate-y-24">
+              <RedBar
+                className="font-m1"
+                text={imgCategory.description}
+                textClassName="font-m1 text-center text-[14px] sm:text-[18px] md:text-[24px] lg:text-[28px] xs:max-w-[450px] px-4 xs:pt-[4px]"
+              />
+            </div>
           </div>
         )}
       </div>
@@ -110,7 +114,7 @@ function CampusImg() {
         <FaArrowLeft className=" text-white" />
         <p className="text-white">Back To Dashboard</p>
       </div>
-      <div className="mt-32 w-[90%] mx-auto">
+      <div className="xl:mt-32 lg:mt-32 md:mt-28 mt-20 w-[90%] mx-auto">
         <Masonry
           breakpointCols={{
             default: 3,

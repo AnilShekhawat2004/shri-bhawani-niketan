@@ -10,7 +10,7 @@ import LandingImage from "../../Common/landingImage";
 import RedBar from "../../Common/redBar";
 
 const TeacherPage = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(0);
   const { teachCatName } = useParams();
   const [teachCatId, setTeachCatId] = useState("");
   const [teachCatDetails, setTeachCatDetails] = useState(null);
@@ -20,6 +20,7 @@ const TeacherPage = () => {
 
   useEffect(() => {
     const getAllTeach = async () => {
+      setLoading(prev => prev + 1)
       try {
         const res = await apiConnector(
           "GET",
@@ -33,7 +34,7 @@ const TeacherPage = () => {
       } catch (error) {
         console.log("Error fetching Teacher id : ", error);
       } finally {
-        setLoading(false);
+        setLoading(prev => prev - 1)
       }
     };
 
@@ -42,6 +43,7 @@ const TeacherPage = () => {
 
   useEffect(() => {
     const getTeacherDetails = async () => {
+      setLoading(prev => prev + 1)
       try {
         const res = await getAllSections(teachCatId);
         const filtered = res.filter((item) =>
@@ -51,7 +53,7 @@ const TeacherPage = () => {
       } catch (error) {
         console.log("Error in Fetching the Teacher Details : ", error);
       } finally {
-        setLoading(false);
+        setLoading(prev => prev - 1)
       }
     };
 
@@ -69,7 +71,7 @@ const TeacherPage = () => {
     }
   }, [loading, teacherData]);
 
-  if (loading) {
+  if (loading > 0) {
     return (
       <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
         <div className="loader"></div>
@@ -79,29 +81,31 @@ const TeacherPage = () => {
   if (showError) return <Error />;
 
   return (
-    <div className="">
+    <div className="overflow-x-hidden w-full">
       <div className="relative">
         {teachCatDetails && (
           <div>
             <LandingImage
               LineImage={teachCatDetails.landingImage}
               text={teachCatDetails.name}
-              className="absolute z-20"
-              textClassName="text-[50px] w-[800px] text-center uppercase font-bold"
+              className="z-10 xl:h-[750px] lg:h-[750px] md:h-[600px] sm:h-[500px] xs:h-[400px]"
+              textClassName="text-[30px] sm:text-[50px] lg:text-[60px] text-center uppercase font-bold"
             />
-            <RedBar
-              className="absolute font-m1"
-              textClassName="font-m1 text-center flex justify-center text-[30px] translate-x-[150px] -translate-y-[20px]"
-              text={teachCatDetails.description}
-            />
+            <div className="absolute bottom-0 left-0 w-full z-20 xs:translate-y-5 sm:translate-y-16 md:translate-y-[4rem] lg:translate-y-24">
+              <RedBar
+                className="font-m1"
+                text={teachCatDetails.description}
+                textClassName="font-m1 text-center text-[14px] sm:text-[22px] md:text-[24px] lg:text-[28px] px-4 xs:pt-[1px]"
+              />
+            </div>
           </div>
         )}
       </div>
-      <div className="w-[85%] mt-32 mb-32 mx-auto gap-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="w-[85%] xl:mt-32 lg:mt-32 md:mt-28 sm:mt-24 xs:mt-20 xl:mb-32 lg:mb-32 md:mb-28 sm:mb-24 xs:mb-20 mx-auto gap-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {teacherData.map((teacher) => (
           <Link
             key={teacher._id}
-            className="relative group w-[300px] h-[388.8px] cursor-pointer overflow-hidden hover:shadow-xl"
+            className="relative group w-full aspect-[3/4] cursor-pointer overflow-hidden hover:shadow-xl"
             to={`/staff/${teachCatName}/${teacher.name
               .split(" ")
               .join("-")

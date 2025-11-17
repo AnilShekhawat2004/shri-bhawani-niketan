@@ -59,6 +59,7 @@ import Staff from "./Pages/Staff";
 import Trustees from "./Pages/Trustees";
 import Visit from "./Pages/Visit";
 import { ACCOUNT_TYPE } from "./utils/constants";
+import ScrollToTop from "./components/Common/ScrollToTop"
 
 function App() {
   const { user } = useSelector((state) => state.profile);
@@ -66,6 +67,7 @@ function App() {
   return (
     <div>
       <Navbar />
+      <ScrollToTop/>
       <Routes>
         <Route path="/" element={<Home />} />
 
@@ -86,7 +88,7 @@ function App() {
 
         <Route path="/campus-map" element={<CampusMap />} />
 
-        <Route path="/trustess" element={<Trustees />} />
+        <Route path="/trustees" element={<Trustees />} />
 
         <Route path="/privacy-policy" element={<Policy />} />
 

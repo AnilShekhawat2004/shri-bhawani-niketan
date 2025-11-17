@@ -111,7 +111,6 @@ export const getContactCounts = async () => {
 };
 
 export const getContactDetails = async (contactId, token) => {
-  const toastId = toast.loading("Loading...");
   let result = null;
   try {
     const response = await apiConnector(
@@ -135,7 +134,6 @@ export const getContactDetails = async (contactId, token) => {
     console.error("Get Inquiry Details Api Error:", error);
     toast.error(error?.response?.data?.message || error.message);
   }
-  toast.dismiss(toastId);
   return result;
 };
 

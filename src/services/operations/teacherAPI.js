@@ -122,7 +122,6 @@ export const getCounts = async () => {
 };
 
 export const getTeachDetails = async (teachId, token) => {
-  const toastId = toast.loading("Loading...");
   let result = null;
   try {
     const response = await apiConnector(
@@ -146,7 +145,6 @@ export const getTeachDetails = async (teachId, token) => {
     console.error("Get Teach Details Api Error:", error);
     toast.error(error?.response?.data?.message || error.message);
   }
-  toast.dismiss(toastId);
   return result;
 };
 

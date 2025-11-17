@@ -30,7 +30,7 @@ exports.createCourse = async (req, res) => {
       !duration ||
       !instructorName
     ) {
-      return res.status(404).json({
+      return res.status(400).json({
         success: false,
         message: "All fields are required to create course",
       });
@@ -41,7 +41,7 @@ exports.createCourse = async (req, res) => {
         fees = JSON.parse(fees);
       } catch (err) {
         return res
-          .status(404)
+          .status(400)
           .json({ success: false, message: "Invalid fees format" });
       }
     }
@@ -51,7 +51,7 @@ exports.createCourse = async (req, res) => {
         semesterFees = JSON.parse(semesterFees);
       } catch (err) {
         return res
-          .status(404)
+          .status(400)
           .json({ success: false, message: "Invalid semesterFees format" });
       }
     }
@@ -68,7 +68,7 @@ exports.createCourse = async (req, res) => {
     //check if the user is Admin
     const adminDetails = await User.findById(userId);
     if (!adminDetails || adminDetails.accountType !== "Admin") {
-      return res.status(404).json({
+      return res.status(401).json({
         success: false,
         message: "Only Admin can create a course",
       });
@@ -113,7 +113,7 @@ exports.createCourse = async (req, res) => {
       { new: true }
     );
 
-    return res.status(200).json({
+    return res.status(201).json({
       success: true,
       data: newCourse,
       message: "Course Details Created Successfully",
@@ -175,11 +175,11 @@ exports.editCourse = async (req, res) => {
     if (fees !== undefined) {
       if (!Array.isArray(fees)) {
         return res
-          .status(404)
+          .status(400)
           .json({ success: false, message: "Fees must be an array" });
       }
       if (duration !== undefined && fees.length !== duration) {
-        return res.status(404).json({
+        return res.status(400).json({
           success: false,
           message: "Fees array length must match course duration",
         });
@@ -190,12 +190,12 @@ exports.editCourse = async (req, res) => {
     if (semesterFees !== undefined) {
       if (!Array.isArray(semesterFees)) {
         return res
-          .status(404)
+          .status(400)
           .json({ success: false, message: "Semester Fees must be an array" });
       }
       const count = (duration || course.duration) * 2; // use updated or existing duration
       if (semesterFees.length !== count) {
-        return res.status(404).json({
+        return res.status(400).json({
           success: false,
           message: `Semester Fees must have ${count} entries`,
         });

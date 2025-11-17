@@ -14,7 +14,7 @@ exports.createSection = async (req, res) => {
 
     //validation
     if (!name || !designation || !teachCat || !image) {
-      return res.status(404).json({
+      return res.status(400).json({
         success: false,
         message: "All fields are required",
       });
@@ -34,7 +34,6 @@ exports.createSection = async (req, res) => {
       image,
       process.env.FOLDER_NAME
     );
-    console.log(thumbnailImage);
 
     //cerate a new course with the given details
     const newSection = await teacherSection.create({
@@ -54,9 +53,8 @@ exports.createSection = async (req, res) => {
       },
       { new: true }
     );
-    console.log(categoryDetails2);
 
-    return res.status(200).json({
+    return res.status(201).json({
       success: true,
       message: "Section is Created Successfully",
       data: newSection,
@@ -93,7 +91,6 @@ exports.editSection = async (req, res) => {
 
     //if thumbanil image is found, update it
     if (req.files) {
-      console.log("image update");
       const image = req.files.thumbnailImage;
       const thumbnailImage = await uploadImageToCloudinary(
         image,
@@ -186,7 +183,6 @@ exports.deleteSection = async (req, res) => {
       message: "Section and related SubSection are deleted successfully",
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       success: false,
       message: error.message,

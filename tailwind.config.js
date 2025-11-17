@@ -27,6 +27,13 @@ module.exports = {
         bhawaniBlue: "#68d2df",
       },
     },
+    screens: {
+      xs: "300px", // custom breakpoint
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+    },
   },
   plugins: [],
 };

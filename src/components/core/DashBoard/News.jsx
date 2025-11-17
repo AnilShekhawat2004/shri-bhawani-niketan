@@ -11,13 +11,14 @@ import Sidebar from "./SideBar";
 
 function News() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(0);
   const [newsDetails, setNewsDetails] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     const fetchNews = async () => {
+      setLoading(prev => prev + 1)
       try {
         const res = await getAllNews();
         if (res && res.length > 0) {
@@ -26,7 +27,7 @@ function News() {
       } catch (error) {
         console.log("Error fetching news :", error);
       } finally {
-        setLoading(false);
+        setLoading(prev => prev - 1)
       }
     };
 
@@ -37,7 +38,7 @@ function News() {
     setIsSidebarOpen((prev) => !prev);
   };
 
-  if (loading)
+  if (loading > 0)
     return (
       <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
         <div className="loader"></div>

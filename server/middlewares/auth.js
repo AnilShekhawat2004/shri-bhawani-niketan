@@ -14,7 +14,7 @@ exports.auth = async (req, res, next) => {
 
     // If token is missing, return an error
     if (!token) {
-      return res.status(404).json({
+      return res.status(401).json({
         success: false,
         message: "Token is missing",
       });
@@ -26,7 +26,7 @@ exports.auth = async (req, res, next) => {
       req.user = decoded; // Attach decoded user info to request
       next();
     } catch (error) {
-      return res.status(404).json({
+      return res.status(401).json({
         success: false,
         message: "Token is invalid",
       });
@@ -45,8 +45,7 @@ exports.isAdmin = async (req, res, next) => {
   try {
     // Ensure req.user exists before accessing accountType
     if (!req.user || req.user.accountType !== "Admin") {
-      return res.status(404).json({
-        // 403 is better for "Forbidden"
+      return res.status(403).json({
         success: false,
         message: "Access denied. Admins only.",
       });

@@ -59,7 +59,7 @@ function BottomSection({ className }) {
         <Link
           to={item.link}
           key={item.id}
-          className="group relative flex flex-col justify-center items-center w-full lg:w-[365px] h-[200px] lg:h-[144.2px] lg:border-white lg:border-r-[0.5px]"
+          className="group relative flex flex-col justify-center items-center w-full lg:w-[365px] h-[200px] lg:h-[144.2px] xs:h-[150px] lg:border-white lg:border-r-[0.5px]"
         >
           <span
             className={`lg:absolute z-10 left-0 top-0 -translate-y-[55px] h-1 w-0 lg:transition-all lg:duration-700 lg:group-hover:w-[365px] ${item.color}`}

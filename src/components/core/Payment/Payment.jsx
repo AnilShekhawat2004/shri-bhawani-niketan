@@ -134,35 +134,39 @@ const Payment = () => {
   }, [isPaymentSuccessful, reset]);
 
   return (
-    <div>
-      <LandingImage
-        LineImage={Price}
-        text={"Give Now"}
-        className="absolute z-20"
-        textClassName="text-[60px] text-center uppercase font-bold translate-y-9"
-      />
+    <div className="overflow-x-hidden">
+      <div className="relative">
+        <LandingImage
+          LineImage={Price}
+          text={"Give Now"}
+          className="z-10 lg:h-[750px] md:h-[600px] sm:h-full xs:h-full"
+          textClassName="text-[25px] sm:text-[40px] lg:text-[50px] text-center uppercase font-bold"
+        />
 
-      <RedBar
-        text="Thank you for taking this meaningful step your generosity supports education, empowers students, and helps us build a stronger future together. We deeply appreciate it."
-        className="absolute font-semibold"
-        textClassName="font-m1 text-center text-[28px] flex justify-center translate-x-[150px] -translate-y-[20px]"
-      />
+        <div className="absolute bottom-0 left-0 w-full z-20 xs: sm:translate-y-10 md:translate-y-18 lg:translate-y-24">
+          <RedBar
+            className="font-m1"
+            text="Thank you for taking this meaningful step your generosity supports education, empowers students, and helps us build a stronger future together. We deeply appreciate it."
+            textClassName="font-m1 text-center text-[13px] sm:text-[18px] md:text-[24px] lg:text-[28px] xs:max-w-[500px] px-4 xs:pt-[5px]"
+          />
+        </div>
+      </div>
 
-      <div className="mt-32 w-[85%] mx-auto flex flex-row gap-10 justify-center items-center">
+      <div className="xl:mt-[150px] lg:mt-[150px] md:mt-32 mt-20 xl:w-[85%] lg:w-[85%] md:w-[85%] w-[90%] mx-auto flex xl:flex-row lg:flex-row md:flex-row flex-col gap-10 justify-center items-center">
         <img
           src={Donate}
           alt="Donate"
           loading="lazy"
-          className="w-[40%] h-[650px] mt-20 rounded-3xl shadow-xl -translate-y-10"
+          className="xl:w-[40%] lg:w-[40%] md:w-[40%] sm:w-[60%] w-[80%] xl:h-[650px] lg:h-[650px] md:h-[550px] h-[430px] xl:mt-20 lg:mt-20 md:mt-20 rounded-3xl shadow-xl xl:-translate-y-10 lg:-translate-y-10 md:-translate-y-10"
         />
 
         <form
           onSubmit={handleSubmit(submitPayment)}
-          className="w-[40%] mx-auto bg-white rounded-3xl shadow-xl border-gray-200"
+          className="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl border-gray-200"
         >
-          <div className="bg-gradient-to-r from-bhawaniDark to-bhawaniDark2 py-6 px-8 rounded-t-3xl">
-            <h2 className="text-white text-3xl font-bold">Join Our Cause</h2>
-            <p className="text-white text-sm">
+          <div className="bg-gradient-to-r from-bhawaniDark to-bhawaniDark2 xl:py-6 lg:py-6 md:py-5 sm:py-4 xs:py-3 px-8 rounded-t-3xl">
+            <h2 className="text-white xl:text-3xl lg:text-3xl md:text-2xl text-xl font-bold">Join Our Cause</h2>
+            <p className="text-white xl:text-sm lg:text-sm text-[12px]">
               Your support means the world to us!
             </p>
           </div>

@@ -11,13 +11,14 @@ import Sidebar from "./SideBar";
 
 function Event() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(0);
   const [eventDetails, setEventDetails] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     const fetchEvent = async () => {
+      setLoading(prev => prev + 1)
       try {
         const res = await getAllEvents();
         if (res && res.length > 0) {
@@ -26,7 +27,7 @@ function Event() {
       } catch (error) {
         console.error("Error Fetching events : ", error);
       } finally {
-        setLoading(false);
+        setLoading(prev => prev - 1)
       }
     };
     fetchEvent();
@@ -36,7 +37,7 @@ function Event() {
     setIsSidebarOpen((prev) => !prev);
   };
 
-  if (loading)
+  if (loading > 0)
     return (
       <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
         <div className="loader"></div>

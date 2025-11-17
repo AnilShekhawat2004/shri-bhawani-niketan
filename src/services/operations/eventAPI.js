@@ -110,7 +110,6 @@ export const getEventCounts = async () => {
 };
 
 export const getEventDetails = async (eventId, token) => {
-  const toastId = toast.loading("Loading...");
   let result = null;
   try {
     const response = await apiConnector(
@@ -132,6 +131,5 @@ export const getEventDetails = async (eventId, token) => {
     console.error("Get Event Details Api Error:", error);
     toast.error(error?.response?.data?.message || error.message);
   }
-  toast.dismiss(toastId);
   return result;
 };

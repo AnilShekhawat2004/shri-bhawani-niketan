@@ -5,33 +5,37 @@ import RedBar from "../components/Common/redBar";
 
 function CampuSafety() {
   return (
-    <div>
-      <LandingImage
-        LineImage={Safety}
-        text="Campus Safety"
-        className="absolute z-20"
-        textClassName="text-[50px] w-[800px] text-center uppercase font-bold"
-      />
-      <RedBar
-        className="absolute font-m1"
-        textClassName="font-m1 text-center flex justify-center text-[30px] translate-x-[150px] -translate-y-[20px]"
-        text="At Shri Bhawani Niketan College, safety isn't just a policy it's a promise to protect, empower, and create a fearless, thriving environment for every student"
-      />
+    <div className="overflow-x-hidden">
+      <div className="relative">
+        <LandingImage
+          LineImage={Safety}
+          text="Campus Safety"
+          className="z-10 lg:h-[750px] md:h-[600px] sm:h-full xs:h-full"
+          textClassName="text-[30px] sm:text-[40px] lg:text-[50px] text-center uppercase font-bold"
+        />
+        <div className="absolute bottom-0 left-0 w-full z-20 xs: sm:translate-y-10 md:translate-y-18 lg:translate-y-24">
+          <RedBar
+            className="font-m1"
+            text="At Shri Bhawani Niketan College, safety isn't just a policy it's a promise to protect, empower, and create a fearless, thriving environment for every student"
+            textClassName="font-m1 text-center text-[13px] sm:text-[18px] md:text-[24px] lg:text-[28px] xs:max-w-[500px] px-4 xs:pt-[1px]"
+          />
+        </div>
+      </div>
 
-      <div className="mt-32 w-[75%] mx-auto">
+      <div className="xl:mt-[150px] lg:mt-[150px] md:mt-28 mt-20 xl:w-[75%] lg:w-[75%] md:w-[80%] w-[100%] mx-auto">
         <div className="flex flex-col justify-center items-center gap-3">
-          <p className="text-bhawaniDark text-[40px] font-bold font-m1">
+          <p className="text-bhawaniDark xl:text-[40px] lg:text-[40px] md:text-[35px] sm:text-[30px] text-[25px] font-bold font-m1 text-center">
             Our Campus Safety
           </p>
           <div className="bg-bhawaniYellow w-[60%] h-[2px]"></div>
         </div>
 
-        <div className="mt-32">
-          <div>
-            <p className="text-[40px] text-bhawaniRed font-bold mb-3">
+        <div className="xl:mt-32 lg:mt-32 md:mt-28 mt-20">
+          <div className="xl:ml-0 lg:ml-0 md:ml-0 ml-7">
+            <p className="xl:text-[40px] lg:text-[40px] md:text-[30px] sm:text-[25px] text-[20px] text-bhawaniRed xl:text-start lg:text-start text-center font-bold mb-3">
               Campus Safety
             </p>
-            <p className="text-[20px] leading-relaxed">
+            <p className="xl:text-[20px] lg:text-[20px] md:text-[18px] sm:text-[16px] text-[14px] leading-relaxed">
               At Shri Bhawani Niketan College, the safety and well-being of our
               students, faculty, and visitors is our highest priority. We are
               committed to providing a secure, welcoming, and peaceful campus
@@ -41,10 +45,10 @@ function CampuSafety() {
 
           <div className="mt-16 ml-7">
             <section className="mb-10">
-              <h2 className="text-3xl font-bold text-bhawaniDark mb-3">
+              <h2 className="xl:text-3xl lg:text-3xl md:text-2xl sm:text-xl text-lg font-bold text-bhawaniDark mb-3">
                 Security Measures
               </h2>
-              <ul className="list-disc ml-6 text-lg space-y-1">
+              <ul className="list-disc ml-6 xl:text-lg lg:text-lg md:text-sm text-xs space-y-1">
                 <li>
                   24x7 Security Personnel: Trained security staff are stationed
                   at all major campus entry and exit points.
@@ -67,10 +71,10 @@ function CampuSafety() {
             </section>
 
             <section className="mb-10">
-              <h2 className="text-3xl font-bold text-bhawaniDark mb-3">
+              <h2 className="xl:text-3xl lg:text-3xl md:text-2xl sm:text-xl text-lg font-bold text-bhawaniDark mb-3">
                 Emergency Support
               </h2>
-              <ul className="list-disc ml-6 text-lg space-y-1">
+              <ul className="list-disc ml-6 xl:text-lg lg:text-lg md:text-sm text-xs space-y-1">
                 <li>
                   Emergency Contacts: A dedicated emergency helpline number is
                   available for immediate assistance on campus.
@@ -87,10 +91,10 @@ function CampuSafety() {
             </section>
 
             <section className="mb-10">
-              <h2 className="text-3xl font-bold text-bhawaniDark mb-3">
+              <h2 className="xl:text-3xl lg:text-3xl md:text-2xl sm:text-xl text-lg font-bold text-bhawaniDark mb-3">
                 Awareness & Training
               </h2>
-              <ul className="list-disc ml-6 text-lg space-y-1">
+              <ul className="list-disc ml-6 xl:text-lg lg:text-lg md:text-sm text-xs space-y-1">
                 <li>
                   Workshops & Seminars: Regular sessions on self-defense, cyber
                   safety, and awareness about laws related to student safety.
@@ -104,10 +108,10 @@ function CampuSafety() {
             </section>
 
             <section className="mb-10">
-              <h2 className="text-3xl font-bold text-bhawaniDark mb-3">
+              <h2 className="xl:text-3xl lg:text-3xl md:text-2xl sm:text-xl text-lg font-bold text-bhawaniDark mb-3">
                 Code of Conduct
               </h2>
-              <ul className="list-disc ml-6 text-lg space-y-1">
+              <ul className="list-disc ml-6 xl:text-lg lg:text-lg md:text-sm text-xs space-y-1">
                 <li>
                   All students and staff are expected to adhere to a campus code
                   of conduct that promotes mutual respect, zero tolerance for

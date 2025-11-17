@@ -33,7 +33,7 @@ exports.contactUs = async (req, res) => {
       !inquiry ||
       !countryCode
     ) {
-      return res.status(404).json({
+      return res.status(400).json({
         success: false,
         message: "All fields are required fill for contact us",
       });
@@ -197,7 +197,6 @@ exports.getContactCounts = async (req, res) => {
       },
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       success: false,
       message: error.message,

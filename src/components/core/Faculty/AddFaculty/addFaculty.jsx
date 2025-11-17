@@ -162,7 +162,7 @@ function AddFaculty() {
           id="teachCategory"
           {...register("teachCategory", { required: true })}
           defaultValue=""
-          className="form-input-style text-gray-400"
+          className="form-input-style w-full rounded-lg bg-white text-gray-600"
         >
           <option value="" disabled className="">
             Choose a Department

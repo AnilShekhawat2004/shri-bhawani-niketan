@@ -39,7 +39,7 @@ function HomeSlider() {
           speed={1200}
           fadeEffect={{ crossFade: true }}
           modules={[EffectFade, Autoplay, Navigation]}
-          onSlideChange={(swiper) => setActive(swiper.activeIndex)}
+          onSlideChange={(swiper) => setActive(swiper.realIndex)}
           onSwiper={(swiper) => (swiperRef.current = swiper)}
         >
           {sliderData.map((slide, index) => (
@@ -57,27 +57,27 @@ function HomeSlider() {
                   className="font-helvetica text-2xl lg:bg-black lg:bg-opacity-50 font-semibold absolute inset-0 flex 
                   flex-col items-center justify-center text-white z-20 gap-10"
                 >
-                  <div className="flex flex-col items-center justify-center xl:gap-6 lg:gap-5 md:gap-3 gap-2 lg:-translate-y-10">
-                    <h3 className="xl:text-[20px] lg:text-[18px] md:text-[16px] text-[14px]">
+                  <div className="flex flex-col items-center justify-center xl:gap-6 lg:gap-5 md:gap-3 sm:gap-1 xs:gap-[1px] lg:-translate-y-8 md:-translate-y-6 sm:-translate-y-4 xs:translate-y-6">
+                    <h3 className="xl:text-[20px] lg:text-[18px] md:text-[15px] sm:text-[12px] xs:text-[10px]">
                       WELCOME TO SHRI BHAWANI NIKETAN INSTITUTE
                     </h3>
-                    <h1 className="uppercase xl:text-[60px] lg:text-[50px] md:text-[40px] text-[30px]">
+                    <h1 className="uppercase xl:text-[60px] lg:text-[50px] md:text-[40px] sm:text-[25px] xs:text-[18px]">
                       {slide.title}
                     </h1>
                   </div>
 
-                  <div className="w-full flex flex-row -translate-y-8">
+                  <div className="w-full flex flex-row -translate-y-8 ">
                     <button
                       onClick={() => swiperRef.current?.slidePrev()}
-                      className="flex w-full pl-5 justify-start"
+                      className="flex w-full pl-5 xs:pl-1 justify-start"
                     >
-                      <SlArrowLeft className="lg:text-3xl transition-all duration-[3s] ease-in-out hover:-translate-x-2" />
+                      <SlArrowLeft className="lg:text-3xl transition-all duration-300 ease-in-out hover:-translate-x-2" />
                     </button>
                     <button
                       onClick={() => swiperRef.current?.slideNext()}
-                      className="flex w-full pr-5 justify-end"
+                      className="flex w-full pr-5 xs:pr-1 justify-end"
                     >
-                      <SlArrowRight className="lg:text-3xl transition-all duration-[3s] ease-in-out hover:translate-x-2" />
+                      <SlArrowRight className="lg:text-3xl transition-all duration-300 ease-in-out hover:translate-x-2" />
                     </button>
                   </div>
                 </div>

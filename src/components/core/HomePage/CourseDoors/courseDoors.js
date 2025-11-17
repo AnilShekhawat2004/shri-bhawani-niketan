@@ -10,8 +10,8 @@ function CourseDoors() {
   return (
     <div className="mt-32 mx-auto flex lg:flex-row flex-col-reverse justify-center items-center lg:w-[1205px] lg:h-[687px] ml-30 gap-32">
       {/* Section 1 */}
-      <div className="lg:w-[687px] lg:h-[687px] md:w-[600px] md:h-[600px] w-[450px] h-[450px]">
-        <div className="group relative cursor-pointer lg:w-[687px] lg:h-[344px] md:w-[560px] md:h-[280px] w-[450px] h-[200px] overflow-hidden">
+      <div className="w-[300px] h-[300px] lg:w-[687px] lg:h-[687px] md:w-[600px] md:h-[600px] sm:w-[450px] sm:h-[450px] xs:w-[70vw] xs:h-[350px]">
+        <div className="group relative cursor-pointer lg:w-[687px] lg:h-[344px] md:w-[560px] md:h-[280px] sm:w-[450px] sm:h-[200px] xs:w-[70vw] xs:h-[150px] overflow-hidden">
           {/* Motion Overlay - Covers initially, then moves out */}
           <motion.div
             initial={{ x: "0%" }} // Start fully covering the image
@@ -31,10 +31,10 @@ function CourseDoors() {
           {/* Gradient & Text */}
           <div className="absolute bottom-0 w-full h-1/3 bg-gradient-to-t from-black/100 via-black/50 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-700 shadow-lg shadow-black/50 z-20">
             <div className="absolute inset-0 w-28 translate-x-10 lg:translate-y-5  text-white font-helvetica group-hover:-translate-y-3 transition-all duration-500">
-              <p className="lg:text-[13px] text-[10px] opacity-70">
+              <p className="lg:text-[13px] md:text-[10px] sm:text-[8px] xs:text-[7px] opacity-70">
                 PAST & LEGACY
               </p>
-              <p className="lg:text-[35px] text-[28px] -translate-y-[6px]">
+              <p className="lg:text-[35px] md:text-[28px] sm:text-[25px] xs:text-[22px] -translate-y-[6px]">
                 History
               </p>
             </div>
@@ -42,7 +42,7 @@ function CourseDoors() {
         </div>
 
         <div className="flex flex-row">
-          <div className="group relative cursor-pointer lg:w-[343.5px] lg:h-[344px] md:w-[280px] md:h-[280px] w-[225px] h-[200px] overflow-hidden">
+          <div className="group relative cursor-pointer lg:w-[343.5px] lg:h-[344px] md:w-[280px] md:h-[280px] sm:w-[225px] sm:h-[200px] xs:w-[225px] xs:h-[150px] overflow-hidden">
             <motion.div
               initial={{ y: "0%" }} // Start fully covering the image
               whileInView={{ y: "100%" }} // Moves out to the right when in view
@@ -56,18 +56,18 @@ function CourseDoors() {
               className="absolute w-[343.5px] h-[344px] object-cover"
             />
             <div className="absolute z-10 bottom-0 w-full h-1/3 bg-gradient-to-t from-black/100 via-black/50 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-700 shadow-lg shadow-black/50">
-              <div className="absolute inset-0 translate-x-10 lg:translate-y-5 text-white font-helvetica group-hover:-translate-y-3 transition-all duration-500">
-                <p className="lg:text-[13px] text-[10px] opacity-70">
+              <div className="absolute inset-0 xl:translate-10 lg:translate-x-10 md:translate-x-7 sm:translate-y-5 xs:translate-x-3 lg:translate-y-5 text-white font-helvetica group-hover:-translate-y-3 transition-all duration-500">
+                <p className="lg:text-[13px] md:text-[10px] sm:text-[8px] xs:text-[7px] opacity-70">
                   WILD & LIFE
                 </p>
-                <p className="lg:text-[35px] text-[28px] -translate-y-[6px]">
+                <p className="lg:text-[35px] md:text-[28px] sm:text-[25px] xs:text-[22px] -translate-y-[6px]">
                   Zoology
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="group relative cursor-pointer lg:w-[343.5px] lg:h-[344px] md:w-[280px] md:h-[280px] w-[225px] h-[200px] overflow-hidden">
+          <div className="group relative cursor-pointer lg:w-[343.5px] lg:h-[344px] md:w-[280px] md:h-[280px] sm:w-[225px] sm:h-[200px] xs:w-[225px] xs:h-[150px] overflow-hidden">
             <motion.div
               initial={{ y: "0%" }} // Start fully covering the image
               whileInView={{ y: "-100%" }} // Moves out to the right when in view
@@ -81,11 +81,11 @@ function CourseDoors() {
               className="absolute w-[343.5px] h-[344px] object-cover"
             />
             <div className="absolute z-10 bottom-0 w-full h-1/3 bg-gradient-to-t from-black/100 via-black/50 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-700 shadow-lg shadow-black/50">
-              <div className="absolute inset-0 translate-x-10 lg:translate-y-5 text-white font-helvetica group-hover:-translate-y-3 transition-all duration-500">
-                <p className="lg:text-[13px] text-[10px] opacity-70">
+              <div className="absolute inset-0 xl:translate-10 lg:translate-x-10 md:translate-x-7 sm:translate-y-5 xs:translate-x-3 lg:translate-y-5 text-white font-helvetica group-hover:-translate-y-3 transition-all duration-500">
+                <p className="lg:text-[13px] md:text-[10px] sm:text-[8px] xs:text-[7px] opacity-70">
                   EARTH & BEYOND
                 </p>
-                <p className="lg:text-[35px] text-[28px] -translate-y-[6px]">
+                <p className="lg:text-[35px] md:text-[28px] sm:text-[25px] xs:text-[22px] -translate-y-[6px]">
                   Geography
                 </p>
               </div>

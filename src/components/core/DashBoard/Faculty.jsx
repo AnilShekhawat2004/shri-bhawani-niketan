@@ -12,7 +12,7 @@ import Sidebar from "./SideBar";
 
 function Faculty() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(0);
   const [categories, setCategories] = useState([]);
   const [teachDetails, setTeachDetails] = useState([]);
   const navigate = useNavigate();
@@ -20,6 +20,7 @@ function Faculty() {
 
   useEffect(() => {
     const fetchTeachCat = async () => {
+      setLoading(prev => prev + 1)
       try {
         const res = await getAllTeacherCategories();
         if (res && res.length > 0) {
@@ -28,7 +29,7 @@ function Faculty() {
       } catch (error) {
         console.error("Error Fetching categoires: ", error);
       } finally {
-        setLoading(false);
+        setLoading(prev => prev - 1)
       }
     };
 
@@ -37,6 +38,7 @@ function Faculty() {
 
   useEffect(() => {
     const getTeacherDetails = async () => {
+      setLoading(prev => prev + 1)
       try {
         const res = await getAllSections();
         if (res && res.length > 0) {
@@ -45,7 +47,7 @@ function Faculty() {
       } catch (error) {
         console.log("Error in Fetching the Teacher Data : ", error);
       } finally {
-        setLoading(false);
+        setLoading(prev => prev - 1)
       }
     };
     getTeacherDetails();
@@ -59,7 +61,7 @@ function Faculty() {
     setIsSidebarOpen((prev) => !prev);
   };
 
-  if (loading)
+  if (loading > 0)
     return (
       <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
         <div className="loader"></div>
@@ -83,10 +85,10 @@ function Faculty() {
           <Breadcrumb />
           <div className="flex flex-row justify-between mr-8">
             <div>
-              <h1 className="text-[35px] font-m2 font-bold md-2">
+              <h1 className="text-4xl  font-extrabold text-bhawaniDark tracking-wide">
                 Faculty & Staff Management
               </h1>
-              <p className="text-gray-400">
+              <p className="text-gray-500 text-sm md:text-base mt-1">
                 Manage faculty members, departments and staff records
               </p>
             </div>

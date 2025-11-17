@@ -14,7 +14,7 @@ import Sidebar from "./SideBar";
 
 function Photos() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(0);
   const [photoDetails, setPhotoDetails] = useState([]);
   const [imageCat, setImageCat] = useState([]);
   const navigate = useNavigate();
@@ -22,6 +22,7 @@ function Photos() {
 
   useEffect(() => {
     const fetchImageCat = async () => {
+      setLoading(prev => prev + 1)
       try {
         const res = await fetchPhotoCategories();
         if (res && res.length > 0) {
@@ -30,7 +31,7 @@ function Photos() {
       } catch (error) {
         console.error("Error fetching image categoires : ", error);
       } finally {
-        setLoading(false);
+        setLoading(prev => prev - 1)
       }
     };
 
@@ -39,6 +40,7 @@ function Photos() {
 
   useEffect(() => {
     const getAllPhotosDetails = async () => {
+      setLoading(prev => prev + 1)
       try {
         const res = await getAllPhotos();
         if (res && res.length > 0) {
@@ -47,7 +49,7 @@ function Photos() {
       } catch (error) {
         console.log("Error in Fetching the Photos Data : ", error);
       } finally {
-        setLoading(false);
+        setLoading(prev => prev - 1)
       }
     };
     getAllPhotosDetails();
@@ -61,7 +63,7 @@ function Photos() {
     setIsSidebarOpen((prev) => !prev);
   };
 
-  if (loading)
+  if (loading > 0)
     return (
       <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
         <div className="loader"></div>

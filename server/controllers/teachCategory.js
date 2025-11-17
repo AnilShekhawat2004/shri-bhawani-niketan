@@ -13,7 +13,7 @@ exports.createCategory = async (req, res) => {
     const landingImage = req.files?.landingImage; // <-- added this
 
     if (!name || !description || !image || !branch) {
-      return res.status(404).json({
+      return res.status(400).json({
         success: false,
         message: "All fields are required",
       });
@@ -25,7 +25,7 @@ exports.createCategory = async (req, res) => {
     });
 
     if (!adminDetails) {
-      return res.status(404).json({
+      return res.status(401).json({
         success: false,
         message: "Admin Details are not found",
       });
@@ -64,7 +64,7 @@ exports.createCategory = async (req, res) => {
       { new: true }
     );
 
-    return res.status(200).json({
+    return res.status(201).json({
       success: true,
       message: "Teacher Category Created Successfully",
       data: CategorysDetails,
@@ -224,7 +224,6 @@ exports.categoryPageDetails = async (req, res) => {
       });
     }
 
-    console.log("Fetched Category:", selectedCategory);
 
     return res.status(200).json({
       success: true,

@@ -65,7 +65,7 @@ const TeacherResume = () => {
   }
 
   return (
-    <div className="w-[80%] h-full mx-auto mt-20 grid grid-cols-1 lg:grid-cols-2 gap-10">
+    <div className="w-[80%] h-full mx-auto mt-20 grid grid-cols-1 lg:grid-cols-2 gap-10 mb-20">
       {/* Left Column */}
       <div>
         <div

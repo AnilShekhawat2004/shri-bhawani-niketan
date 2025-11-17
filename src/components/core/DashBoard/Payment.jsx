@@ -9,12 +9,13 @@ import Sidebar from "./SideBar";
 
 function Payment() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(0);
   const [paymentDetails, setPaymentDetails] = useState([]);
   const location = useLocation();
 
   useEffect(() => {
     const fetchPaymentDetails = async () => {
+      setLoading(prev => prev + 1)
       try {
         const res = await getAllPayments();
         if (res && res.length > 0) {
@@ -23,7 +24,7 @@ function Payment() {
       } catch (error) {
         console.error("Error Fetching payments details : ", error);
       } finally {
-        setLoading(false);
+        setLoading(prev => prev - 1)
       }
     };
     fetchPaymentDetails();
@@ -33,7 +34,7 @@ function Payment() {
     setIsSidebarOpen((prev) => !prev);
   };
 
-  if (loading)
+  if (loading > 0)
     return (
       <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
         <div className="loader"></div>

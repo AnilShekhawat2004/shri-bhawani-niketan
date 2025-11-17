@@ -10,25 +10,30 @@ import RedBar from "../components/Common/redBar";
 
 function Give() {
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <div>
-        <LandingImage
-          LineImage={Giveimage}
-          text="Give"
-          className="absolute z-20"
-          textClassName="text-[50px] w-[800px] text-center uppercase font-bold"
-        />
-        <RedBar
-          className="absolute font-m1"
-          textClassName="font-m1 text-center flex justify-center text-[30px] translate-x-[150px] -translate-y-[20px]"
-          text="Give students the wings to fly your support builds their path to success, leadership, and a future filled with possibilities."
-        />
+        <div className="relative">
+          <LandingImage
+            LineImage={Giveimage}
+            text="Give"
+            className="z-10 lg:h-[750px] md:h-[600px] sm:h-full xs:h-full"
+            textClassName="text-[25px] sm:text-[40px] lg:text-[50px] text-center uppercase font-bold"
+          />
 
-        <div className="mt-32 mx-auto flex flex-col items-center w-[80%] gap-3">
-          <p className="text-[45px] font-bold text-bhawaniDark font-verdana">
+          <div className="absolute bottom-0 left-0 w-full z-20 xs: sm:translate-y-10 md:translate-y-18 lg:translate-y-24">
+            <RedBar
+              className="font-m1"
+              text="Give students the wings to fly your support builds their path to success, leadership, and a future filled with possibilities."
+              textClassName="font-m1 text-center text-[13px] sm:text-[18px] md:text-[24px] lg:text-[28px] xs:max-w-[500px] px-4 xs:pt-[5px]"
+            />
+          </div>
+        </div>
+
+        <div className="xl:mt-[150px] lg:mt-[150px] mt-20 mx-auto flex flex-col items-center xl:w-[80%] lg:w-[80%] md:w-[85%] w-[100%] gap-3">
+          <p className="xl:text-[45px] lg:text-[45px] md:text-[35px] sm:text-[25px] text-[20px] font-bold text-bhawaniDark font-verdana">
             Your gift changes lives.
           </p>
-          <p className="text-[18px] font-verdana text-center w-[80%]">
+          <p className="xl:text-[18px] lg:text-[18px] md:text-[16px] text-[14px] font-verdana text-center xl:w-[80%] lg:w-[80%] md:w-[85%] w-[100%]">
             Rooted in tradition and driven by innovation, Shri Bhawani Niketan
             College empowers students to lead with purpose and serve with heart.
             Your generosity fuels this mission and transforms lives.
@@ -42,31 +47,31 @@ function Give() {
           src={Dots}
           alt="Dots"
           loading="lazy"
-          className=" w-[40px] h-[180px] mx-auto mt-32"
+          className="w-[30px] xl:h-[180px] lg:h-[180px] md:h-[150px] h-[130px] mx-auto xl:mt-32 lg:mt-32 md:mt-28 mt-20"
         ></img>
 
-        <div className="relative w-full lg:h-[560px] flex justify-center items-center mt-32 bg-bhawaniDark ">
+        <div className="relative w-full h-[560px] flex justify-center items-center xl:mt-32 lg:mt-32 mt-20 bg-bhawaniDark ">
           <img
             src={ContentArea}
             alt="ContentArea"
             loading="lazy"
-            className="absolute w-full h-full"
+            className="absolute w-full h-full object-cover"
           ></img>
 
-          <div className="flex justify-center items-center gap-20 absolute z-10 w-[70%] h-[400px] bg-white rounded-3xl">
+          <div className="flex xl:flex-row lg:flex-row md:flex-row flex-col justify-center items-center xl:gap-20 lg:gap-20 md:gap-20 gap-3 pt-3 absolute z-10 xl:w-[70%] lg:w-[70%] md:w-[70%] w-[90%] h-[420px] bg-white rounded-3xl">
             <img
               src={Gift}
               alt="Gift"
               loading="lazy"
-              className="w-[40%] rounded-3xl h-[300px] shadow-2xl"
+              className="xl:w-[40%] lg:w-[40%] md:w-[40%] sm:w-[65%] w-[90%] rounded-3xl xl:h-[300px] lg:h-[300px] md:h-[300px] h-[200px] shadow-2xl"
             ></img>
 
-            <div className="w-[40%] h-[300px] flex flex-col items-center justify-center gap-2">
-              <p className="font-m1 text-bhawaniDark text-[45px] font-bold">
+            <div className="xl:w-[40%] lg:w-[40%] md:w-[40%] sm:w-[65%] w-[90%] h-[300px] flex flex-col items-center justify-center gap-2">
+              <p className="font-m1 text-bhawaniDark xl:text-[45px] lg:text-[45px] md:text-[35px] sm:text-[25px] text-[20px] font-bold">
                 Planned Gifts
               </p>
-              <div className="bg-bhawaniYellow h-[2px] w-[70%]"></div>
-              <p className="font-verdana text-[17px] text-center mt-2">
+              <div className="bg-bhawaniYellow xl:h-[2px] lg:h-[2px] md:h-[2px] h-[1px] w-[70%]"></div>
+              <p className="font-verdana xl:text-[17px] lg:text-[17px] md:text-[15px] sm:text-[13px] text-[11px] text-center mt-2">
                 A planned gift is a powerful legacy—one that nurtures student
                 potential, supports their dreams, and strengthens Shri Bhawani
                 Niketan College’s mission to educate, inspire, and serve. Your
@@ -77,17 +82,17 @@ function Give() {
           </div>
         </div>
 
-        <div className="mt-32 mx-auto flex flex-col items-center justify-center gap-5 bg-bhawaniLight px-10 w-[60%] h-[300px] rounded-2xl">
-          <p className="font-bold text-[45px] text-bhawaniDark font-m1">
+        <div className="xl:mt-32 lg:mt-32 md:mt-28 mt-20 mx-auto flex flex-col items-center justify-center gap-5 bg-bhawaniLight px-10 xl:w-[60%] lg:w-[60%] md:w-[70%] w-[90%] h-[300px] rounded-2xl">
+          <p className="font-bold xl:text-[45px] lg:text-[45px] md:text-[35px] sm:text-[25px] text-[20px] text-bhawaniDark font-m1">
             Contact Us
           </p>
           <div className="w-[40%] h-[2px] bg-bhawaniYellow"></div>
-          <p className="text-[18px] font-verdana text-center">
+          <p className="xl:text-[18px] lg:text-[18px] md:text-[16px] text-[14px] font-verdana text-center">
             Have questions or need guidance on making a planned gift? We're here
             to help reach out to us to explore how your generosity can make a
             lasting difference for our students.
           </p>
-          <p className="text-[16px] font-verdana">
+          <p className="text-[16px] font-verdana text-center">
             sbnboyscollege@gmail.com or +91 141 2233863
           </p>
         </div>

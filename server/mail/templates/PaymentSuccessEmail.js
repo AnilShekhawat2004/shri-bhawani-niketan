@@ -78,7 +78,7 @@ exports.paymentSuccessEmail = (
 </head>
 <body>
   <div class="container">
-    <img class="logo" src="https://res.cloudinary.com/dlxddzakp/image/upload/v1741791186/SBN/kexe4sv2xrzyczuqxcqg.png" alt="Shri Bhawani Niketan College Logo">
+    <img class="logo" src="https://res.cloudinary.com/dlxddzakp/image/upload/v1761587433/SBN/aihsw9o7xxn6pmcojsjk.png" alt="Shri Bhawani Niketan College Logo">
     
     <div class="message">✅ Payment Successful</div>
     

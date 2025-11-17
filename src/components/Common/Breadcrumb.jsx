@@ -9,7 +9,7 @@ const customMappings = {
   news: "News",
   contactUs: "Contact Us",
   employment: "Employment",
-  trustess: "Trustess",
+  trustees: "Trustees",
 
   // Add additional mappings as needed
 };

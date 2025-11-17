@@ -10,7 +10,7 @@ import StudentApply from "../components/core/HomePage/studentApply/studentApply"
 
 function Home() {
   return (
-    <div className="overflow-x-hidden pt-[136px]">
+    <div className="overflow-x-hidden xl:pt-[136px] lg:pt-[136px] md:pt-[136px] sm:pt-[70px] pt-[50px]">
       {/* Section 1 */}
       <div>
         {/* Home Slider */}

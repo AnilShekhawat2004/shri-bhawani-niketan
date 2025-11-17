@@ -74,107 +74,62 @@ function EditProfile() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-[100%] my-10 flex flex-col gap-10 rounded-xl shadow-lg border border-gray-400 bg-white p-8 px-12"
+      className="bg-white p-8 md:p-10 rounded-2xl shadow-xl hover:shadow-2xl transition-all flex flex-col gap-8"
     >
-      <div className="flex flex-col gap-6">
-        <h2 className="text-[32px] font-bold text-bhawaniDark">
-          Profile Information
-        </h2>
-        <div className="flex flex-row gap-20">
-          <div className="flex flex-col gap-5 w-[50%]">
-            <div className="flex flex-col gap-2 ">
-              <label
-                htmlFor="firstName"
-                className="text-gray-600 font-bold text-lg"
-              >
-                First Name
-              </label>
-              <input
-                type="text"
-                name="firstName"
-                id="firstName"
-                placeholder="Enter first name"
-                className="form-input-style"
-                {...register("firstName")}
-              />
-            </div>
-            <div className="flex flex-col gap-2 ">
-              <label
-                htmlFor="email"
-                className="text-gray-600 font-bold text-lg"
-              >
-                Email
-              </label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                className="form-input-style"
-                {...register("email")}
-              />
-            </div>
-            <div className="flex flex-col gap-2 ">
-              <label
-                htmlFor="contactNumber"
-                className="text-gray-600 font-bold text-lg"
-              >
-                Contact Number
-              </label>
-              <input
-                type="tel"
-                name="contactNumber"
-                id="contactNumber"
-                placeholder="Enter Contact Number"
-                className="form-input-style"
-                {...register("contactNumber", {
-                  maxLength: { value: 12, message: "Invalid Contact Number" },
-                  minLength: { value: 10, message: "Invalid Contact Number" },
-                })}
-              />
-            </div>
-          </div>
+      <h2 className="text-3xl font-bold text-bhawaniDark">
+        Profile Information
+      </h2>
 
-          <div className="flex flex-col gap-5 w-[50%]">
-            <div className="flex flex-col gap-2">
-              <label
-                htmlFor="lastName"
-                className="text-gray-600 font-bold text-lg"
-              >
-                Last Name
-              </label>
-              <input
-                type="text"
-                name="lastName"
-                id="lastName"
-                placeholder="Enter last name"
-                className="form-input-style"
-                {...register("lastName")}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label
-                htmlFor="about"
-                className="text-gray-600 font-bold text-lg"
-              >
-                About
-              </label>
-              <textarea
-                type="text"
-                name="about"
-                id="about"
-                placeholder="Enter Bio Details"
-                className="form-input-style"
-                {...register("about")}
-              />
-            </div>
-          </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Left Column */}
+        <div className="flex flex-col gap-5">
+          <label className="text-gray-600 font-medium">First Name</label>
+          <input
+            {...register("firstName")}
+            placeholder="Enter first name"
+            className="form-input-style"
+          />
+
+          <label className="text-gray-600 font-medium">Email</label>
+          <input
+            {...register("email")}
+            type="email"
+            placeholder="Enter email"
+            className="form-input-style"
+          />
+
+          <label className="text-gray-600 font-medium">Contact Number</label>
+          <input
+            {...register("contactNumber")}
+            type="tel"
+            placeholder="Enter contact number"
+            className="form-input-style"
+          />
+        </div>
+
+        {/* Right Column */}
+        <div className="flex flex-col gap-5">
+          <label className="text-gray-600 font-medium">Last Name</label>
+          <input
+            {...register("lastName")}
+            placeholder="Enter last name"
+            className="form-input-style"
+          />
+
+          <label className="text-gray-600 font-medium">About</label>
+          <textarea
+            {...register("about")}
+            placeholder="Enter bio"
+            rows={5}
+            className="form-input-style resize-none"
+          />
         </div>
       </div>
 
-      <div className="flex justify-end gap-2">
+      <div className="flex justify-end">
         <AddButton
-          className="px-5 py-2 flex gap-0"
           text={loading ? "Saving..." : "Save"}
+          className="px-5 py-2 shadow hover:scale-105 transition-transform"
           disabled={loading}
         />
       </div>

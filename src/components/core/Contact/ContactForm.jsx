@@ -61,9 +61,9 @@ const ContactForm = () => {
       className="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-200"
     >
       {/* Header */}
-      <div className="bg-gradient-to-r from-bhawaniDark to-bhawaniDark2 py-6 px-8">
-        <h2 className="text-white text-3xl font-bold">Get In Touch</h2>
-        <p className="text-white text-sm">We'd love to hear from you!</p>
+      <div className="bg-gradient-to-r from-bhawaniDark to-bhawaniDark2 xl:py-6 lg:py-6 md:py-5 sm:py-4 xs:py-3 px-8">
+        <h2 className="text-white xl:text-3xl lg:text-3xl md:text-2xl text-xl font-bold">Get In Touch</h2>
+        <p className="text-white xl:text-sm lg:text-sm text-[12px]">We'd love to hear from you!</p>
       </div>
 
       {/* Body */}

@@ -10,7 +10,6 @@ export const updateDisplayPicture = async (data, token) => {
   const toastId = toast.loading("Loading...");
   let result = null;
   try {
-    console.log("This is the token from api : ", token);
     if (!token) throw new Error("Authorization Token Missing");
     const response = await apiConnector(
       "POST",

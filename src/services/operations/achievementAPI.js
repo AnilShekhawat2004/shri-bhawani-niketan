@@ -114,7 +114,6 @@ export const getAchievementCounts = async () => {
 };
 
 export const getAchieveDetails = async (achieveId, token) => {
-  const toastId = toast.loading("Loading...");
   let result = null;
   try {
     const response = await apiConnector(
@@ -138,6 +137,5 @@ export const getAchieveDetails = async (achieveId, token) => {
     console.error("Get Achievement Details Api Error:", error);
     toast.error(error?.response?.data?.message || error.message);
   }
-  toast.dismiss(toastId);
   return result;
 };

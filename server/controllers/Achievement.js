@@ -14,7 +14,7 @@ exports.createAchiever = async (req, res) => {
 
     //vaildation
     if (!title || !descritption || !thumbnail) {
-      return res.status(404).json({
+      return res.status(400).json({
         success: false,
         message:
           "All fields are required to fill in order to create a Achievement",
@@ -31,7 +31,6 @@ exports.createAchiever = async (req, res) => {
       process.env.FOLDER_NAME
     );
 
-    console.log(thumbnailImage);
 
     //create Achievement with given Details
     const newAchievement = await Achievement.create({
@@ -42,7 +41,7 @@ exports.createAchiever = async (req, res) => {
     });
 
     //return response
-    return res.status(200).json({
+    return res.status(201).json({
       success: true,
       message: "Achievement is created successfully",
       data: newAchievement,
@@ -148,7 +147,6 @@ exports.editAchievement = async (req, res) => {
 
     //If thumbnail image is found, update it
     if (req.files) {
-      console.log("Thumbnail update");
       const thumbnail = req.files.thumbnailImage;
       const thumbnailImage = await uploadImageToCloudinary(
         thumbnail,

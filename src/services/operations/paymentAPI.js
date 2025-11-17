@@ -23,8 +23,6 @@ export function capturePayment(formData) {
     try {
       const response = await apiConnector("POST", PAYMENT_API, formData);
 
-      console.log("Capture Payment API Response:", response);
-
       if (!response.data.success) {
         throw new Error(response.data.message);
       }
@@ -56,8 +54,6 @@ export function verifyPayment(verifyData, navigate) {
         VERIFYPAYMENT_API,
         verifyData
       );
-
-      console.log("Verify Payment API Response:", response);
 
       if (!response.data.success) {
         throw new Error(response.data.message);

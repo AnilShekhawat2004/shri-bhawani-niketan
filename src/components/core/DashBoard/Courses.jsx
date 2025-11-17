@@ -11,7 +11,7 @@ import Sidebar from "./SideBar";
 
 function Courses() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(0);
   const [courseCat, setCourseCat] = useState([]);
   const [courseDetails, setCourseDetails] = useState([]);
   const navigate = useNavigate();
@@ -19,6 +19,7 @@ function Courses() {
 
   useEffect(() => {
     const fetchCourseCat = async () => {
+      setLoading(prev => prev + 1)
       try {
         const res = await showAllCategoryPrograms();
         if (res && res.length > 0) {
@@ -27,7 +28,7 @@ function Courses() {
       } catch (error) {
         console.error("Error Fetching course categoires: ", error);
       } finally {
-        setLoading(false);
+        setLoading(prev => prev - 1)
       }
     };
 
@@ -36,6 +37,7 @@ function Courses() {
 
   useEffect(() => {
     const getCourseDetails = async () => {
+      setLoading(prev => prev + 1)
       try {
         const res = await fetchCourseCategories();
         if (res && res.length > 0) {
@@ -44,7 +46,7 @@ function Courses() {
       } catch (error) {
         console.log("Error in Fetching the Courses Data : ", error);
       } finally {
-        setLoading(false);
+        setLoading(prev => prev - 1)
       }
     };
     getCourseDetails();
@@ -58,7 +60,7 @@ function Courses() {
     setIsSidebarOpen((prev) => !prev);
   };
 
-  if (loading)
+  if (loading > 0)
     return (
       <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
         <div className="loader"></div>

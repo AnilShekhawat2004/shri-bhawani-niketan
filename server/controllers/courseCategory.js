@@ -17,7 +17,7 @@ exports.createCategory = async (req, res) => {
     const userId = req.user.id;
 
     if (!name || !description || !image || !categoryProgram) {
-      return res.status(404).json({
+      return res.status(400).json({
         success: false,
         message: "All fields are required to create course",
       });
@@ -28,7 +28,7 @@ exports.createCategory = async (req, res) => {
     });
 
     if (!adminDetails) {
-      return res.status(404).json({
+      return res.status(401).json({
         success: false,
         message: "Admin details are not found",
       });
@@ -46,7 +46,6 @@ exports.createCategory = async (req, res) => {
       image,
       process.env.FOLDER_NAME
     );
-    console.log(thumbnailImage);
 
     const CategorysDetails = await courseCategory.create({
       name: name,
@@ -66,7 +65,7 @@ exports.createCategory = async (req, res) => {
       },
       { new: true }
     );
-    return res.status(200).json({
+    return res.status(201).json({
       success: true,
       message: "Category created successfully",
       data: CategorysDetails,
@@ -102,7 +101,6 @@ exports.editCategory = async (req, res) => {
     }
 
     if (req.files) {
-      console.log("Image Update");
       const image = req.files.thumbnailImage;
       const thumbnailImage = await uploadImageToCloudinary(
         image,
@@ -185,17 +183,13 @@ exports.categoryPageDetails = async (req, res) => {
       });
     }
 
-    console.log("Fetched Category:", selectedCategory);
 
     return res.status(200).json({
       success: true,
       data: {
         selectedCategory,
       },
-      message:
-        selectedCategory.courses.length === 0
-          ? "No courses found for this category, but category details are returned."
-          : "Category details retrieved successfully.",
+      message: "Category details retrieved successfully.",
     });
   } catch (error) {
     console.error(error);
@@ -262,7 +256,6 @@ exports.getCourseCounts = async (req, res) => {
       },
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       success: false,
       message: error.message,
@@ -294,7 +287,6 @@ exports.getCourseCategoryDetails = async (req, res) => {
       data: courseDetails,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       success: false,
       message: error.message,

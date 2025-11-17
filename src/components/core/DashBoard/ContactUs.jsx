@@ -9,12 +9,13 @@ import Sidebar from "./SideBar";
 
 function ContactUs() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(0);
   const [contactDetails, setContactDetails] = useState([]);
   const location = useLocation();
 
   useEffect(() => {
     const fetchContacts = async () => {
+      setLoading(prev => prev + 1)
       try {
         const res = await getAllContacts();
         if (res && res.length > 0) {
@@ -23,7 +24,7 @@ function ContactUs() {
       } catch (error) {
         console.error("Error fetching contacts : ", error);
       } finally {
-        setLoading(false);
+        setLoading(prev => prev - 1)
       }
     };
     fetchContacts();
@@ -33,7 +34,7 @@ function ContactUs() {
     setIsSidebarOpen((prev) => !prev);
   };
 
-  if (loading)
+  if (loading > 0)
     return (
       <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
         <div className="loader"></div>

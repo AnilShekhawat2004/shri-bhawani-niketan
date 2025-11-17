@@ -73,7 +73,7 @@ exports.resetPassword = async (req, res) => {
 
     // Validate passwords match
     if (password !== confirmPassword) {
-      return res.status(404).json({
+      return res.status(400).json({
         success: false,
         message: "Password and Confirm Password do not match.",
       });
@@ -84,7 +84,7 @@ exports.resetPassword = async (req, res) => {
 
     // Validate user and token
     if (!userDetails) {
-      return res.status(404).json({
+      return res.status(401).json({
         success: false,
         message: "Invalid or expired token.",
       });
@@ -92,7 +92,7 @@ exports.resetPassword = async (req, res) => {
 
     // Check if token has expired
     if (Date.now() > userDetails.resetPasswordExpires) {
-      return res.status(404).json({
+      return res.status(401).json({
         success: false,
         message: "Token has expired. Please request a new password reset.",
       });

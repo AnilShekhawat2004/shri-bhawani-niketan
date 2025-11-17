@@ -34,7 +34,6 @@ const {
 } = courseCategoryProgramEndpoints;
 
 export const getAllCourses = async () => {
-  const toastId = toast.loading("Loading...");
   let result = [];
   try {
     const response = await apiConnector("GET", GET_ALL_COURSE_API);
@@ -46,12 +45,10 @@ export const getAllCourses = async () => {
     console.error("GET_ALL_COURSE_API Error:", error);
     toast.error(error?.response?.data?.message || error.message);
   }
-  toast.dismiss(toastId);
   return result;
 };
 
 export const fetchCourseDetails = async (courseId) => {
-  const toastId = toast.loading("Loading...");
   let result = null;
   try {
     const response = await apiConnector("POST", COURSE_DETAILS_API, {
@@ -68,7 +65,6 @@ export const fetchCourseDetails = async (courseId) => {
     result = error?.response?.data || null;
     toast.error(error?.response?.data?.message || error.message);
   }
-  toast.dismiss(toastId);
   return result;
 };
 
@@ -159,7 +155,6 @@ export const deleteCourse = async (courseId, token) => {
 };
 
 export const getFullCourseDetails = async (courseId, token) => {
-  const toastId = toast.loading("Loading...");
   let result = null;
   try {
     if (!token) throw new Error("Authorization Token Missing");
@@ -180,7 +175,6 @@ export const getFullCourseDetails = async (courseId, token) => {
     result = error?.response?.data || null;
     toast.error(error?.response?.data?.message || error.message);
   }
-  toast.dismiss(toastId);
   return result;
 };
 
@@ -288,7 +282,6 @@ export const getCourseCounts = async () => {
 };
 
 export const getCourseCategoryDetails = async (courseId, token) => {
-  const toastId = toast.loading("Loading...");
   let result = null;
   try {
     const response = await apiConnector(
@@ -311,7 +304,6 @@ export const getCourseCategoryDetails = async (courseId, token) => {
     console.error("Get Course details API Error: ", error);
     toast.error(error?.response?.data?.message || error.message);
   }
-  toast.dismiss(toastId);
   return result;
 };
 
@@ -393,7 +385,6 @@ export const deleteCategoryProgram = async (programId, token) => {
 };
 
 export const showAllCategoryPrograms = async () => {
-  const toastId = toast.loading("Loading...");
   let result = [];
   try {
     const response = await apiConnector("GET", SHOW_ALL_CATEGORYPROGRAM_API);
@@ -407,7 +398,6 @@ export const showAllCategoryPrograms = async () => {
     console.error("SHOW_ALL_CATEGORYPROGRAM_API Error:", error);
     toast.error(error?.response?.data?.message || error.message);
   }
-  toast.dismiss(toastId);
   return result;
 };
 

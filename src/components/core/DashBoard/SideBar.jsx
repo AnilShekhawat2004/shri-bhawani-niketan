@@ -70,7 +70,7 @@ function Sidebar({ isOpen }) {
     <div
       className={`
             fixed top-[74px]  left-0 h-[calc(100vh-4rem)] w-64 bg-white border-r shadow-[3px_0_6px_-2px_rgba(0,0,0,0.15)] border-gray-300  z-40
-            transition-transform duration-300 flex flex-col gap-[110px]
+            transition-transform duration-300 flex flex-col gap-[75px]
             ${isOpen ? "translate-x-0" : "-translate-x-full"}
         `}
     >
@@ -100,7 +100,7 @@ function Sidebar({ isOpen }) {
             src={user.image}
             alt={user.firstName}
             loading="lazy"
-            className="rounded-full w-10"
+            className="rounded-full w-10 ring ring-bhawaniDark"
           />
 
           <div>

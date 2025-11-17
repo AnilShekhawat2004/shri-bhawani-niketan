@@ -1,4 +1,3 @@
-import Breadcrumb from "../../Common/Breadcrumb";
 import AdminNavBar from "../DashBoard/AdminNavbar";
 import Sidebar from "../DashBoard/SideBar";
 import { useEffect, useState } from "react";
@@ -39,69 +38,72 @@ function Profile() {
     );
 
   return (
-    <div className="bg-violet-50 w-full h-full overflow-x-hidden">
+    <div className="bg-violet-50 min-h-screen">
       <AdminNavBar toggleSidebar={toggleSidebar} />
       <div className="flex">
         <Sidebar isOpen={isSidebarOpen} />
 
         <div
-          className={`transition-all mt-[75px] duration-300 pl-10 pt-5 w-full
-                     ${isSidebarOpen ? "ml-64" : "ml-0"}`}
+          className={`transition-all duration-300 w-full
+                  ${isSidebarOpen ? "ml-64" : "ml-0"}`}
         >
-          <Breadcrumb />
-          <div className="flex flex-col gap-5 justify-center mr-8 pb-10">
-            <div>
-              <h1 className="text-[35px] text-bhawaniRed font-m2 font-bold md-2">
-                My Profile
-              </h1>
+          {/* Banner */}
+          <div className="h-40 bg-gradient-to-r from-bhawaniRed to-purple-600 relative">
+            <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2">
+              <div className="w-32 h-32 rounded-full ring-4 ring-white shadow-lg overflow-hidden">
+                <img
+                  src={user.image}
+                  alt={user.firstName}
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
-            <div className="w-[70%] h-auto flex flex-row items-center pl-10 p-5 gap-4 bg-white border border-gray-400 rounded-2xl shadow-md">
-              <img
-                src={user.image}
-                alt={user.firstName}
-                loading="lazy"
-                className="w-28 rounded-full"
-              />
-              <div className="flex flex-col">
-                <p className="text-[30px] font-bold">
+          </div>
+
+          {/* Main Content */}
+          <div className="mt-24 px-6 md:px-12 max-w-5xl mx-auto flex flex-col gap-8">
+            {/* Name + Email */}
+            <div className="text-center">
+              <h1 className="text-3xl font-bold text-gray-800">
+                {user.firstName} {user.lastName}
+              </h1>
+              <p className="text-gray-500 text-lg">{user.email}</p>
+            </div>
+
+            {/* Info Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="p-6 bg-white rounded-xl shadow hover:shadow-xl transition">
+                <p className="text-sm text-gray-500">Name</p>
+                <p className="text-xl font-semibold text-gray-800">
                   {user.firstName} {user.lastName}
                 </p>
-                <p className="text-[19px] text-gray-500 ">{user.email}</p>
               </div>
-            </div>
-            <div className="w-[70%] h-auto flex flex-row justify-around items-center pl-10 p-5 gap-10 bg-white border border-gray-400 rounded-2xl shadow-lg">
-              <div className="flex flex-col gap-5">
-                <div className="flex flex-col ">
-                  <p className="text-gray-600 text-[17px]">Name :</p>
-                  <p className="text-[20px]">
-                    {user.firstName} {user.lastName}
-                  </p>
-                </div>
-
-                <div className="flex flex-col ">
-                  <p className="text-gray-600 text-[17px]">Role :</p>
-                  <p className="text-[20px]">{user.accountType}</p>
-                </div>
+              <div className="p-6 bg-white rounded-xl shadow hover:shadow-xl transition">
+                <p className="text-sm text-gray-500">Contact Number</p>
+                <p className="text-xl font-semibold text-gray-800">
+                  {profileDetails.additionalDetails.contactNumber}
+                </p>
               </div>
-
-              <div className="flex flex-col gap-5">
-                <div className="flex flex-col ">
-                  <p className="text-gray-600 text-[17px]">Email :</p>
-                  <p className="text-[20px]">{user.email}</p>
-                </div>
-
-                <div className="flex flex-col ">
-                  <p className="text-gray-600 text-[17px]">Contact Number :</p>
-                  <p className="text-[20px]">
-                    {profileDetails.additionalDetails.contactNumber}
-                  </p>
-                </div>
+              <div className="p-6 bg-white rounded-xl shadow hover:shadow-xl transition">
+                <p className="text-sm text-gray-500">Email</p>
+                <p className="text-xl font-semibold text-gray-800">
+                  {user.email}
+                </p>
+              </div>
+              <div className="p-6 bg-white rounded-xl shadow hover:shadow-xl transition">
+                <p className="text-sm text-gray-500">Role</p>
+                <p className="text-xl font-semibold text-gray-800">
+                  {user.accountType}
+                </p>
               </div>
             </div>
 
-            <div className="w-[70%] h-auto flex flex-col pl-20 p-5 pr-20 gap-4 bg-white border border-gray-400 rounded-2xl shadow-lg">
-              <p className="text-[23px] text-gray-700 ">About : </p>
-              <p className="text-[23px]">
+            {/* About Section */}
+            <div className="p-6 bg-white rounded-xl shadow-lg mb-5">
+              <h2 className="text-lg font-semibold text-gray-700 mb-3">
+                About Me
+              </h2>
+              <p className="text-gray-600 leading-relaxed">
                 {profileDetails.additionalDetails.about}
               </p>
             </div>

@@ -7,26 +7,27 @@ import ContactForm from "../components/core/Contact/ContactForm";
 
 function Contact() {
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <div className="relative">
         {/* Image */}
         <LandingImage
           LineImage={ContactUs}
           text={"Contact Us"}
-          className="absolute z-20"
-          textClassName="text-[60px] "
+          className="z-10 lg:h-[750px] md:h-[600px] sm:h-full xs:h-full"
+          textClassName="text-[30px] sm:text-[50px] lg:text-[60px] text-center uppercase font-bold"
         />
 
-        <RedBar
-          text="We look forward to hearing from you and would
-                be happy to help you with general inquiries."
-          className="absolute font-semibold text-[36px] -translate-y-[15px] z-30"
-          textClassName="text-[35px] -translate-y-[35px]"
-        />
+        <div className="absolute bottom-0 left-0 w-full z-20 xs:translate-y-5 sm:translate-y-16 md:translate-y-18 lg:translate-y-24">
+          <RedBar
+            className="font-m1"
+            text="We look forward to hearing from you and would be happy to help you with general inquiries."
+            textClassName="font-m1 text-center text-[16px] sm:text-[22px] md:text-[24px] lg:text-[28px] px-4"
+          />
+        </div>
       </div>
 
       {/* Contact Form and Map */}
-      <div className="mt-28 flex flex-wrap justify-center gap-16 px-4">
+      <div className="xl:mt-[140px] lg:mt-[140px] md:mt-28 sm:mt-24 mt-20 flex flex-wrap justify-center gap-16 px-4">
         {/* Contact Form */}
         <div className="w-full max-w-2xl rounded-3xl  transition-all duration-700 hover:shadow-xl hover:shadow-gray-500">
           <ContactForm />
@@ -47,22 +48,22 @@ function Contact() {
           ></iframe>
 
           <div className="mt-14 ml-5 flex flex-col gap-5">
-            <div className="font-m1 text-[35px] font-bold text-bhawaniDark flex flex-row items-center gap-3">
+            <div className="font-m1 xl:text-[35px] lg:text-[30px] text-[25px] font-bold text-bhawaniDark flex flex-row items-center gap-3">
               <p>We’re Just a Visit Away</p>
               <IoMdArrowForward />
             </div>
 
-            <p className="text-[20px] w-[380px]">
+            <p className="xl:text-[20px] lg:text-[20px] md:text-[18px] text-[16px] xl:w-[380px] lg:w-[380px] md:w-[300px] w-[200px]">
               Maharao Shekha Circle (Chomu Pulia), Sikar Road, Jaipur - 302039
             </p>
 
-            <div className=" flex flex-row gap-4">
-              <div className="flex flex-row text-[20px] gap-2 items-center">
+            <div className=" flex xl:flex-row lg:flex-row flex-col gap-4">
+              <div className="flex flex-row xl:text-[20px] lg:text-[20px] md:text-[18px] text-[16px] gap-2 items-center">
                 <p className="font-bold">Phone : </p>
                 <p>+91 141 2233863</p>
               </div>
 
-              <div className="flex flex-row text-[20px] gap-2 items-center">
+              <div className="flex flex-row xl:text-[20px] lg:text-[20px] md:text-[18px] text-[16px] gap-2 items-center">
                 <p className="font-bold">Mail : </p>
                 <p>sbnboyscollege@gmail.com</p>
               </div>

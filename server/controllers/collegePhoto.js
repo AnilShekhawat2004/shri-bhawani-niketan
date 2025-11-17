@@ -13,7 +13,7 @@ exports.addPhoto = async (req, res) => {
 
     //valdiation
     if (!name || !thumbnail || !imageCategory) {
-      return res.status(404).json({
+      return res.status(400).json({
         success: false,
         message: "Details not found",
       });
@@ -33,7 +33,6 @@ exports.addPhoto = async (req, res) => {
       thumbnail,
       process.env.FOLDER_NAME
     );
-    console.log(thumbnailImage);
 
     //save into DB
     const newImage = await collegePhoto.create({
@@ -51,9 +50,8 @@ exports.addPhoto = async (req, res) => {
       },
       { new: true }
     );
-    console.log(categoryDetails2);
     //return response
-    return res.status(200).json({
+    return res.status(201).json({
       success: true,
       message: "Image add successfully",
       data: newImage,
@@ -84,7 +82,6 @@ exports.editPhoto = async (req, res) => {
     }
 
     if (req.files) {
-      console.log("Image update");
       const thumbnail = req.files.thumbnailImage;
       const thumbnailImage = await uploadImageToCloudinary(
         thumbnail,

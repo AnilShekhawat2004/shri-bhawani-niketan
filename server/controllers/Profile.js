@@ -58,7 +58,6 @@ exports.updateProfile = async (req, res) => {
       data: updatedUserDetails,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       success: false,
       error: error.message,
@@ -78,7 +77,6 @@ exports.getAllUserDetails = async (req, res) => {
       data: userDetails,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       success: false,
       error: error.message,
@@ -108,7 +106,6 @@ exports.updateDisplayPicture = async (req, res) => {
       data: updatedProfile,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       success: false,
       message: error.message,

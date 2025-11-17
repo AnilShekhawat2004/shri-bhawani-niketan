@@ -11,7 +11,7 @@ exports.createCatProgram = async(req, res) => {
         const image = req.files?.image;
         
         if (!name || !description || !image) {
-            return res.status(404).json({
+            return res.status(400).json({
                 success: false,
                 message: "All fields are required",
             });
@@ -23,7 +23,7 @@ exports.createCatProgram = async(req, res) => {
         });
         
         if (!adminDetails) {
-            return res.status(404).json({
+            return res.status(401).json({
                 success: false,
                 message: "Admin Details are not found",
             });
@@ -49,15 +49,14 @@ exports.createCatProgram = async(req, res) => {
             { new: true },
         );
 
-        return res.status(200).json({
+        return res.status(201).json({
             success: true,
             message: "Category Program created Successfully",
         })
     }catch(error){
-        console.log(error);
         return res.status(500).json({
             success: false,
-            message: "Something went wrong while creating the Catgory Program",
+            message: error.message,
         })
     }
 }
@@ -82,7 +81,7 @@ exports.editCatProgram = async(req, res) => {
         if (req.files.image) {
             const image = req.files.image;
             if (!image.tempFilePath) {
-                return res.status(404).json({
+                return res.status(400).json({
                     success: false,
                     message: "Uploaded file is missing tempFilePath",
                 });
@@ -108,10 +107,9 @@ exports.editCatProgram = async(req, res) => {
         });
     }
   }catch(error){
-    console.log(error)
     return res.status(500).json({
         success: false,
-        message: "Something went wrong while editing the Category Program"
+        message: error.message
     })
   }
 }
@@ -140,7 +138,7 @@ exports.deleteCatProgram = async (req, res) => {
 
         const category = await CategoryProgram.findById(catProgramId);
         if (!category) {
-            return res.status(200).json({
+            return res.status(404).json({
                 success: false,
                 message: "Category program not found",
             });
@@ -172,7 +170,6 @@ exports.getCategoryProgramCount = async(req, res) => {
             }
         })
     }catch(error){
-        console.log(error)
         return res.status(500).json({
             success: false,
             message: error.message,

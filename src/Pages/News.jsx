@@ -50,41 +50,50 @@ function News() {
   const visibleNews = showAll ? newsData : newsData.slice(0, 6);
 
   return (
-    <div>
-      <LandingImage
-        LineImage={NewsPaper}
-        text="Bhawani News"
-        className="absolute z-20"
-        textClassName="text-[50px] w-[800px] text-center uppercase font-bold"
-      />
-      <RedBar
-        className="absolute font-m1"
-        textClassName="font-m1 text-center flex justify-center text-[30px] translate-x-[150px] -translate-y-[20px]"
-        text="Stay informed, stay inspired Bhawani News brings you the latest achievements, events, and stories that celebrate the spirit, talent, and unstoppable energy of our vibrant college community."
-      />
+    <div className="overflow-x-hidden">
+      <div className="relative">
+        <LandingImage
+          LineImage={NewsPaper}
+          text="Bhawani News"
+          className="z-10 lg:h-[750px] md:h-[600px] sm:h-full xs:h-full"
+          textClassName="text-[25px] sm:text-[40px] lg:text-[50px] text-center uppercase font-bold"
+        />
 
-      <div className="w-[85%] mx-auto mt-32">
-        <p className="text-bhawaniDark text-[50px] font-extrabold">Newsroom</p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 mt-10 lg:grid-cols-3 gap-10">
-          {visibleNews.map((news) => (
-            <NewsCard key={news._id} news={news} />
-          ))}
+        <div className="absolute bottom-0 left-0 w-full z-20 xs: sm:translate-y-10 md:translate-y-18 lg:translate-y-24">
+          <RedBar
+            className="font-m1"
+            text="Stay informed, stay inspired Bhawani News brings you the latest achievements, events, and stories that celebrate the spirit, talent, and unstoppable energy of our vibrant college community."
+            textClassName="font-m1 text-center text-[13px] sm:text-[18px] md:text-[24px] lg:text-[28px] xs:max-w-[500px] px-4 xs:pt-[5px]"
+          />
         </div>
+      </div>
 
-        {!showAll && newsData.length > 6 && (
-          <div className="flex justify-center mt-20">
-            <button
-              onClick={() => setShowAll(true)}
-              className="w-[250px] h-[60px] px-6 py-3 bg-bhawaniLight text-bhawaniDark font-semibold 
+      <div className="w-full flex flex-col justify-center items-center mx-auto">
+        <div className="xl:w-[85%] lg:w-[85%] md:w-[85%] sm:w-[90%] w-[100%] mx-auto xl:mt-[150px] lg:mt-[150px] md:mt-28 mt-20">
+          <p className="text-bhawaniDark xl:text-[50px] lg:text-[50px] md:text-[40px] sm:text-[25px] text-[20px] text-center font-extrabold">
+            Newsroom
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 mt-10 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 place-items-center gap-10 mx-auto">
+            {visibleNews.map((news) => (
+              <NewsCard key={news._id} news={news} />
+            ))}
+          </div>
+
+          {!showAll && newsData.length > 6 && (
+            <div className="flex justify-center xl:mt-20 lg:mt-20 md:mt-20 sm:mt-10 mt-8">
+              <button
+                onClick={() => setShowAll(true)}
+                className="xl:text-[16px] lg:text-[16px] md:text-[14px] sm:text-[12px] text-[10px] px-6 py-4 bg-bhawaniLight text-bhawaniDark font-semibold 
                             rounded-full shadow-lg hover:bg-gray-300 transition-all duration-700 font-verdana flex justify-center 
                             items-center gap-1 hover:scale-110"
-            >
-              View All News
-              <IoIosArrowDown className="text-[20px] text-center font-bold" />
-            </button>
-          </div>
-        )}
+              >
+                View All News
+                <IoIosArrowDown className="xl:text-[20px] lg:text-[20px] md:text-[18px] sm:text-[16px] text-[14px] text-center font-bold" />
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       <Footer />

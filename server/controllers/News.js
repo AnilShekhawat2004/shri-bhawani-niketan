@@ -11,7 +11,7 @@ exports.createNews = async (req, res) => {
     const userId = req.user.id;
 
     if (!newsName || !newsDescription || !image) {
-      return res.status(404).json({
+      return res.status(400).json({
         success: false,
         message: "All fields are required to create a news",
       });
@@ -22,7 +22,7 @@ exports.createNews = async (req, res) => {
     });
 
     if (!adminDetails) {
-      return res.status(404).json({
+      return res.status(401).json({
         success: false,
         message: "Admin details are not found",
       });
@@ -40,13 +40,12 @@ exports.createNews = async (req, res) => {
       status: status,
     });
 
-    return res.status(200).json({
+    return res.status(201).json({
       success: true,
       message: "News is Successfully created",
       data: newNews,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       success: false,
       message: error.message,
@@ -158,7 +157,6 @@ exports.editNews = async (req, res) => {
     if (newsDescription !== undefined) news.newsDescription = newsDescription;
 
     if (req.files) {
-      console.log("Updating news image...");
       const image = req.files.thumbnailImage;
       const thumbnailImage = await uploadImageToCloudinary(
         image,
@@ -204,7 +202,6 @@ exports.getNewsCount = async (req, res) => {
       },
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       success: false,
       message: error.message,
@@ -232,7 +229,6 @@ exports.getNewsDetails = async (req, res) => {
       data: newsDetails,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       success: false,
       message: error.message,

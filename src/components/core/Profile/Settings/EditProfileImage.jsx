@@ -58,40 +58,39 @@ export default function EditProfileImage() {
   }, [imageFile]);
 
   return (
-    <div className="flex items-center justify-between rounded-xl border shadow-lg border-gray-400 bg-white p-8 px-12">
-      <div className="flex items-center gap-x-6">
-        <img
-          src={previewSource || user?.image}
-          alt={`${user?.firstName}`}
-          className="aspect-square w-[100px] rounded-full object-cover"
-        />
-        <div className="space-y-2">
-          <p className="text-bhawaniDark text-[25px] font-bold">
-            Change Profile Picture
-          </p>
-          <div className="flex flex-row gap-3">
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleFileChange}
-              className="hidden"
-              accept="image/png, image/gif, image/jpeg"
-            />
-            <button
-              onClick={handleClick}
-              disabled={loading}
-              className="cursor-pointer rounded-lg bg-gray-500 py-1 px-5 font-semibold border shadow-md text-white hover:bg-gray-600 transition-all duration-500"
-            >
-              Select
-            </button>
-            <AddButton
-              className="flex flex-row gap-1 px-4"
-              text={loading ? "Uploading..." : "Upload"}
-              onClick={handleFileUpload}
-            >
-              {!loading && <FiUpload />}
-            </AddButton>
-          </div>
+    <div className="flex flex-col md:flex-row items-center gap-6 bg-white rounded-2xl shadow-xl p-8 transition hover:shadow-2xl">
+      <img
+        src={previewSource || user?.image}
+        alt={user?.firstName}
+        className="w-32 h-32 rounded-full object-cover ring-4 ring-bhawaniRed shadow-lg transition-transform hover:scale-105"
+      />
+      <div className="flex flex-col gap-3">
+        <p className="text-2xl font-bold text-bhawaniDark">
+          Change Profile Picture
+        </p>
+        <div className="flex gap-3">
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+            accept="image/png, image/jpeg"
+            className="hidden"
+          />
+          <button
+            onClick={handleClick}
+            disabled={loading}
+            className="bg-gray-400 text-white px-5 py-2 rounded-full font-semibold shadow hover:scale-105 transition transform"
+          >
+            Select
+          </button>
+          <AddButton
+            onClick={handleFileUpload}
+            disabled={loading}
+            className="px-5 py-2 rounded-full shadow hover:scale-105 transition transform"
+            text={loading ? "Uploading..." : "Upload"}
+          >
+            {!loading && <FiUpload />}
+          </AddButton>
         </div>
       </div>
     </div>
