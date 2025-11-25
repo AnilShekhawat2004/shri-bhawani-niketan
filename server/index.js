@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 
+require("dotenv").config();
+
 const database = require("./config/database");
 const { cloudinaryConnect } = require("./config/cloudinary");
 const cookieParser = require("cookie-parser");
@@ -37,7 +39,8 @@ app.use(
 );
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: [process.env.FRONTEND_URL, "http://localhost:3000",],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
