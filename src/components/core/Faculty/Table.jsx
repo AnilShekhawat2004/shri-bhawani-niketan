@@ -38,8 +38,6 @@ function Table({ teachDetails, setTeachDetails, teachCat }) {
     setSearchTerm(e.target.value);
     setPage(1);
   };
-
-  // return (
   //   <div className="flex flex-col bg-white w-[97%] h-auto rounded-xl shadow-xl border-gray-300 border-[1px] pt-5 pb-12 mt-20 mb-20">
   //     <div className="flex flex-row items-center justify-between pl-10 pr-16 pt-5">
   //       <div className="flex flex-col justify-start items-start">
