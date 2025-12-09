@@ -1,5 +1,9 @@
 .clip-parallelogram {
     clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
-    
 }
-  
+
+@media (max-width: 420px) {
+  .clip-parallelogram {
+    clip-path: none !important;
+  }
+}

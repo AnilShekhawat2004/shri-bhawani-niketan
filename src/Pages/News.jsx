@@ -63,7 +63,7 @@ function News() {
           <RedBar
             className="font-m1"
             text="Stay informed, stay inspired Bhawani News brings you the latest achievements, events, and stories that celebrate the spirit, talent, and unstoppable energy of our vibrant college community."
-            textClassName="font-m1 text-center text-[13px] sm:text-[18px] md:text-[24px] lg:text-[28px] xs:max-w-[500px] px-4 xs:pt-[5px]"
+            textClassName="font-m1 text-center text-[11px] sm:text-[18px] md:text-[24px] lg:text-[28px] xs:max-w-[500px] px-4 xs:pt-[5px]"
           />
         </div>
       </div>

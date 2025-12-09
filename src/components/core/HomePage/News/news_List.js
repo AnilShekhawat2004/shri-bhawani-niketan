@@ -53,13 +53,13 @@ const NewsList = () => {
 
   return (
     <div className="w-[85%] mx-auto flex flex-col lg:justify-start lg:items-start justify-center items-center">
-      <Link to="/news" className="flex flex-row cursor-pointer">
+      <Link to="/news" className="flex flex-row cursor-pointer mx-auto">
         <p className="font-m2 font-semibold lg:text-[30px] text-[28px] text-bhawaniDark">
           Bhawani Niketan News
         </p>
         <MdDoubleArrow className="lg:text-[30px] text-[28px] translate-y-2 text-bhawaniDark" />
       </Link>
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10 justify-center mt-10 mb-10">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10 justify-center mt-10 mb-10 mx-auto">
         {newsData.slice(0, 3).map((news) => (
           <NewsCard key={news._id} news={news} />
         ))}

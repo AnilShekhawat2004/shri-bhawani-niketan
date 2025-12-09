@@ -71,7 +71,7 @@ function Trustees() {
           <RedBar
             className="font-m1"
             text="Meet the guardians of our legacy our trustees ensure every step forward is rooted in excellence, transparency, and progress."
-            textClassName="font-m1 text-center text-[14px] sm:text-[22px] md:text-[24px] lg:text-[28px] xs:pt-[2px] px-4"
+            textClassName="font-m1 text-center text-[12px] sm:text-[22px] md:text-[24px] lg:text-[28px] xs:pt-[1px] px-4"
           />
         </div>
       </div>

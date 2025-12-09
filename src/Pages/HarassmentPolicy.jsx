@@ -18,7 +18,7 @@ function HarassmentPolicy() {
           <RedBar
             className="font-m1"
             text="Together we rise against harassment building a college culture where everyone is heard, valued, safe, and empowered to thrive."
-            textClassName="font-m1 text-center text-[14px] sm:text-[18px] md:text-[24px] lg:text-[28px] xs:max-w-[450px] px-4 xs:pt-[4px]"
+            textClassName="font-m1 text-center text-[12px] sm:text-[18px] md:text-[24px] lg:text-[28px] xs:max-w-[450px] px-4 xs:pt-[4px]"
           />
         </div>
       </div>

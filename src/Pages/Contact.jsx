@@ -21,7 +21,7 @@ function Contact() {
           <RedBar
             className="font-m1"
             text="We look forward to hearing from you and would be happy to help you with general inquiries."
-            textClassName="font-m1 text-center text-[16px] sm:text-[22px] md:text-[24px] lg:text-[28px] px-4"
+            textClassName="font-m1 text-center text-[12px] sm:text-[22px] md:text-[24px] lg:text-[28px] px-4"
           />
         </div>
       </div>

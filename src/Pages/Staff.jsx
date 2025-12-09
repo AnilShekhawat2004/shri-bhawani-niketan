@@ -59,7 +59,7 @@ const Staff = () => {
           <RedBar
             className="font-m1"
             text="In every classroom, there’s a spark waiting to become a flame and a teacher ready to light it"
-            textClassName="font-m1 text-center text-[16px] sm:text-[22px] md:text-[24px] lg:text-[28px] px-4"
+            textClassName="font-m1 text-center text-[14px] sm:text-[22px] md:text-[24px] lg:text-[28px] px-4"
           />
         </div>
       </div>

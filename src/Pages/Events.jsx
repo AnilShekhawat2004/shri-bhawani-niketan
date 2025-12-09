@@ -64,7 +64,7 @@ function Events() {
           <RedBar
             className="font-m1"
             text="From thrilling fests to thought-provoking seminars, every event is a chance to grow, connect, and shine brighter because your journey deserves more than just classrooms."
-            textClassName="font-m1 text-center text-[13px] sm:text-[18px] md:text-[24px] lg:text-[28px] xs:max-w-[500px] px-4 xs:pt-[4px]"
+            textClassName="font-m1 text-center text-[11px] sm:text-[18px] md:text-[24px] lg:text-[28px] xs:max-w-[500px] px-4 xs:pt-[2px]"
           />
         </div>
       </div>

@@ -9,7 +9,7 @@ function StudentApply() {
     <div className="relative mt-32 h-[600px] lg:h-[600px] md:h-[500px] sm:h-[400px] xs:h-[300px] group">
       {/* Solid White Inner Shadow on Hover */}
       <div className="absolute inset-0 z-30 pointer-events-none transition-all duration-500 group-hover:border-bhawaniRed group-hover:border-[1px]">
-        <div className="w-full h-full transition-all duration-500 lg:group-hover:shadow-[inset_0_0_0_20px_white]" />
+        <div className="w-full h-full transition-all duration-500 group-hover:shadow-[inset_0_0_0_20px_white] sm:group-hover:shadow-[inset_0_0_0_15px_white] xs:group-hover:shadow-[inset_0_0_0_8px_white]" />
       </div>
 
       {/* Background Image */}

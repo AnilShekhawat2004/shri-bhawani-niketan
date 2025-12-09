@@ -28,7 +28,7 @@ function About() {
               className="font-m1"
               text="In 1942, Shri Bhawani Niketan Shiksha Samiti was founded in Jaipur by Maharaja Sawai Man Singh Ji-II. The society, committed to providing quality education, aims to cultivate 
               skilled, morally grounded individuals for the nation."
-              textClassName="font-m1 text-center text-[10px] sm:text-[16px] md:text-[24px] lg:text-[25px] xs:max-w-[600px] lg:pt-9 sm:pt-5 px-4 xs:pt-[2px]"
+              textClassName="font-m1 text-center text-[9px] sm:text-[16px] md:text-[24px] lg:text-[25px] xs:max-w-[600px] lg:pt-9 sm:pt-5 px-4 xs:pt-[2px]"
             />
           </div>
         </div>

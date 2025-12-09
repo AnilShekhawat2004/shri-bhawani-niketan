@@ -90,7 +90,7 @@ function Sidebar({ isOpen }) {
         ))}
       </div>
 
-      <div className="border-t border-gray-300 bg-gray-100 h-full">
+      <div className="border-t border-gray-300 bg-gray-100 mt-auto">
         <div
           className="border-b border-gray-300 pt-4 pl-4 pb-3 pr-2 flex items-center gap-1 
           cursor-pointer hover:bg-gray-300 transition-all duration-500"

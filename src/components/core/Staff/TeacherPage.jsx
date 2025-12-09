@@ -95,17 +95,17 @@ const TeacherPage = () => {
               <RedBar
                 className="font-m1"
                 text={teachCatDetails.description}
-                textClassName="font-m1 text-center text-[14px] sm:text-[22px] md:text-[24px] lg:text-[28px] px-4 xs:pt-[1px]"
+                textClassName="font-m1 text-center text-[13px] sm:text-[22px] md:text-[24px] lg:text-[28px] px-4 xs:pt-[1px]"
               />
             </div>
           </div>
         )}
       </div>
-      <div className="w-[85%] xl:mt-32 lg:mt-32 md:mt-28 sm:mt-24 xs:mt-20 xl:mb-32 lg:mb-32 md:mb-28 sm:mb-24 xs:mb-20 mx-auto gap-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="w-[85%] xl:mt-32 lg:mt-32 md:mt-28 sm:mt-24 xs:mt-20 xl:mb-32 lg:mb-32 md:mb-28 sm:mb-24 xs:mb-20 mx-auto place-items-center gap-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {teacherData.map((teacher) => (
           <Link
             key={teacher._id}
-            className="relative group w-full aspect-[3/4] cursor-pointer overflow-hidden hover:shadow-xl"
+            className="relative group w-full xl:aspect-[3/4] lg:aspect-[3/4] md:aspect-[3/4] sm:w-[280px] sm:h-[350px] xs:w-[80%] xs:h-[320px] cursor-pointer overflow-hidden hover:shadow-xl"
             to={`/staff/${teachCatName}/${teacher.name
               .split(" ")
               .join("-")

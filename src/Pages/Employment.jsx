@@ -21,7 +21,7 @@ function Employment() {
             className="font-m1"
             text="Unleash your potential at Shri Bhawani Niketan College
                  a vibrant home for visionaries, educators, and changemakers of tomorrow!"
-            textClassName="font-m1 text-center xs:pt-[2px] text-[14px] sm:text-[19px] md:text-[24px] lg:text-[28px] px-4"
+            textClassName="font-m1 text-center xs:pt-[2px] text-[12px] sm:text-[19px] md:text-[24px] lg:text-[28px] px-4"
           />
         </div>
       </div>

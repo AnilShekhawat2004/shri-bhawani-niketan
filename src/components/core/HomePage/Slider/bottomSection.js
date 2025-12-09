@@ -50,27 +50,26 @@ const hoverItems = [
 function BottomSection({ className }) {
   return (
     <div
-      className={`flex flex-col lg:flex-row font-helvetica bg-white w-full lg:h-[0.2px] lg:translate-y-[110px] ${className}`}
+      className={`flex flex-col lg:flex-row font-helvetica w-[100vw] border-white border-t lg:translate-y-[110px] ${className}`}
     >
-      {/* Left border only on lg */}
+
       <div className="hidden lg:block border-white border-r-[0.5px] w-[40px] h-[145px]" />
 
       {hoverItems.map((item) => (
         <Link
           to={item.link}
           key={item.id}
-          className="group relative flex flex-col justify-center items-center w-full lg:w-[365px] h-[200px] lg:h-[144.2px] xs:h-[150px] lg:border-white lg:border-r-[0.5px]"
+          className="group relative flex xl:flex-1 lg:flex-1 flex-col justify-center items-center min-w-[250px] h-[200px] xs:h-[150px] lg:h-[144.2px] lg:border-white lg:border-r-[0.5px]"
         >
           <span
-            className={`lg:absolute z-10 left-0 top-0 -translate-y-[55px] h-1 w-0 lg:transition-all lg:duration-700 lg:group-hover:w-[365px] ${item.color}`}
+            className={`lg:absolute z-10 left-0 top-0 -translate-y-[55px] h-1 w-0 lg:transition-all lg:duration-700 lg:group-hover:w-full ${item.color}`}
           ></span>
 
           <div className="relative w-full h-full flex justify-center items-center">
             <img
               src={item.img}
               alt={`Hover ${item.id}`}
-              className="object-cover w-full h-full 
-                lg:absolute lg:w-[365px] lg:h-[200px] lg:opacity-0 lg:transition-all lg:duration-[1s] lg:group-hover:opacity-100 lg:-translate-y-[27px]"
+              className="object-cover w-full h-full lg:absolute lg:w-full lg:h-[200px] lg:opacity-0 lg:transition-all lg:duration-[1s] lg:group-hover:opacity-100 lg:-translate-y-[27px]"
             />
 
             <div className="absolute inset-0 flex flex-col justify-center items-center gap-2 z-10">
@@ -93,7 +92,6 @@ function BottomSection({ className }) {
         </Link>
       ))}
 
-      {/* Right border only on lg */}
       <div className="hidden lg:block w-[40px] h-[145px]" />
     </div>
   );

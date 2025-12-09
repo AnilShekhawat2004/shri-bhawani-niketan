@@ -20,7 +20,7 @@ function CampusMap() {
           <RedBar
             className="font-m1"
             text="No confusion, just connection! Reach any building, block, or department in seconds with our campus map."
-            textClassName="font-m1 text-center text-[16px] sm:text-[22px] md:text-[24px] lg:text-[28px] px-4"
+            textClassName="font-m1 text-center text-[12px] sm:text-[22px] md:text-[24px] lg:text-[28px] xs:pt-[1px] px-4"
           />
         </div>
       </div>

@@ -17,9 +17,9 @@ function Admission({
   useOnClickOutside(dropdownRef, () => setOpen(false));
 
   return (
-    <div ref={dropdownRef} className={` ${className}`}>
+    <div ref={dropdownRef} className={`relative ${className}`}>
       <div
-        className="flex flex-row items-center justify-center gap-2"
+        className="flex flex-row items-center gap-2 cursor-pointer"
         onClick={() => setOpen((prev) => !prev)}
       >
         <button
@@ -28,24 +28,27 @@ function Admission({
           {title}
         </button>
 
-        <IoIosArrowDown className={`${iconClassName}`} />
+        <IoIosArrowDown
+          className={`${iconClassName} transition-all duration-300 ${
+            open ? "rotate-180" : ""
+          }`}
+        />
       </div>
 
       {open && (
         <div
-          className={`absolute top-full flex flex-row items-center justify-center 
-                   gap-20 left-0 bg-white translate-y-[15px] border w-[260px] h-[250px] z-10 
-                   rounded-b-md overflow-hidden ${openClassName}`}
+          className={`absolute top-full left-1/2 -translate-x-1/2 bg-white translate-y-[17px] border 
+      w-[260px] z-10 rounded-b-md shadow-md overflow-hidden ${openClassName}`}
         >
           <ul>
             {item.map((item, index) => (
-              <Link key={index} to={item.link} onClick={() => setOpen(false)}>
-                <li>
-                  <p className="py-2 cursor-pointer font-m1 text-center text-[18px] lg:hover:text-bhawaniDark transition-all duration-500 text-gray-500">
+              <li key={index}>
+                <Link to={item.link} onClick={() => setOpen(false)}>
+                  <p className="py-2 cursor-pointer font-m1 text-center text-[18px] lg:hover:text-bhawaniDark transition-all duration-300 text-gray-500">
                     {item.label}
                   </p>
-                </li>
-              </Link>
+                </Link>
+              </li>
             ))}
           </ul>
         </div>

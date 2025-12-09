@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { IoMdArrowDropright } from "react-icons/io";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import SButton from "../../../Common/Buttons/sButton";
 import "./imageLine.css";
 
 function ImageLine({ text, buttonText, LineImage, LinkPage }) {
   const [imageVisible, setImageVisible] = useState(false);
-  const navigate = useNavigate();
+
   return (
     <div className="relative w-full h-[140px]  bg-bhawaniShine mt-24 mb-10">
       {/* Animated Image */}
@@ -42,10 +42,7 @@ function ImageLine({ text, buttonText, LineImage, LinkPage }) {
           to={LinkPage}
           className="lg:translate-x-[950px] md:translate-x-[400px] md:mt-0 lg:mt-0 mt-[75px]"
         >
-          <SButton
-            onclick={() => navigate("/")}
-            className="px-5 py-6 text-[17px] sm:px-3 sm:py-3 sm:text-[16px] xs:px-3 xs:py-3 xs:text-[15px]"
-          >
+          <SButton className="px-5 py-6 text-[17px] sm:px-3 sm:py-3 sm:text-[16px] xs:px-3 xs:py-3 xs:text-[15px]">
             {buttonText}
             <IoMdArrowDropright className="text-[22px]" />
           </SButton>

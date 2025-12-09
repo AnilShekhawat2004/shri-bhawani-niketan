@@ -18,7 +18,7 @@ function Policy() {
           <RedBar
             className="font-m1"
             text="Privacy isn’t just policy it’s our promise to protect your personal information and uphold your right to a safe, respectful online environment."
-            textClassName="font-m1 text-center text-[14px] sm:text-[22px] md:text-[24px] lg:text-[28px] xs:pt-[0px] px-4"
+            textClassName="font-m1 text-center text-[12px] sm:text-[22px] md:text-[24px] lg:text-[28px] xs:pt-[0px] px-4"
           />
         </div>
       </div>

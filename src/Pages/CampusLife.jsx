@@ -50,7 +50,7 @@ function CampusLife() {
           <RedBar
             className="font-m1"
             text="At Shri Bhawani Niketan, college life isn't just lived it's celebrated, remembered, and carried in the soul long after the final bell rings."
-            textClassName="font-m1 text-center text-[14px] sm:text-[18px] md:text-[24px] lg:text-[28px] xs:max-w-[450px] px-4 xs:pt-[4px]"
+            textClassName="font-m1 text-center text-[12px] sm:text-[18px] md:text-[24px] lg:text-[28px] xs:max-w-[450px] px-4 xs:pt-[2px]"
           />
         </div>
       </div>

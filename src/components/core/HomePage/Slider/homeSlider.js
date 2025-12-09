@@ -66,16 +66,16 @@ function HomeSlider() {
                     </h1>
                   </div>
 
-                  <div className="w-full flex flex-row -translate-y-8 ">
+                  <div className="w-full flex flex-row justify-between -translate-y-8 ">
                     <button
                       onClick={() => swiperRef.current?.slidePrev()}
-                      className="flex w-full pl-5 xs:pl-1 justify-start"
+                      className="flex pl-5 xs:pl-1 justify-start"
                     >
                       <SlArrowLeft className="lg:text-3xl transition-all duration-300 ease-in-out hover:-translate-x-2" />
                     </button>
                     <button
                       onClick={() => swiperRef.current?.slideNext()}
-                      className="flex w-full pr-5 xs:pr-1 justify-end"
+                      className="flex pr-5 xs:pr-1 justify-end"
                     >
                       <SlArrowRight className="lg:text-3xl transition-all duration-300 ease-in-out hover:translate-x-2" />
                     </button>

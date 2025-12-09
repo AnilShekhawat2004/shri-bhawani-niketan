@@ -9,6 +9,7 @@ export default function MobileDropDown({
   titleClassName,
   item = [],
   iconClassName,
+  closeMenu,
   openClassName,
 }) {
   const [openDropdown, setOpenDropdown] = useState(false);
@@ -40,7 +41,7 @@ export default function MobileDropDown({
               className="pl-4 mt-2 flex flex-col space-y-2"
             >
               {item.map((item, index) => (
-                <Link key={index} to={item.link} onClick={() => setOpenDropdown(false)}>
+                <Link key={index} to={item.link} onClick={closeMenu} >
                   <li className="list-none px-3">
                     <p className={`py-2 cursor-pointer uppercase text-[15px] text-white`}>
                       {item.label}

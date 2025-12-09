@@ -71,7 +71,7 @@ function Footer() {
   ];
 
   return (
-    <div className="bg-bhawaniDark lg:h-[330px] w-full mt-32 px-6 md:px-10 lg:px-[120px] pb-12 flex flex-col justify-center lg:text-start text-center items-center lg:justify-start lg:items-start lg:flex-row gap-14 lg:gap-20">
+    <div className="bg-bhawaniDark lg:h-auto w-[100vw] mt-32 px-6 md:px-10 lg:px-[120px] xl:px-[120px] pb-12 flex flex-col lg:flex-row max-[1080px]:!flex-col  justify-center lg:text-start text-center items-center lg:items-start max-[1080px]:!items-center gap-14 lg:gap-[6%]">
       {/* Logo and Social Icons */}
       <div className="flex flex-col items-center lg:items-start gap-4">
         <Link
@@ -105,7 +105,7 @@ function Footer() {
       </div>
 
       {/* Footer Links Section */}
-      <div className="pt-6 lg:pt-14 font-verdana text-white flex flex-col md:flex-row gap-10 md:gap-16 lg:gap-24">
+      <div className="pt-6 lg:pt-14 font-verdana text-white flex flex-col md:flex-row gap-10 md:gap-[clamp(2rem,4vw,4rem)]">
         {/* Column 1 */}
         <div className="flex flex-col w-full md:w-[200px] gap-4 md:gap-6 lg:gap-7">
           {Colum1.map((item) => (

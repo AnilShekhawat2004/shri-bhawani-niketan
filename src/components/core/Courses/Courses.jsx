@@ -101,14 +101,14 @@ function Courses() {
               <RedBar
                 className="font-m1"
                 text={catProDetails.description}
-                textClassName="font-m1 text-center text-[16px] sm:text-[22px] md:text-[24px] lg:text-[28px] px-4"
+                textClassName="font-m1 text-center text-[14px] sm:text-[22px] md:text-[24px] lg:text-[28px] px-4"
               />
             </div>
           </div>
         )}
       </div>
 
-      <div className="w-[85%] mx-auto xl:mt-[150px] lg:mt-[150px] mt-24 group grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10">
+      <div className="w-[85%] mx-auto place-items-center xl:mt-[150px] lg:mt-[150px] mt-24 group grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10">
         {courseData.map((course) => (
           <div
             key={course._id}

@@ -60,7 +60,7 @@ function CourseDoors() {
                 <p className="lg:text-[13px] md:text-[10px] sm:text-[8px] xs:text-[7px] opacity-70">
                   WILD & LIFE
                 </p>
-                <p className="lg:text-[35px] md:text-[28px] sm:text-[25px] xs:text-[22px] -translate-y-[6px]">
+                <p className="lg:text-[35px] md:text-[28px] sm:text-[25px] xs:text-[18px] -translate-y-[6px]">
                   Zoology
                 </p>
               </div>
@@ -85,7 +85,7 @@ function CourseDoors() {
                 <p className="lg:text-[13px] md:text-[10px] sm:text-[8px] xs:text-[7px] opacity-70">
                   EARTH & BEYOND
                 </p>
-                <p className="lg:text-[35px] md:text-[28px] sm:text-[25px] xs:text-[22px] -translate-y-[6px]">
+                <p className="lg:text-[35px] md:text-[28px] sm:text-[25px] xs:text-[18px] -translate-y-[6px]">
                   Geography
                 </p>
               </div>
