@@ -1,7 +1,7 @@
 # Shri Bhawani Niketan – College Website & Admin Management System
 
-A full-stack **college website** with a powerful **admin portal** for managing academic content, media, achievements, and donations.  
-Designed to reflect a **real-world educational institution** with secure authentication and scalable architecture.
+A full-stack **college website** with a powerful **admin portal** for managing academic content, media, achievements, notifications, and donations.  
+Designed to reflect a **real-world educational institution** with secure authentication, automation, and scalable architecture.
 
 🔗 **Live Website:** https://shri-bhawani-niketan.onrender.com/
 
@@ -20,7 +20,7 @@ It provides students, parents, and visitors easy access to academic and institut
 
 - 📚 **Courses & Programs**
   - Dynamic course listings
-  - Managed via admin panel
+  - Fully managed via admin panel
 
 - 📰 **News & Announcements**
   - Latest college updates
@@ -39,44 +39,68 @@ It provides students, parents, and visitors easy access to academic and institut
   - Public donation/payment section
   - Secure backend processing
 
+- 📧 **Contact System**
+  - Users can contact the college
+  - Automated email confirmation sent to users
+
 - 📱 **Responsive Design**
-  - Optimized for desktop, tablet, and mobile
+  - Optimized for desktop, tablet, and mobile devices
 
 ---
 
 ## 🔐 Admin Portal (Content Management System)
 
-A secure admin dashboard that allows authorized users to manage **every section of the website**.
+A secure admin dashboard that allows authorized users to manage **every section of the website** efficiently.
 
 ### 🧑‍💻 Admin Features
 
-- 🔑 **Authentication**
+- 🔑 **Authentication & Security**
   - JWT-based authentication
   - Cookie-based session handling
   - Protected admin-only routes
+
+- 📊 **Centralized Data Tables**
+  - Every module (Faculty, Courses, News, Events, Donations, etc.) has a dedicated table
+  - Displays complete records with structured data
+  - Supports full CRUD operations:
+    - Create
+    - Read
+    - Update
+    - Delete
 
 - 📚 **Course Management**
   - Create, edit, and delete courses
 
 - 📰 **News Management**
-  - Add, update, delete, and list news
+  - Add, update, delete, and list news articles
 
 - 🎉 **Event Management**
   - Full CRUD operations for events
 
 - 🖼️ **Gallery Management**
-  - Upload and manage photos
+  - Upload and manage images and photos
 
 - 🏆 **Achievements Management**
-  - Manage achievements displayed on the website
+  - Manage achievements displayed on the public website
 
 - 💰 **Donation Management**
   - View all donation/payment records
-  - Admin-only access
+  - Admin-only access to sensitive data
 
-- 🧩 **Modular Architecture**
-  - Independent modules
-  - Clean API-based design
+---
+
+## 🔔 Notification & Email System
+
+- Centralized notification system integrated into the admin dashboard
+- Bell icon UI similar to modern platforms (e.g., YouTube)
+- Admin receives dashboard notifications when:
+  - A user submits the contact form
+  - A donation/payment is made
+- Users receive:
+  - Confirmation notifications for successful actions
+  - Automated **email notifications** after submitting the contact form
+- Notifications include relevant details and timestamps
+- Improves admin response time and user trust
 
 ---
 
@@ -92,7 +116,7 @@ A secure admin dashboard that allows authorized users to manage **every section 
 ### Backend
 - Node.js
 - Express.js
-- RESTful APIs
+- RESTful API architecture
 
 ### Database
 - MongoDB (Mongoose ODM)
@@ -106,7 +130,10 @@ A secure admin dashboard that allows authorized users to manage **every section 
   - Frontend: Render
   - Backend: Render
 
---- ## 📂 Project Structure
+---
+
+## 📂 Project Structure
+
 ```bash
 shri-bhawani-niketan/
 │
@@ -128,7 +155,6 @@ shri-bhawani-niketan/
 ├── app.js / index.js
 └── README.md
 ```
----
 
 ## ⚙️ Installation & Setup
 
@@ -173,9 +199,8 @@ npm run dev
 ## 📈 Future Enhancements
 
 - Role-based admin access (Super Admin / Editor)
-- Admin dashboard analytics & insights
-- Email notifications
-- SEO optimization
+- Advanced notification filtering (read/unread, categories)
+- SEO optimization for public pages
 - Performance and image optimization
 
 ---
