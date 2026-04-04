@@ -55,7 +55,8 @@ export const editEvents = async (data, token) => {
 
 export const deleteEvent = async (eventId, token) => {
   const toastId = toast.loading("Deleting Event...");
-  let success = false;
+  // let success = false;
+  let result = []
   try {
     if (!token) throw new Error("Authorization Token Missing");
     const response = await apiConnector(
@@ -70,13 +71,14 @@ export const deleteEvent = async (eventId, token) => {
       throw new Error(response?.data?.message || "Could not Delete Event");
     }
     toast.success("Event Deleted Successfully");
-    success = true;
+    // success = true;
+    result = response?.data
   } catch (error) {
     console.log("DELETE_EVENT_API Error........", error);
     toast.error(error?.response?.data?.message || error.message);
   }
   toast.dismiss(toastId);
-  return success;
+  return result;
 };
 
 export const getAllEvents = async () => {

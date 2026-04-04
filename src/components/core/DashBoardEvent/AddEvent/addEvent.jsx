@@ -7,7 +7,7 @@ import {
   createEvent,
   editEvents,
 } from "../../../../services/operations/eventAPI";
-import { setEditEvent, setEvent } from "../../../../slices/eventSlice";
+import { setEditEvent, setEvent, resetEventState } from "../../../../slices/eventSlice";
 import Upload from "../../Faculty/Upload";
 
 const monthsBranch = [
@@ -45,12 +45,19 @@ function AddEvent() {
     if (editEvent && event) {
       setValue("name", event.name);
       setValue("description", event.description);
-      setValue("thumbnail", event.thumbnailImage);
       setValue("branch", event.branch);
       setValue("date", event.date);
       setValue("day", event.day);
     }
   }, [editEvent, event, setValue]);
+
+  const handleFileChange = (file) => {
+    setValue("thumbnail", file);
+  };
+
+  useEffect(() => {
+    register("thumbnail", { required: !editEvent });
+  }, [register, editEvent]);
 
   const isFormUpdated = () => {
     const currentValues = getValues();
@@ -79,7 +86,7 @@ function AddEvent() {
         if (currentValues.description !== event.description) {
           formData.append("description", data.description);
         }
-        if (currentValues.thumbnail !== event.thumbnailImage) {
+        if (currentValues.thumbnail instanceof File) {
           formData.append("thumbnailImage", data.thumbnail);
         }
         if (currentValues.branch !== event.branch) {
@@ -97,6 +104,7 @@ function AddEvent() {
         setLoading(false);
         if (result) {
           dispatch(setEvent(result));
+          dispatch(resetEventState())
           navigate(`/dashboard/event`);
         } else {
           toast.error("No changes made to the form");
@@ -116,6 +124,7 @@ function AddEvent() {
     const result = await createEvent(formData, token);
     if (result) {
       dispatch(setEvent(result));
+      dispatch(resetEventState())
       navigate("/dashboard/event");
     }
     setLoading(false);
@@ -196,6 +205,7 @@ function AddEvent() {
           setValue={setValue}
           errors={errors}
           editData={editEvent ? event?.thumbnail : null}
+          onFileChange={handleFileChange}
         />
       </div>
 

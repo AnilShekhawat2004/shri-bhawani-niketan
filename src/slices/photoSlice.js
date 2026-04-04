@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   photo: {},
   editPhoto: false,
-  categories: [],
   loading: false,
   error: null,
 };
@@ -18,9 +17,6 @@ const photoSlice = createSlice({
     setEditPhoto(state, action) {
       state.editPhoto = action.payload;
     },
-    setCategories(state, action) {
-      state.categories = action.payload;
-    },
     setLoading(state, action) {
       state.loading = action.payload;
     },
@@ -30,6 +26,6 @@ const photoSlice = createSlice({
   },
 });
 
-export const { setPhoto, setEditPhoto, setCategories, setLoading, setError } =
+export const { setPhoto, setEditPhoto, setLoading, setError } =
   photoSlice.actions;
 export default photoSlice.reducer;

@@ -14,14 +14,6 @@ const {
   getTeachDetails,
 } = require("../controllers/teacherSection");
 
-//import Teacher SubSection controller
-const {
-  createSubSection,
-  editSubSection,
-  deleteSubSection,
-  getAllSubSection,
-} = require("../controllers/teacherSubSection");
-
 //import Teacher Category controller
 const {
   createCategory,
@@ -37,13 +29,7 @@ router.post("/editSection", auth, isAdmin, editSection);
 router.get("/getAllSection", getAllSection);
 router.delete("/deleteSection", auth, isAdmin, deleteSection);
 router.get("/getCounts", getCounts);
-router.post("/getTeachDetails", auth, isAdmin, getTeachDetails);
-
-//Teacher SubSection route
-router.post("/createSubSection", auth, isAdmin, createSubSection);
-router.post("/editSubSection", auth, isAdmin, editSubSection);
-router.delete("/deleteSubSection", auth, isAdmin, deleteSubSection);
-router.get("/getAllSubSection", getAllSubSection);
+router.post("/getTeachDetails", getTeachDetails);
 
 //Teacher Category route
 router.post("/createCategory", auth, isAdmin, createCategory);

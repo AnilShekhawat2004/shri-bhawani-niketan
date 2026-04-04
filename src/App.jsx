@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Common/Navbar/Navbar";
@@ -18,10 +17,7 @@ import AddAchievement from "./components/core/DashBoardAchievement/AddAchievemen
 import EditAchievement from "./components/core/DashBoardAchievement/EditAchievement/editAchievement";
 import ContactDetails from "./components/core/DashBoardContact/ContactDetails";
 import EditContact from "./components/core/DashBoardContact/EditContact";
-import AddCourse from "./components/core/DashboardCourse/AddCourse/AddCourse";
-import AddCourseDetails from "./components/core/DashboardCourse/AddCourse/AddCourseDetails";
 import EditCourse from "./components/core/DashboardCourse/EditCourse/EditCourse";
-import EditCourseDetails from "./components/core/DashboardCourse/EditCourse/EditCourseDetails";
 import AddEvent from "./components/core/DashBoardEvent/AddEvent/addEvent";
 import EditEvent from "./components/core/DashBoardEvent/EditEvent/editEvent";
 import AddNews from "./components/core/DashBoardNews/AddNews/addNews";
@@ -29,10 +25,7 @@ import EditNews from "./components/core/DashBoardNews/EditNews/editNews";
 import PaymentDetails from "./components/core/DashBoardPayment/PaymentDetails";
 import AddPhoto from "./components/core/DashBoardPhotos/AddPhotos/addPhoto";
 import EditPhoto from "./components/core/DashBoardPhotos/EditPhotos/editPhoto";
-import AddFaculty from "./components/core/Faculty/AddFaculty/addFaculty";
-import FacultyNext from "./components/core/Faculty/AddFaculty/FacultyNext";
 import EditFaculty from "./components/core/Faculty/EditFaculty/EditFaculty";
-import EditFacultyNext from "./components/core/Faculty/EditFaculty/EditFacultyNext";
 import NewsDetails from "./components/core/News/NewsDetails";
 import Payment from "./components/core/Payment/Payment";
 import Settings from "./components/core/Profile/DashBoardSettings";
@@ -58,12 +51,11 @@ import Policy from "./Pages/Policy";
 import Staff from "./Pages/Staff";
 import Trustees from "./Pages/Trustees";
 import Visit from "./Pages/Visit";
-import { ACCOUNT_TYPE } from "./utils/constants";
 import ScrollToTop from "./components/Common/ScrollToTop"
+import AddTeacher from "./components/core/Faculty/AddFaculty/addTeacher"
+import AddCourse from "./components/core/DashboardCourse/AddCourse/createCourse";
 
 function App() {
-  const { user } = useSelector((state) => state.profile);
-
   return (
     <div>
       <Navbar />
@@ -127,7 +119,6 @@ function App() {
 
         <Route path="/auth/login" element={<Login />} />
 
-        {user?.accountType === ACCOUNT_TYPE.ADMIN && (
           <>
             <Route
               path="/dashboard/faculty"
@@ -138,37 +129,19 @@ function App() {
               }
             >
               <Route
-                path="/dashboard/faculty/addFaculty"
+                path="addFaculty"
                 element={
                   <PrivateRoute>
-                    <AddFaculty />
+                    <AddTeacher/>
                   </PrivateRoute>
                 }
               />
 
               <Route
-                path="/dashboard/faculty/addFacultyDetails"
-                element={
-                  <PrivateRoute>
-                    <FacultyNext />
-                  </PrivateRoute>
-                }
-              />
-
-              <Route
-                path="/dashboard/faculty/editFaculty"
+                path="editFaculty"
                 element={
                   <PrivateRoute>
                     <EditFaculty />
-                  </PrivateRoute>
-                }
-              />
-
-              <Route
-                path="/dashboard/faculty/editFacultyDetails"
-                element={
-                  <PrivateRoute>
-                    <EditFacultyNext />
                   </PrivateRoute>
                 }
               />
@@ -192,7 +165,7 @@ function App() {
               }
             >
               <Route
-                path="/dashboard/courses/addCourse"
+                path="addCourse"
                 element={
                   <PrivateRoute>
                     <AddCourse />
@@ -201,28 +174,10 @@ function App() {
               />
 
               <Route
-                path="/dashboard/courses/addCourseDetails"
-                element={
-                  <PrivateRoute>
-                    <AddCourseDetails />
-                  </PrivateRoute>
-                }
-              />
-
-              <Route
-                path="/dashboard/courses/editCourse"
+                path="editCourse"
                 element={
                   <PrivateRoute>
                     <EditCourse />
-                  </PrivateRoute>
-                }
-              />
-
-              <Route
-                path="/dashboard/courses/editCourseDetails"
-                element={
-                  <PrivateRoute>
-                    <EditCourseDetails />
                   </PrivateRoute>
                 }
               />
@@ -246,7 +201,7 @@ function App() {
               }
             >
               <Route
-                path="/dashboard/event/addEvent"
+                path="addEvent"
                 element={
                   <PrivateRoute>
                     <AddEvent />
@@ -255,7 +210,7 @@ function App() {
               />
 
               <Route
-                path="/dashboard/event/editEvent"
+                path="editEvent"
                 element={
                   <PrivateRoute>
                     <EditEvent />
@@ -282,7 +237,7 @@ function App() {
               }
             >
               <Route
-                path="/dashboard/news/addNews"
+                path="addNews"
                 element={
                   <PrivateRoute>
                     <AddNews />
@@ -291,7 +246,7 @@ function App() {
               />
 
               <Route
-                path="/dashboard/news/editNews"
+                path="editNews"
                 element={
                   <PrivateRoute>
                     <EditNews />
@@ -318,7 +273,7 @@ function App() {
               }
             >
               <Route
-                path="/dashboard/achievement/addAchievement"
+                path="addAchievement"
                 element={
                   <PrivateRoute>
                     <AddAchievement />
@@ -327,7 +282,7 @@ function App() {
               />
 
               <Route
-                path="/dashboard/achievement/editAchievement"
+                path="editAchievement"
                 element={
                   <PrivateRoute>
                     <EditAchievement />
@@ -354,7 +309,7 @@ function App() {
               }
             >
               <Route
-                path="/dashboard/photos/addPhoto"
+                path="addPhoto"
                 element={
                   <PrivateRoute>
                     <AddPhoto />
@@ -363,7 +318,7 @@ function App() {
               />
 
               <Route
-                path="/dashboard/photos/editPhoto"
+                path="editPhoto"
                 element={
                   <PrivateRoute>
                     <EditPhoto />
@@ -444,7 +399,7 @@ function App() {
               }
             />
           </>
-        )}
+        
       </Routes>
     </div>
   );

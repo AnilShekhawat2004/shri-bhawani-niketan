@@ -4,6 +4,8 @@ import { useLocation } from "react-router-dom";
 import { getPhotosDetails } from "../../../../services/operations/imageAPI";
 import { setEditPhoto, setPhoto } from "../../../../slices/photoSlice";
 import AddPhoto from "../AddPhotos/addPhoto";
+import LoaderOverlay from "../../../Common/LoaderOverlay";
+
 
 export default function EditPhoto() {
   const dispatch = useDispatch();
@@ -38,5 +40,10 @@ export default function EditPhoto() {
     );
   }
 
-  return <AddPhoto key={editPhoto ? "edit" : "create"} />;
+  return (
+    <>
+      <AddPhoto key={editPhoto ? "edit" : "create"}/>
+      {loading > 0 && <LoaderOverlay/>}
+    </>
+  );
 }

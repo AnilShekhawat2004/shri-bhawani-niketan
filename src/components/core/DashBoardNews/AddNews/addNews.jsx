@@ -34,10 +34,17 @@ function AddNews() {
     if (editNews) {
       setValue("newsName", news.newsName);
       setValue("newsDescription", news.newsDescription);
-      setValue("image", news.image);
       setValue("status", news.status);
     }
   }, [editNews, news, setValue]);
+
+  const handleFileChange = (file) => {
+    setValue("image", file)
+  }
+
+  useEffect(() => {
+    register("image", { required: !editNews})
+  }, [register, editNews])
 
   const isFormUpdated = () => {
     const currentValues = getValues();
@@ -151,6 +158,7 @@ function AddNews() {
           setValue={setValue}
           errors={errors}
           editData={editNews ? news?.image : null}
+          onFileChange={handleFileChange}
         />
       </div>
 
@@ -162,7 +170,6 @@ function AddNews() {
         <select
           id="status"
           {...register("status", { required: true })}
-          defaultValue=""
           className="form-input-style text-gray-400"
         >
           <option value="" disabled className="">

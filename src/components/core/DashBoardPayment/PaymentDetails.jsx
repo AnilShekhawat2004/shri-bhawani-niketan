@@ -3,6 +3,7 @@ import { FaRupeeSign } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getPaymentDetails } from "../../../services/operations/paymentAPI";
+import LoaderOverlay from "../../Common/LoaderOverlay";
 
 function PaymentDetails() {
   const [loading, setLoading] = useState(true);
@@ -28,14 +29,6 @@ function PaymentDetails() {
 
     getOnePaymentDetails();
   }, [paymentId, token]);
-
-  if (loading) {
-    return (
-      <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
-        <div className="loader"></div>
-      </div>
-    );
-  }
 
   return (
     <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50">
@@ -110,6 +103,7 @@ function PaymentDetails() {
           </div>
         </div>
       </div>
+      {loading > 0 && <LoaderOverlay/>}
     </div>
   );
 }

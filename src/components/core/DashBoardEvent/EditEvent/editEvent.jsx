@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { getEventDetails } from "../../../../services/operations/eventAPI";
 import { setEditEvent, setEvent } from "../../../../slices/eventSlice";
 import AddEvent from "../AddEvent/addEvent";
+import LoaderOverlay from "../../../Common/LoaderOverlay";
 
 export default function EditEvent() {
   const dispatch = useDispatch();
@@ -30,13 +31,11 @@ export default function EditEvent() {
     })();
   }, [eventId, token, dispatch]);
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center">
-        <div className="loader"></div>
-      </div>
-    );
-  }
 
-  return <AddEvent key={editEvent ? "edit" : "create"} />;
+  return (
+    <>
+      <AddEvent key={editEvent ? "edit" : "create"}/>
+      {loading > 0 && <LoaderOverlay/>}
+    </>
+  );
 }

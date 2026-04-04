@@ -1,33 +1,35 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import {
-  createCategory,
-  editCategory,
-  showAllCategoryPrograms,
-} from "../../../../services/operations/courseAPI";
-import { setCourse, setEditCourse } from "../../../../slices/courseSlice";
+import { showAllCategoryPrograms } from "../../../../services/operations/courseAPI";
+import { setCourseDraft } from "../../../../slices/courseSlice";
 import Upload from "../../Faculty/Upload";
 
-function AddCourse() {
+function AddCourse({ onNext, onCancel, setThumbnailImage, thumbnailImage }) {
   const {
     register,
     handleSubmit,
     setValue,
-    getValues,
+    watch,
     formState: { errors },
   } = useForm();
 
   const dispatch = useDispatch();
-  const { token } = useSelector((state) => state.auth);
-  const { course, editCourse } = useSelector((state) => state.course);
+  const { course, editCourse, courseDraft } = useSelector(
+    (state) => state.course,
+  );
   const [loading, setLoading] = useState(false);
   const [catProgram, setCatProgram] = useState([]);
-  const navigate = useNavigate();
+  const selectedCatProgram = watch("categoryProgram");
 
   useEffect(() => {
+    const resolveCategoryId = (category) => {
+      if (!category) return "";
+      if (typeof category === "string") return category;
+      if (Array.isArray(category)) return category[0]?._id ?? "";
+      return category?._id ?? "";
+    };
+
     const getCatProgram = async () => {
       setLoading(true);
       const categoryProgram = await showAllCategoryPrograms();
@@ -38,73 +40,63 @@ function AddCourse() {
     };
 
     if (editCourse && course) {
-      setValue("name", course.name);
-      setValue("description", course.description);
-      setValue("image", course.thumbnailImage);
-      setValue("categoryProgram", course.categoryProgram);
+      const fallbackCategory = resolveCategoryId(course?.categoryProgram);
+
+      const hasDraftName = typeof courseDraft?.name === "string";
+      const hasDraftDesignation = typeof courseDraft?.description === "string";
+      const draftCategory = resolveCategoryId(courseDraft?.categoryProgram);
+
+      setValue("name", hasDraftName ? courseDraft.name : (course?.name ?? ""));
+      setValue(
+        "description",
+        hasDraftDesignation
+          ? courseDraft.description
+          : (course?.description ?? ""),
+      );
+      setValue("categoryProgram", draftCategory || fallbackCategory);
+    } else if (
+      courseDraft?.name ||
+      courseDraft?.description ||
+      courseDraft?.categoryProgram
+    ) {
+      setValue("name", courseDraft?.name ?? "");
+      setValue("description", courseDraft?.description ?? "");
+      setValue(
+        "categoryProgram",
+        resolveCategoryId(courseDraft?.categoryProgram),
+      );
     }
 
     getCatProgram();
-  }, [editCourse, course, setValue]);
+  }, [editCourse, course, courseDraft, setValue]);
 
-  const isFormUpdated = () => {
-    const currentValues = getValues();
-    if (
-      currentValues.name !== course.name ||
-      currentValues.description !== course.description ||
-      currentValues.image !== course.thumbnailImage ||
-      currentValues.categoryProgram !== course.categoryProgram
-    ) {
-      return true;
+  useEffect(() => {
+    if (!selectedCatProgram || !catProgram?.length) return;
+    const exists = catProgram.some(
+      (category) => category?._id === selectedCatProgram,
+    );
+    if (!exists) {
+      setValue("categoryProgram", "");
     }
-    return false;
-  };
+  }, [selectedCatProgram, catProgram, setValue]);
 
   const onSubmit = async (data) => {
-    if (editCourse) {
-      if (isFormUpdated()) {
-        const currentValues = getValues();
-        const formData = new FormData();
-        formData.append("courseId", course._id);
-        if (currentValues.name !== course.name) {
-          formData.append("name", data.name);
-        }
-        if (currentValues.description !== course.description) {
-          formData.append("description", data.description);
-        }
-        if (currentValues.image !== course.thumbnailImage) {
-          formData.append("thumbnailImage", data.image);
-        }
-        if (currentValues.categoryProgram !== course.categoryProgram) {
-          formData.append("categoryProgram", data.categoryProgram);
-        }
-
-        setLoading(true);
-        const result = await editCategory(formData, token);
-        setLoading(false);
-        if (result) {
-          // dispatch(setStep(2));
-          dispatch(setCourse(result));
-          navigate(`/dashboard/courses/editCourseDetails?id=${course._id}`);
-        } else {
-          toast.error("No changes made to the form");
-        }
-        return;
-      }
-    }
-
-    const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("description", data.description);
-    formData.append("thumbnailImage", data.image);
-    formData.append("categoryProgram", data.categoryProgram);
     setLoading(true);
-    const result = await createCategory(formData, token);
-    if (result) {
-      dispatch(setCourse(result));
-      navigate("/dashboard/courses/addCourseDetails");
-    }
+
+    dispatch(
+      setCourseDraft({
+        name: data.name,
+        description: data.description,
+        categoryProgram: data.categoryProgram,
+      }),
+    );
+
+    onNext();
     setLoading(false);
+  };
+
+  const handleImageChange = (file) => {
+    setThumbnailImage(file);
   };
 
   return (
@@ -159,7 +151,7 @@ function AddCourse() {
         <select
           id="categoryProgram"
           {...register("categoryProgram", { required: true })}
-          defaultValue=""
+          value={selectedCatProgram || ""}
           className="form-input-style text-gray-400"
         >
           <option value="" disabled className="">
@@ -186,20 +178,16 @@ function AddCourse() {
           register={register}
           setValue={setValue}
           errors={errors}
+          viewData={thumbnailImage}
           editData={editCourse ? course?.image : null}
+          onFileChange={handleImageChange}
         />
       </div>
 
       <div className="relative flex justify-between">
         <button
           type="button"
-          onClick={() => {
-            navigate("/dashboard/courses", { state: { refresh: true } });
-            setTimeout(() => {
-              dispatch(setCourse(null));
-              dispatch(setEditCourse(false));
-            }, 100);
-          }}
+          onClick={onCancel}
           className="pl-6 pr-6 pt-3 pb-3 shadow-lg rounded-lg bg-gray-300 hover:bg-gray-400 font-m2 transition-all duration-500 "
         >
           Cancel
@@ -209,7 +197,7 @@ function AddCourse() {
           disabled={loading}
           className="pl-6 pr-6 pt-3 pb-3 rounded-xl shadow-lg text-bhawaniDark bg-bhawaniYellow"
         >
-          {!editCourse ? "Next" : "Save Changes"}
+          Next
         </button>
       </div>
     </form>

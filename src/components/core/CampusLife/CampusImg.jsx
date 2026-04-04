@@ -10,6 +10,7 @@ import {
 import Footer from "../../Common/Footer/Footer";
 import LandingImage from "../../Common/landingImage";
 import RedBar from "../../Common/redBar";
+import LoaderOverlay from "../../Common/LoaderOverlay";
 
 function CampusImg() {
   const [loading, setLoading] = useState(0);
@@ -23,7 +24,7 @@ function CampusImg() {
 
   useEffect(() => {
     const getAllCampCat = async () => {
-      setLoading(prev => prev + 1)
+      setLoading((prev) => prev + 1);
       try {
         const res = await fetchPhotoCategories();
         const imgCat_id = res.find((item) => item._id === campusLifeName);
@@ -32,7 +33,7 @@ function CampusImg() {
       } catch (error) {
         console.log("Error fetching Campus id : ", error);
       } finally {
-        setLoading(prev => prev - 1)
+        setLoading((prev) => prev - 1);
       }
     };
 
@@ -41,17 +42,17 @@ function CampusImg() {
 
   useEffect(() => {
     const getCampusImgDetails = async () => {
-      setLoading(prev => prev + 1)
+      setLoading((prev) => prev + 1);
       try {
         const res = await getAllPhotos(imgCatId);
         const filtered = res.filter((item) =>
-          item.imageCategory.includes(imgCatId)
+          item.imageCategory.includes(imgCatId),
         );
         setCampusData(filtered);
       } catch (error) {
         console.log("Error in fetching campus image : ", error);
       } finally {
-        setLoading(prev => prev - 1)
+        setLoading((prev) => prev - 1);
       }
     };
 
@@ -70,22 +71,16 @@ function CampusImg() {
   }, [loading, campusData]);
 
   const BackUpto = ["/dashboard/photos"].some((path) =>
-    location.pathname.includes(path)
+    location.pathname.includes(path),
   );
 
-  if (loading > 0)
-    return (
-      <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
-        <div className="loader"></div>
-      </div>
-    );
   if (showError) return <Error />;
 
   return (
     <div className="overflow-x-hidden">
-      <div className="relative">
+      <div className={`${BackUpto ? "-mt-[136px]" : "mt-0"} relative`}>
         {imgCategory && (
-          <div className={`${BackUpto ? "-mt-[136px]" : "mt-0"}`}>
+          <div className="relative">
             <LandingImage
               LineImage={imgCategory.image}
               text={imgCategory.name}
@@ -101,19 +96,21 @@ function CampusImg() {
             </div>
           </div>
         )}
+
+        {BackUpto && (
+          <div
+            onClick={() => navigate(-1)}
+            className="fixed z-50 top-32 left-10 flex items-center gap-3 px-5 py-3
+                  bg-white/20 backdrop-blur-md border border-white/30
+                  shadow-lg rounded-xl cursor-pointer
+                  hover:bg-bhawaniRed transition-all duration-300 group"
+          >
+            <FaArrowLeft className="text-white group-hover:translate-x-[-3px] transition" />
+            <p className="text-white font-m1">Back To Dashboard</p>
+          </div>
+        )}
       </div>
 
-      <div
-        onClick={() => navigate(-1)}
-        className={
-          BackUpto
-            ? "absolute z-50 flex gap-2 justify-center items-center px-4 py-3 bg-bhawaniRed shadow-md rounded-lg translate-y-10 translate-x-[80px] cursor-pointer"
-            : "hidden"
-        }
-      >
-        <FaArrowLeft className=" text-white" />
-        <p className="text-white">Back To Dashboard</p>
-      </div>
       <div className="xl:mt-32 lg:mt-32 md:mt-28 mt-20 w-[90%] mx-auto">
         <Masonry
           breakpointCols={{
@@ -137,6 +134,7 @@ function CampusImg() {
         </Masonry>
       </div>
       {!BackUpto && <Footer />}
+      {loading > 0 && <LoaderOverlay />}
     </div>
   );
 }

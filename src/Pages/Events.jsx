@@ -16,7 +16,7 @@ function Events() {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(prev => prev + 1)
+      setLoading((prev) => prev + 1);
       try {
         const res = await getAllEvents();
         if (res && res.length > 0) {
@@ -25,7 +25,7 @@ function Events() {
       } catch (error) {
         console.error("Error fetching event : ", error);
       } finally {
-        setLoading(prev => prev - 1)
+        setLoading((prev) => prev - 1);
       }
     };
 
@@ -40,7 +40,7 @@ function Events() {
   }, {});
 
   const BackUpto = ["/dashboard/event"].some((path) =>
-    location.pathname.includes(path)
+    location.pathname.includes(path),
   );
 
   if (loading > 0)
@@ -67,18 +67,19 @@ function Events() {
             textClassName="font-m1 text-center text-[11px] sm:text-[18px] md:text-[24px] lg:text-[28px] xs:max-w-[500px] px-4 xs:pt-[2px]"
           />
         </div>
-      </div>
 
-      <div
-        onClick={() => navigate(-1)}
-        className={
-          BackUpto
-            ? "absolute z-50 flex gap-2 justify-center items-center px-4 py-3 bg-bhawaniRed shadow-md rounded-lg translate-y-10 translate-x-[80px] cursor-pointer"
-            : "hidden"
-        }
-      >
-        <FaArrowLeft className=" text-white" />
-        <p className="text-white">Back To Dashboard</p>
+        {BackUpto && (
+          <div
+            onClick={() => navigate(-1)}
+            className="fixed z-50 top-32 left-10 flex items-center gap-3 px-5 py-3
+                  bg-white/20 backdrop-blur-md border border-white/30
+                  shadow-lg rounded-xl cursor-pointer
+                  hover:bg-bhawaniRed transition-all duration-300 group"
+          >
+            <FaArrowLeft className="text-white group-hover:translate-x-[-3px] transition" />
+            <p className="text-white font-m1">Back To Dashboard</p>
+          </div>
+        )}
       </div>
 
       <div className="w-[80%] mx-auto xl:mt-32 lg:mt-32 md:mt-28 mt-20">
@@ -120,7 +121,9 @@ function Events() {
                       <p className="text-white xl:text-[25px] lg:text-[25px] md:text-[25px] sm:text-[25px] text-[20px] font-bold font-helvetica">
                         {events.day}
                       </p>
-                      <p className="text-white xl:text-[16px] lg:text-[16px] md:text-[16px] sm:text-[16px] text-[14px] font-helvetica">{events.date}</p>
+                      <p className="text-white xl:text-[16px] lg:text-[16px] md:text-[16px] sm:text-[16px] text-[14px] font-helvetica">
+                        {events.date}
+                      </p>
                     </div>
                     <div className="absolute xl:mt-[225px] lg:mt-[225px] md:mt-[225px] sm:mt-[225px] mt-[180px] ml-2">
                       <p className="xl:text-[22px] lg:text-[22px] md:text-[22px] sm:text-[22px] text-[18px] font-semibold font-m2 group-hover:text-bhawaniRed">

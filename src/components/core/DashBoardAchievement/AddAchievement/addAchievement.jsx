@@ -25,7 +25,7 @@ function AddAchievement() {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
   const { achievement, editAchievement } = useSelector(
-    (state) => state.achievement
+    (state) => state.achievement,
   );
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -34,10 +34,17 @@ function AddAchievement() {
     if (editAchievement && achievement) {
       setValue("title", achievement.title);
       setValue("descritption", achievement.descritption);
-      setValue("thumbnail", achievement.thumbnailImage);
       setValue("status", achievement.status);
     }
   }, [editAchievement, achievement, setValue]);
+
+  const handleFileChange = (file) => {
+    setValue("thumbnail", file);
+  };
+
+  useEffect(() => {
+    register("thumbnail", { required: !editAchievement });
+  }, [register, editAchievement]);
 
   const isFormUpdated = () => {
     const currentValues = getValues();
@@ -64,7 +71,7 @@ function AddAchievement() {
         if (currentValues.descritption !== achievement.descritption) {
           formData.append("descritption", data.descritption);
         }
-        if (currentValues.thumbnail !== achievement.thumbnailImage) {
+        if (currentValues.thumbnail instanceof File) {
           formData.append("thumbnailImage", data.thumbnail);
         }
         if (currentValues.status !== achievement.status) {
@@ -189,6 +196,7 @@ function AddAchievement() {
           setValue={setValue}
           errors={errors}
           editData={editAchievement ? achievement?.thumbnail : null}
+          onFileChange={handleFileChange}
         />
       </div>
 

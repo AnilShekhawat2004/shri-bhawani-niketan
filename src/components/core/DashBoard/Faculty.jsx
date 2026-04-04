@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { getAllSections, getAllTeacherCategories } from "../../../services/operations/teacherAPI";
+import {
+  getAllSections,
+  getAllTeacherCategories,
+  getCounts,
+} from "../../../services/operations/teacherAPI";
 import Breadcrumb from "../../Common/Breadcrumb";
 import AddButton from "../../Common/Buttons/addButton";
 import Chart from "../Faculty/Chart";
@@ -9,45 +13,67 @@ import Count from "../Faculty/Count";
 import Table from "../Faculty/Table";
 import AdminNavBar from "./AdminNavbar";
 import Sidebar from "./SideBar";
+import { resetTeacher } from "../../../slices/teacherSlice";
+import { useDispatch } from "react-redux";
+import LoaderOverlay from "../../Common/LoaderOverlay";
 
 function Faculty() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [loading, setLoading] = useState(0);
   const [categories, setCategories] = useState([]);
   const [teachDetails, setTeachDetails] = useState([]);
+  const [counts, setCounts] = useState({
+    teacherSectionCount: 0,
+    teachCategoryCount: 0,
+  });
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  const fetchCount = async () => {
+    const res = await getCounts();
+    if (res) {
+      setCounts(res);
+    }
+  };
 
   useEffect(() => {
-    const fetchTeachCat = async () => {
-      setLoading(prev => prev + 1)
-      try {
-        const res = await getAllTeacherCategories();
-        if (res && res.length > 0) {
-          setCategories(res);
-        }
-      } catch (error) {
-        console.error("Error Fetching categoires: ", error);
-      } finally {
-        setLoading(prev => prev - 1)
-      }
-    };
+    fetchCount();
+  }, []);
 
+  const fetchTeachCat = async () => {
+    setLoading((prev) => prev + 1);
+    try {
+      const res = await getAllTeacherCategories();
+      if (res && res.length > 0) {
+        setCategories(res);
+      }
+    } catch (error) {
+      console.error("Error Fetching categoires: ", error);
+    } finally {
+      setLoading((prev) => prev - 1);
+    }
+  };
+
+  useEffect(() => {
     fetchTeachCat();
   }, []);
 
   useEffect(() => {
     const getTeacherDetails = async () => {
-      setLoading(prev => prev + 1)
+      setLoading((prev) => prev + 1);
       try {
         const res = await getAllSections();
         if (res && res.length > 0) {
           setTeachDetails(res);
         }
+
+        fetchTeachCat();
+        fetchCount();
       } catch (error) {
         console.log("Error in Fetching the Teacher Data : ", error);
       } finally {
-        setLoading(prev => prev - 1)
+        setLoading((prev) => prev - 1);
       }
     };
     getTeacherDetails();
@@ -61,17 +87,14 @@ function Faculty() {
     setIsSidebarOpen((prev) => !prev);
   };
 
-  if (loading > 0)
-    return (
-      <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
-        <div className="loader"></div>
-      </div>
-    );
-
   const isAddFacultyOpen = ["/addFaculty", "/editFaculty"].some((path) =>
-    location.pathname.includes(path)
+    location.pathname.includes(path),
   );
 
+  const handleFaculty = () => {
+    dispatch(resetTeacher());
+    navigate("/dashboard/faculty/addFaculty");
+  };
   return (
     <div className="bg-violet-50 w-full h-full overflow-x-hidden">
       <AdminNavBar toggleSidebar={toggleSidebar} />
@@ -97,14 +120,14 @@ function Faculty() {
               <AddButton
                 className="w-[150px]"
                 text="Add Faculty"
-                onClick={() => navigate("/dashboard/faculty/addFaculty")}
+                onClick={handleFaculty}
               >
                 <IoMdAdd />
               </AddButton>
             </div>
           </div>
           <div className="mt-10">
-            <Count />
+            <Count counts={counts} />
           </div>
           <div>
             <Chart teacher={categories} />
@@ -139,6 +162,7 @@ function Faculty() {
           )}
         </div>
       </div>
+      {loading > 0 && <LoaderOverlay />}
     </div>
   );
 }

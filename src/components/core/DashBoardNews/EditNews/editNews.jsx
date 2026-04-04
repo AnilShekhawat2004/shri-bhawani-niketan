@@ -4,6 +4,8 @@ import { useLocation } from "react-router-dom";
 import { getNewsDetails } from "../../../../services/operations/newsAPI";
 import { setEditNews, setNews } from "../../../../slices/newsSlice";
 import AddNews from "../AddNews/addNews";
+import LoaderOverlay from "../../../Common/LoaderOverlay";
+
 
 export default function EditNews() {
   const dispatch = useDispatch();
@@ -30,13 +32,10 @@ export default function EditNews() {
     })();
   }, [newsId, token, dispatch]);
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center">
-        <div className="loader"></div>
-      </div>
-    );
-  }
-
-  return <AddNews key={editNews ? "edit" : "create"} />;
+  return (
+    <>
+      <AddNews key={editNews ? "edit" : "create"}/>
+      {loading > 0 && <LoaderOverlay/>}
+    </>
+  );
 }

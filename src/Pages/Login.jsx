@@ -1,9 +1,14 @@
 import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import Bhawani from "../assets/College/Bhawani.png";
 import LoginForm from "../components/core/Auth/LoginForm";
 
 function Login() {
-  const { loading } = useSelector((state) => state.auth);
+  const { loading, token } = useSelector((state) => state.auth);
+
+  if (token) {
+    return <Navigate to="/dashboard/faculty" replace />;
+  }
 
   return (
     <div className="flex items-center justify-center  w-full h-full overflow-hidden">

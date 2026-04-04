@@ -6,6 +6,8 @@ import Count from "../DashBoardContact/Count";
 import Table from "../DashBoardContact/Table";
 import AdminNavBar from "./AdminNavbar";
 import Sidebar from "./SideBar";
+import LoaderOverlay from "../../Common/LoaderOverlay"
+
 
 function ContactUs() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -33,13 +35,6 @@ function ContactUs() {
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
   };
-
-  if (loading > 0)
-    return (
-      <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
-        <div className="loader"></div>
-      </div>
-    );
 
   const isContactOpen = ["/editInquiry", "/contact/"].some((path) =>
     location.pathname.includes(path)
@@ -97,6 +92,7 @@ function ContactUs() {
           )}
         </div>
       </div>
+        {loading > 0 && <LoaderOverlay/>}
     </div>
   );
 }

@@ -35,6 +35,7 @@ export const createNews = async (data, token) => {
 
 export const deleteNews = async (newsId, token) => {
   const toastId = toast.loading("Deleting News....");
+  let result = []
   try {
     if (!token) throw new Error("Authorization Token Missing");
     const response = await apiConnector(
@@ -49,11 +50,13 @@ export const deleteNews = async (newsId, token) => {
       throw new Error(response?.data?.message || "Could Not Delete News");
     }
     toast.success("News Deleted Successfully");
+    result = response?.data
   } catch (error) {
     console.log("DELETE_NEWS_API Error.......", error);
     toast.error(error?.response?.data?.message || error.message);
   }
   toast.dismiss(toastId);
+  return result;
 };
 
 export const getAllNews = async () => {

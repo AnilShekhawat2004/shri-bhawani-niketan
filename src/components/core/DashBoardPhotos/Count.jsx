@@ -1,26 +1,7 @@
-import { useEffect, useState } from "react";
 import { ImCamera } from "react-icons/im";
 import { IoIosTrendingUp } from "react-icons/io";
-import { getPhotosCount } from "../../../services/operations/imageAPI";
 
-function Count() {
-  const [counts, setCounts] = useState({
-    photoCount: 0,
-  });
-
-  useEffect(() => {
-    const fetchPhotoCount = async () => {
-      const res = await getPhotosCount();
-      if (res) {
-        setCounts((prev) => ({
-          ...prev,
-          photoCount: res.photoCount,
-        }));
-      }
-    };
-    fetchPhotoCount();
-  }, []);
-
+function Count({ counts }) {
   return (
     <div className="flex flex-row gap-10">
       <div className="w-[20%] h-auto flex justify-between items-center bg-white shadow-lg border-[1px] border-gray-200 cursor-pointer rounded-lg pt-7 pb-7 pl-5 pr-5">

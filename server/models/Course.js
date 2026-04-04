@@ -46,11 +46,6 @@ const coursesSchema = new mongoose.Schema({
     ref: "courseCategory",
     required: true,
   },
-  status: {
-    type: String,
-    enum: ["Draft", "Published"],
-    default: "Draft",
-  },
   createdAt: {
     type: Date,
     default: Date.now,

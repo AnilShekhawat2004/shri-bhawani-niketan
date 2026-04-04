@@ -71,7 +71,8 @@ export const getAllContacts = async () => {
 
 export const deleteContact = async (contactId, token) => {
   const toastId = toast.loading("Deleting inquiry...");
-  let success = false;
+  // let success = false;
+  let result = []
   try {
     if (!token) throw new Error("Authorization Token Missing");
     const response = await apiConnector(
@@ -86,13 +87,14 @@ export const deleteContact = async (contactId, token) => {
       throw new Error(response?.data?.message || "Could not Delete inquiry");
     }
     toast.success("Inquiry Deleted Successfully");
-    success = true;
+    // success = true;
+    result = response?.data
   } catch (error) {
     console.log("DELETE_CONTACT_API Error........", error);
     toast.error(error?.response?.data?.message || error.message);
   }
   toast.dismiss(toastId);
-  return success;
+  return result;
 };
 
 export const getContactCounts = async () => {

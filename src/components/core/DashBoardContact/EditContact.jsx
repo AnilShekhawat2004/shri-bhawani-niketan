@@ -8,6 +8,8 @@ import {
   getContactDetails,
 } from "../../../services/operations/contactUs";
 import { setContact, setEditContact } from "../../../slices/contactSlice";
+import LoaderOverlay from "../../Common/LoaderOverlay"
+
 
 function EditContact() {
   const { register, handleSubmit, setValue, getValues } = useForm();
@@ -74,14 +76,6 @@ function EditContact() {
       }
     }
   };
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center">
-        <div className="loader"></div>
-      </div>
-    );
-  }
 
   return (
     <form
@@ -150,6 +144,7 @@ function EditContact() {
           {!editContact ? "Save" : "Save Changes"}
         </button>
       </div>
+      {loading > 0 && <LoaderOverlay/>}
     </form>
   );
 }

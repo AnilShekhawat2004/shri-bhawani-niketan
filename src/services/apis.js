@@ -1,4 +1,4 @@
-const BASE_URL= `${process.env.REACT_APP_BACKEND_URL}/api/v1`
+const BASE_URL = `${process.env.REACT_APP_BACKEND_URL}/api/v1`;
 
 // Auth Endpoints
 export const endpoints = {
@@ -22,20 +22,12 @@ export const profileEndpoints = {
 
 //Course Endpoints
 export const courseEndpoints = {
-  GET_ALL_COURSE_API: BASE_URL + "/course/getAllCourses",
-  COURSE_DETAILS_API: BASE_URL + "/course/getCourseDetails",
-  EDIT_COURSE_API: BASE_URL + "/course/editCourse",
   COURSE_CATEGORIES_API: BASE_URL + "/course/showAllCategories",
-  CREATE_COURSE_API: BASE_URL + "/course/createCourse",
-  DELETE_COURSE_API: BASE_URL + "/course/deleteCourse",
-  GET_FULL_COURSE_DETAILS_AUTHENTICATED:
-    BASE_URL + "/course/getFullCourseDetails",
 };
 
 //Course Category Endpoints
 export const courseCategoryEndpoints = {
   CREATE_CATEGORIES_API: BASE_URL + "/course/createCategory",
-  CATEGORYPAGEDETAILS_API: BASE_URL + "/course/categoryPageDetails",
   EDIT_CATEGORY_API: BASE_URL + "/course/editCategory",
   DELETE_CATEGORY_API: BASE_URL + "/course/deleteCategory",
   GET_COURSE_COUNT_API: BASE_URL + "/course/getCourseCounts",
@@ -45,11 +37,7 @@ export const courseCategoryEndpoints = {
 
 //Course Category Program
 export const courseCategoryProgramEndpoints = {
-  CREATE_CATEGORYPROGRAM_API: BASE_URL + "/course/createCatProgram",
-  EDIT_CATEGORYPROGRAM_API: BASE_URL + "/course/editCatProgram",
-  DELETE_CATEGORYPROGRAM_API: BASE_URL + "/course/deleteCatProgram",
   SHOW_ALL_CATEGORYPROGRAM_API: BASE_URL + "/course/showAllCategoryProgram",
-  PROGRAM_CATEGORY_COUNT_API: BASE_URL + "/course/getCategoryProgramCount",
 };
 
 //Contact-Us Endpoints
@@ -80,14 +68,6 @@ export const photoEndpoints = {
   GET_PHOTOS_COUNT: BASE_URL + "/images/getPhotosCount",
   GET_PHOTOS_DETAILS: BASE_URL + "/images/getPhotosDetails",
   PHOTO_CATEGORIES_API: BASE_URL + "/images/showAllCategories",
-};
-
-//Image Category Endpoints
-export const imageEndpoints = {
-  CREATE_IMAGE_CATEGORY_API: BASE_URL + "/images/createCategory",
-  EDIT_IMAGE_CATEGORY_API: BASE_URL + "/images/editCategory",
-  DELETE_IMAGE_CATEGORY_API: BASE_URL + "/images/deleteCategory",
-  IMAGE_CATEGORYPAGEDETAILS_API: BASE_URL + "/images/categoryPageDetails",
 };
 
 export const eventEndpoints = {
@@ -123,22 +103,11 @@ export const achievementEndpoints = {
 //Teacher Endpoints
 export const teacherEndpoints = {
   CREATE_SECTION_API: BASE_URL + "/staff/createSection",
+  CREATE_SECTION_SUBSECTION_API: BASE_URL + "/staff/createSectionSubSection",
   EDIT_SECTION_API: BASE_URL + "/staff/editSection",
   GET_ALL_SECTION_API: BASE_URL + "/staff/getAllSection",
   DELETE_SECTION_API: BASE_URL + "/staff/deleteSection",
   GET_COUNTS_API: BASE_URL + "/staff/getCounts",
   GET_TEACH_DETAILS: BASE_URL + "/staff/getTeachDetails",
-  CREATE_SUBSECTION_API: BASE_URL + "/staff/createSubSection",
-  EDIT_SUBSECTION_API: BASE_URL + "/staff/editSubSection",
-  DELETE_SUBSECTION_API: BASE_URL + "/staff/deleteSubSection",
-  GET_ALL_SUBSECTION_API: BASE_URL + "/staff/getAllSubSection",
   TEACHER_CATEGORY_API: BASE_URL + "/staff/showAllCategories",
-};
-
-//Teacher category endpoints
-export const teachCategoryEndpoints = {
-  TEACHER_CREATE_CATEGORY_API: BASE_URL + "/staff/createCategory",
-  TEACHER_EDIT_CATEGORY_API: BASE_URL + "/staff/editCategory",
-  TEACHER_DELETE_CATEGORY_API: BASE_URL + "/staff/deleteCategory",
-  TEACHER_CATEGORYPAGEDETAILS_API: BASE_URL + "/staff/categoryPageDetails",
 };

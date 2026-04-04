@@ -11,20 +11,20 @@ function DeleteEvent({ eventId, setEventDetails }) {
   const [loading, setLoading] = useState(false);
   const [confirmationModal, setConfirmationModal] = useState(null);
 
-  const handleFacultyDelete = async () => {
+  const handleEventDelete = async () => {
     try {
       setLoading(true);
       const res = await deleteEvent(eventId, token);
 
       if (res?.success) {
         setEventDetails((prev) =>
-          prev.filter((faculty) => faculty._id !== eventId)
+          prev.filter((event) => event._id !== eventId)
         );
         navigate("/dashboard/event", { state: { refresh: true } });
       }
       setConfirmationModal(null);
     } catch (error) {
-      console.log("Error Deleting the Faculty : ", error);
+      console.log("Error Deleting the Event : ", error);
     } finally {
       setLoading(false);
     }
@@ -40,7 +40,7 @@ function DeleteEvent({ eventId, setEventDetails }) {
             btn1Text: !loading ? "Delete" : "Loading...",
             btn2Text: "Cancel",
             btn1Handler: !loading
-              ? () => handleFacultyDelete(eventId)
+              ? () => handleEventDelete(eventId)
               : () => {},
             btn2Handler: !loading ? () => setConfirmationModal(null) : () => {},
           })

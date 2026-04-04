@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   news: {},
   editNews: false,
-  recentNews: [], // Stores recent news
   loading: false, // Loading state for API calls
   error: null, // Stores API errors
 };
@@ -18,9 +17,6 @@ const newsSlice = createSlice({
     setEditNews(state, action) {
       state.editNews = action.payload;
     },
-    setRecentNews(state, action) {
-      state.recentNews = action.payload;
-    },
     setLoading(state, action) {
       state.loading = action.payload;
     },
@@ -30,6 +26,6 @@ const newsSlice = createSlice({
   },
 });
 
-export const { setNews, setEditNews, setRecentNews, setLoading, setError } =
+export const { setNews, setEditNews, setLoading, setError } =
   newsSlice.actions;
 export default newsSlice.reducer;

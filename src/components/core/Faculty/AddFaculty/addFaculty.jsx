@@ -1,109 +1,95 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import {
-  createSection,
-  editSection,
-  getAllTeacherCategories,
-} from "../../../../services/operations/teacherAPI";
-import { setEditTeacher, setTeacher } from "../../../../slices/teacherSlice";
+import { getAllTeacherCategories } from "../../../../services/operations/teacherAPI";
+import { setTeacherDraft } from "../../../../slices/teacherSlice";
 import Upload from "../Upload";
 
-function AddFaculty() {
+function AddFaculty({ onNext, onCancel, setThumbnailImage, thumbnailImage }) {
   const {
     register,
     handleSubmit,
     setValue,
-    getValues,
+    watch,
     formState: { errors },
   } = useForm();
 
   const dispatch = useDispatch();
-  const { token } = useSelector((state) => state.auth);
-  const { teacher, editTeacher } = useSelector((state) => state.teacher);
+  const { teacher, editTeacher, teacherDraft } = useSelector(
+    (state) => state.teacher,
+  );
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
-  const navigate = useNavigate();
+  const selectedCategory = watch("teachCategory");
 
   useEffect(() => {
+    const resolveCategoryId = (category) => {
+      if (!category) return "";
+      if (typeof category === "string") return category;
+      if (Array.isArray(category)) return category[0]?._id ?? "";
+      return category?._id ?? "";
+    };
+
     const getCategories = async () => {
       setLoading(true);
-      const teachCat = await getAllTeacherCategories();
-      if (teachCat.length > 0) {
-        setCategories(teachCat);
+      const teachCategory = await getAllTeacherCategories();
+      if (teachCategory.length > 0) {
+        setCategories(teachCategory);
       }
       setLoading(false);
     };
 
     if (editTeacher && teacher) {
-      setValue("teachName", teacher.name);
-      setValue("teachDesignation", teacher.designation);
-      setValue("image", teacher.thumbnailImage);
-      setValue("teachCategory", teacher.teachCat);
+      const fallbackCategory =
+        resolveCategoryId(teacher?.teachCategory) ||
+        resolveCategoryId(teacher?.teachCat);
+
+      const hasDraftName = typeof teacherDraft?.name === "string";
+      const hasDraftDesignation = typeof teacherDraft?.designation === "string";
+      const draftCategory = resolveCategoryId(
+        teacherDraft?.teachCategory || teacherDraft?.teachCat,
+      );
+
+      setValue("teachName", hasDraftName ? teacherDraft.name : (teacher?.name ?? ""));
+      setValue(
+        "teachDesignation",
+        hasDraftDesignation ? teacherDraft.designation : (teacher?.designation ?? ""),
+      );
+      setValue("teachCategory", draftCategory || fallbackCategory);
+    } else if (teacherDraft?.name || teacherDraft?.designation || teacherDraft?.teachCategory) {
+      setValue("teachName", teacherDraft?.name ?? "");
+      setValue("teachDesignation", teacherDraft?.designation ?? "");
+      setValue("teachCategory", resolveCategoryId(teacherDraft?.teachCategory));
     }
 
     getCategories();
-  }, [editTeacher, teacher, setValue]);
+  }, [editTeacher, teacher, teacherDraft, setValue]);
 
-  const isFormUpdated = () => {
-    const currentValues = getValues();
-    if (
-      currentValues.teachName !== teacher.name ||
-      currentValues.teachDesignation !== teacher.designation ||
-      currentValues.image !== teacher.thumbnailImage ||
-      currentValues.teachCategory !== teacher.teachCat
-    ) {
-      return true;
+  useEffect(() => {
+    if (!selectedCategory || !categories?.length) return;
+    const exists = categories.some((category) => category?._id === selectedCategory);
+    if (!exists) {
+      setValue("teachCategory", "");
     }
-    return false;
-  };
+  }, [selectedCategory, categories, setValue]);
 
   const onSubmit = async (data) => {
-    if (editTeacher) {
-      if (isFormUpdated()) {
-        const currentValues = getValues();
-        const formData = new FormData();
-        formData.append("sectionId", teacher._id);
-        if (currentValues.teachName !== teacher.name) {
-          formData.append("name", data.teachName);
-        }
-        if (currentValues.teachDesignation !== teacher.designation) {
-          formData.append("designation", data.teachDesignation);
-        }
-        if (currentValues.image !== teacher.thumbnailImage) {
-          formData.append("thumbnailImage", data.image);
-        }
-        if (currentValues.teachCategory !== teacher.teachCat) {
-          formData.append("teachCat", data.teachCategory);
-        }
-
-        setLoading(true);
-        const result = await editSection(formData, token);
-        setLoading(false);
-        if (result) {
-          dispatch(setTeacher(result));
-          navigate(`/dashboard/faculty/editFacultyDetails?id=${teacher._id}`);
-        } else {
-          toast.error("No changes made to the form");
-        }
-        return;
-      }
-    }
-
-    const formData = new FormData();
-    formData.append("name", data.teachName);
-    formData.append("designation", data.teachDesignation);
-    formData.append("thumbnailImage", data.image);
-    formData.append("teachCat", data.teachCategory);
     setLoading(true);
-    const result = await createSection(formData, token);
-    if (result) {
-      dispatch(setTeacher(result));
-      navigate("/dashboard/faculty/addFacultyDetails");
-    }
+
+    dispatch(
+      setTeacherDraft({
+        name: data.teachName,
+        designation: data.teachDesignation,
+        teachCategory: data.teachCategory,
+      }),
+    );
+
+    onNext();
     setLoading(false);
+  };
+
+  const handleImageChange = (file) => {
+    setThumbnailImage(file);
   };
 
   return (
@@ -161,7 +147,7 @@ function AddFaculty() {
         <select
           id="teachCategory"
           {...register("teachCategory", { required: true })}
-          defaultValue=""
+          value={selectedCategory || ""}
           className="form-input-style w-full rounded-lg bg-white text-gray-600"
         >
           <option value="" disabled className="">
@@ -188,20 +174,16 @@ function AddFaculty() {
           register={register}
           setValue={setValue}
           errors={errors}
-          editData={editTeacher ? teacher?.image : null}
+          viewData={thumbnailImage}
+          editData={teacher?.image || teacher?.thumbnailImage}
+          onFileChange={handleImageChange}
         />
       </div>
 
       <div className="relative flex justify-between">
         <button
           type="button"
-          onClick={() => {
-            navigate("/dashboard/faculty", { state: { refresh: true } });
-            setTimeout(() => {
-              dispatch(setTeacher(null));
-              dispatch(setEditTeacher(false));
-            }, 100);
-          }}
+          onClick={onCancel}
           className="pl-6 pr-6 pt-3 pb-3 shadow-lg rounded-lg bg-gray-300 hover:bg-gray-400 font-m2 transition-all duration-500 "
         >
           Cancel
@@ -211,7 +193,7 @@ function AddFaculty() {
           disabled={loading}
           className="pl-6 pr-6 pt-3 pb-3 rounded-xl shadow-lg text-bhawaniDark bg-bhawaniYellow"
         >
-          {!editTeacher ? "Next" : "Save Changes"}
+          Next
         </button>
       </div>
     </form>

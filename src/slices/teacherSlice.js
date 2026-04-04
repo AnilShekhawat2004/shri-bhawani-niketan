@@ -3,9 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   step: 1,
   teacher: {}, // Stores all sections
+  teacherDraft: {},
   editTeacher: false,
-  subSectionsList: [], // Stores all subsections
-  categoriesList: [], // Stores all teacher categories
   loading: false, // Loading state for API calls
   error: null, // Stores API errors
 };
@@ -20,14 +19,14 @@ const teacherSlice = createSlice({
     setTeacher(state, action) {
       state.teacher = action.payload;
     },
+    setTeacherDraft: (state, action) => {
+      state.teacherDraft = {
+        ...state.teacherDraft,
+        ...action.payload,
+      }
+    },
     setEditTeacher(state, action) {
       state.editTeacher = action.payload;
-    },
-    setSubSectionsList(state, action) {
-      state.subSectionsList = action.payload;
-    },
-    setCategoriesList(state, action) {
-      state.categoriesList = action.payload;
     },
     setLoading(state, action) {
       state.loading = action.payload;
@@ -35,16 +34,19 @@ const teacherSlice = createSlice({
     setError(state, action) {
       state.error = action.payload;
     },
+    resetTeacher(){
+      return initialState;
+    }
   },
 });
 
 export const {
   setStep,
   setTeacher,
+  setTeacherDraft,
   setEditTeacher,
-  setSubSectionsList,
-  setCategoriesList,
   setLoading,
   setError,
+  resetTeacher,
 } = teacherSlice.actions;
 export default teacherSlice.reducer;

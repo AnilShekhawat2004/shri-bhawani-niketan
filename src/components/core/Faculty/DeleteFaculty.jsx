@@ -20,7 +20,6 @@ function DeleteFaculty({ sectionId, setTeachDetails }) {
         setTeachDetails((prev) =>
           prev.filter((faculty) => faculty._id !== sectionId)
         );
-        navigate("/dashboard/faculty", { state: { refresh: true } });
       }
       setConfirmationModal(null);
     } catch (error) {

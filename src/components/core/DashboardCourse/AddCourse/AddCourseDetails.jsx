@@ -3,20 +3,22 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { RxCross1 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
-  createCourse,
-  editCourses,
+  createCategory,
+  editCategory,
 } from "../../../../services/operations/courseAPI";
-import { setCourse, setEditCourse } from "../../../../slices/courseSlice";
+import { resetCourse } from "../../../../slices/courseSlice";
 
-function AddCourseDetails() {
+function AddCourseDetails({ onBack, thumbnailImage }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { token } = useSelector((state) => state.auth);
-  const { course, editCourse } = useSelector((state) => state.course);
+  const { course, courseDraft, editCourse } = useSelector(
+    (state) => state.course,
+  );
   const [loading, setLoading] = useState(false);
-  const location = useLocation();
+  const isImageChange = thumbnailImage instanceof File;
 
   const { register, handleSubmit, setValue, getValues, control } = useForm({
     defaultValues: editCourse
@@ -27,40 +29,11 @@ function AddCourseDetails() {
         },
   });
 
-  useEffect(() => {
-    if (editCourse && course && course.courses && course.courses.length > 0) {
-      const sub = course.courses[0];
-      setValue("courseName", sub.courseName);
-      setValue("courseDescription", sub.courseDescription);
-      setValue("duration", sub.duration);
-      setValue("fees", sub.fees);
-      setValue("semesterFees", sub.semesterFees);
-      setValue("instructorName", sub.instructorName);
-      setValue("status", sub.status);
-    }
-  }, [course, setValue, editCourse]);
-
-  const isFormUpdated = () => {
-    const currentValues = getValues();
-    const sub = course.courses[0];
-    if (
-      currentValues.courseName !== sub.courseName ||
-      currentValues.courseDescription !== sub.courseDescription ||
-      currentValues.duration !== sub.duration ||
-      currentValues.fees !== sub.fees ||
-      currentValues.semesterFees !== sub.semesterFees ||
-      currentValues.instructorName !== sub.instructorName ||
-      currentValues.status !== sub.status
-    ) {
-      return true;
-    }
-    return false;
-  };
-
   const {
     fields: feeFields,
     append: appendFee,
     remove: removeFee,
+    replace: replaceFee,
   } = useFieldArray({
     control,
     name: "fees",
@@ -70,77 +43,133 @@ function AddCourseDetails() {
     fields: semesterFields,
     append: appendSemester,
     remove: removeSemester,
+    replace: replaceSemester,
   } = useFieldArray({
     control,
     name: "semesterFees",
   });
 
+  useEffect(() => {
+    if (editCourse && course && course.courses && course.courses.length > 0) {
+      const sub = course.courses[0];
+      setValue("courseName", sub.courseName);
+      setValue("courseDescription", sub.courseDescription);
+      setValue("duration", sub.duration);
+      replaceFee(sub.fees || []);
+      replaceSemester(sub.semesterFees || []);
+      setValue("instructorName", sub.instructorName);
+    }
+  }, [course, setValue, editCourse, replaceFee, replaceSemester]);
+
+  const isFormUpdated = () => {
+    const currentValues = getValues();
+    if (!course?.courses || course.courses.length === 0) {
+      return true;
+    }
+    const sub = course?.courses?.[0];
+    if (
+      courseDraft?.name !== course?.name ||
+      courseDraft?.description !== course?.description ||
+      courseDraft?.categoryProgram !== course?.categoryProgram ||
+      isImageChange ||
+      currentValues.courseName !== sub.courseName ||
+      currentValues.courseDescription !== sub.courseDescription ||
+      currentValues.duration !== sub.duration ||
+      currentValues.fees !== sub.fees ||
+      currentValues.semesterFees !== sub.semesterFees ||
+      currentValues.instructorName !== sub.instructorName
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   const onSubmit = async (data) => {
     if (editCourse) {
       // Update existing courses
-      if (isFormUpdated()) {
-        const sub = course.courses[0];
-        const formData = new FormData();
-        const currentValues = getValues();
-
-        formData.append("courseId", course.courses[0]._id);
-
-        if (currentValues.courseName !== sub.courseName)
-          formData.append("courseName", data.courseName);
-        if (currentValues.courseDescription !== sub.courseDescription)
-          formData.append("courseDescription", data.courseDescription);
-        if (currentValues.duration !== sub.duration)
-          formData.append("duration", data.duration);
-        if (JSON.stringify(currentValues.fees) !== JSON.stringify(sub.fees))
-          formData.append("fees", JSON.stringify(data.fees));
-        if (
-          JSON.stringify(currentValues.semesterFees) !==
-          JSON.stringify(sub.semesterFees)
-        )
-          formData.append("semesterFees", JSON.stringify(data.semesterFees));
-        if (currentValues.instructorName !== sub.instructorName)
-          formData.append("instructorName", data.instructorName);
-        if (currentValues.status !== sub.status)
-          formData.append("status", data.status);
-
-        setLoading(true);
-        const result = await editCourses(formData, token);
-        setLoading(false);
-        if (result) {
-          dispatch(setCourse(result));
-          navigate("/dashboard/courses", { state: { refresh: true } });
-        } else {
-          toast.error("No changes made to the form");
-        }
-        return;
+      if (!isFormUpdated()) {
+        toast("No changes were made", { icon: "ℹ️" });
       }
+      const sub = course.courses[0];
+      const formData = new FormData();
+      const currentValues = getValues();
+
+      formData.append("courseCategoryId", course?._id);
+      formData.append("courseId", course?.courses[0]?._id);
+
+      if (courseDraft?.name !== course?.name)
+        formData.append("name", courseDraft?.name);
+      if (courseDraft?.description !== course?.description)
+        formData.append("description", courseDraft?.description);
+      if (courseDraft?.categoryProgram !== course?.categoryProgram)
+        formData.append("categoryProgram", courseDraft?.categoryProgram);
+      if (isImageChange) {
+        formData.append("thumbnailImage", thumbnailImage);
+      }
+
+      const courseField = [
+        "courseName",
+        "courseDescription",
+        "duration",
+        "instructorName",
+      ];
+
+      courseField.forEach((field) => {
+        if (currentValues?.[field] !== sub?.[field]) {
+          formData.append(field, data?.[field]);
+        }
+      });
+
+      const stringField = ["fees", "semesterFees"];
+
+      stringField.forEach((field) => {
+        if (
+          JSON.stringify(currentValues?.[field]) !==
+          JSON.stringify(sub?.[field])
+        ) {
+          formData.append(field, JSON.stringify(data?.[field]));
+        }
+      });
+
+      setLoading(true);
+      try {
+        const result = await editCategory(formData, token);
+
+        if (result) {
+          navigate("/dashboard/courses", { state: { refresh: true } });
+          dispatch(resetCourse());
+        }
+      } catch (error) {
+        console.log("Error while editing course : ", error);
+      } finally {
+        setLoading(false);
+      }
+      return;
     }
+    setLoading(true);
     const formData = new FormData();
-    formData.append("category", course._id);
+    formData.append("name", courseDraft.name);
+    formData.append("description", courseDraft.description);
+    formData.append("categoryProgram", courseDraft.categoryProgram);
+    formData.append("thumbnailImage", thumbnailImage);
+
     formData.append("courseName", data.courseName);
     formData.append("courseDescription", data.courseDescription);
     formData.append("duration", data.duration);
     formData.append("fees", JSON.stringify(data.fees));
     formData.append("semesterFees", JSON.stringify(data.semesterFees));
     formData.append("instructorName", data.instructorName);
-    formData.append("status", data.status);
 
-    setLoading(true);
-    const result = await createCourse(formData, token);
-    if (result) {
-      dispatch(setCourse(result));
-      navigate("/dashboard/courses", { state: { refresh: true } });
-    }
-    setLoading(false);
-  };
-
-  const goBack = () => {
-    if (location.pathname.includes("editCourseDetails")) {
-      navigate(`/dashboard/courses/editCourse?id=${course._id}`);
-      dispatch(setEditCourse(true));
-    } else {
-      navigate("/dashboard/courses/addCourse");
-      dispatch(setEditCourse(true));
+    try {
+      const res = await createCategory(formData, token);
+      if (res) {
+        navigate("/dashboard/courses");
+        dispatch(resetCourse());
+      }
+    } catch (error) {
+      console.error("Course creation failed : ", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -199,7 +228,7 @@ function AddCourseDetails() {
           Yearly Fees <span className="text-red-500">*</span>
         </p>
         {feeFields.map((fields, index) => (
-          <div key={fields._id} className="flex gap-3 mb-2">
+          <div key={fields.id} className="flex gap-3 mb-2">
             <input
               className="form-input-style appearance-none"
               placeholder="Enter Year"
@@ -231,7 +260,7 @@ function AddCourseDetails() {
           Semester Fees <span className="text-red-500">*</span>
         </p>
         {semesterFields.map((fields, index) => (
-          <div key={fields._id} className="flex gap-3 mb-2">
+          <div key={fields.id} className="flex gap-3 mb-2">
             <input
               className="form-input-style appearance-none"
               placeholder="Enter Semester"
@@ -274,50 +303,10 @@ function AddCourseDetails() {
         />
       </div>
 
-      <div className="relative">
-        <p className="text-sm font-medium text-gray-700 mb-1">
-          Status <span className="text-red-500">*</span>
-        </p>
-
-        <div className="flex gap-10 ml-3">
-          {/* Draft */}
-          <label className="relative flex gap-4 items-center px-4 py-2 rounded-xl cursor-pointer select-none">
-            {/* Radio first in DOM so peer-checked works */}
-            <input
-              type="radio"
-              value="Draft"
-              defaultChecked
-              {...register("status")}
-              className="peer order-2 z-10 accent-bhawaniYellow"
-            />
-            {/* Text (left) */}
-            <span className="order-1 z-10 font-medium peer-checked:text-white text-bhawaniRed">
-              Draft
-            </span>
-            {/* Bg / border layer */}
-            <span className="absolute inset-0 rounded-xl border border-bhawaniRed bg-white transition-colors duration-200 peer-checked:bg-bhawaniRed" />
-          </label>
-
-          {/* Published */}
-          <label className="relative flex items-center gap-4 px-4 py-2 rounded-xl cursor-pointer select-none">
-            <input
-              type="radio"
-              value="Published"
-              {...register("status")}
-              className="peer order-2 z-10 accent-bhawaniYellow"
-            />
-            <span className="order-1 z-10 font-medium peer-checked:text-white text-bhawaniRed">
-              Published
-            </span>
-            <span className="absolute inset-0 rounded-xl border border-bhawaniRed bg-white transition-colors duration-200 peer-checked:bg-bhawaniRed" />
-          </label>
-        </div>
-      </div>
-
       <div className="relative flex justify-between pt-5">
         <button
           type="button"
-          onClick={goBack}
+          onClick={onBack}
           className="pl-6 pr-6 pt-3 pb-3 shadow-lg rounded-lg bg-gray-300 hover:bg-gray-400 font-m2 transition-all duration-500 "
         >
           Go Back
@@ -327,7 +316,7 @@ function AddCourseDetails() {
           disabled={loading}
           className="pl-6 pr-6 pt-3 pb-3 rounded-xl shadow-lg text-bhawaniDark bg-bhawaniYellow"
         >
-          {!editCourse ? "Next" : "Save Changes"}
+          Save
         </button>
       </div>
     </form>

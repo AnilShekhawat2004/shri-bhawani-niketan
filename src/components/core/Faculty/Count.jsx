@@ -1,23 +1,7 @@
-import { useEffect, useState } from "react";
 import { IoIosTrendingUp } from "react-icons/io";
 import { RiGroupLine } from "react-icons/ri";
-import { getCounts } from "../../../services/operations/teacherAPI";
 
-function Count() {
-  const [counts, setCounts] = useState({
-    teacherSectionCount: 0,
-    teachCategoryCount: 0,
-  });
-
-  useEffect(() => {
-    const fetchCount = async () => {
-      const res = await getCounts();
-      if (res) {
-        setCounts(res);
-      }
-    };
-    fetchCount();
-  }, []);
+function Count({counts}) {
   return (
     <div className="flex flex-row gap-10">
       <div className="w-[20%] h-auto flex justify-between items-center bg-blue-100 hover:bg-blue-200 shadow-md hover:shadow-lg transition-all duration-500 cursor-pointer rounded-lg pt-7 pb-7 pl-5 pr-5">

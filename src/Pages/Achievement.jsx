@@ -16,11 +16,11 @@ function Achievement() {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(prev => prev + 1)
+      setLoading((prev) => prev + 1);
       try {
         const res = await getAllAchievements();
         let filteredAchieveData = res.filter((item) =>
-          item.status.includes("Published")
+          item.status.includes("Published"),
         );
         if (filteredAchieveData && filteredAchieveData.length > 0) {
           setAchieve(filteredAchieveData);
@@ -28,7 +28,7 @@ function Achievement() {
       } catch (error) {
         console.error("Error fetching achievement : ", error);
       } finally {
-        setLoading(prev => prev - 1)
+        setLoading((prev) => prev - 1);
       }
     };
 
@@ -36,7 +36,7 @@ function Achievement() {
   }, []);
 
   const BackUpto = ["/dashboard/achievement"].some((path) =>
-    location.pathname.includes(path)
+    location.pathname.includes(path),
   );
 
   if (loading > 0)
@@ -64,18 +64,19 @@ function Achievement() {
             textClassName="font-m1 text-center text-[13px] sm:text-[18px] md:text-[24px] lg:text-[28px] xs:max-w-[500px] px-4 xs:pt-[5px]"
           />
         </div>
-      </div>
 
-      <div
-        onClick={() => navigate(-1)}
-        className={
-          BackUpto
-            ? "absolute z-50 flex gap-2 justify-center items-center px-4 py-3 bg-bhawaniRed shadow-md rounded-lg translate-y-10 translate-x-[80px] cursor-pointer"
-            : "hidden"
-        }
-      >
-        <FaArrowLeft className=" text-white" />
-        <p className="text-white">Back To Dashboard</p>
+        {BackUpto && (
+          <div
+            onClick={() => navigate(-1)}
+            className="fixed z-50 top-32 left-10 flex items-center gap-3 px-5 py-3
+                  bg-white/20 backdrop-blur-md border border-white/30
+                  shadow-lg rounded-xl cursor-pointer
+                  hover:bg-bhawaniRed transition-all duration-300 group"
+          >
+            <FaArrowLeft className="text-white group-hover:translate-x-[-3px] transition" />
+            <p className="text-white font-m1">Back To Dashboard</p>
+          </div>
+        )}
       </div>
 
       <div>

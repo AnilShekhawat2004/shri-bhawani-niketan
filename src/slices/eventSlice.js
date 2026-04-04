@@ -28,11 +28,8 @@ const eventSlice = createSlice({
     setEventSuccess(state, action) {
       state.success = action.payload;
     },
-    resetEventState(state) {
-      state.event = [];
-      state.loading = false;
-      state.error = null;
-      state.success = false;
+    resetEventState() {
+      return initialState;
     },
   },
 });

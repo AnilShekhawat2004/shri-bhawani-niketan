@@ -1,26 +1,7 @@
-import { useEffect, useState } from "react";
 import { BsFillTrophyFill } from "react-icons/bs";
 import { IoIosTrendingUp } from "react-icons/io";
-import { getAchievementCounts } from "../../../services/operations/achievementAPI";
 
-function Count() {
-  const [counts, setCounts] = useState({
-    achievementCount: 0,
-  });
-
-  useEffect(() => {
-    const fetchCount = async () => {
-      const res = await getAchievementCounts();
-      if (res) {
-        setCounts((prev) => ({
-          ...prev,
-          achievementCount: res.achievementCount,
-        }));
-      }
-    };
-    fetchCount();
-  }, []);
-
+function Count({ counts }) {
   return (
     <div className="flex flex-row gap-10">
       <div className="w-[20%] h-auto flex justify-between items-center bg-white shadow-lg border-[1px] border-gray-200 cursor-pointer rounded-lg pt-7 pb-7 pl-5 pr-5">

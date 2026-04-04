@@ -1,14 +1,28 @@
 import { jwtDecode } from "jwt-decode";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { logout } from "../../../services/operations/authAPI";
 import { ACCOUNT_TYPE } from "../../../utils/constants";
 
 const PrivateRoute = ({ children, adminOnly = false }) => {
-  const { token } = useSelector((state) => state.auth);
-  const { user } = useSelector((state) => state.profile);
+  const { token, loading, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  if(loading){
+    return(
+      <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
+        <div className="loader"></div>
+      </div>
+    )
+  }
+
+  if(!token){
+    return(
+      <Navigate to="/auth/login" replace/>
+    )
+  }
 
   if (token) {
     try {
@@ -43,7 +57,6 @@ const PrivateRoute = ({ children, adminOnly = false }) => {
   }
 
   if (adminOnly && user?.accountType !== ACCOUNT_TYPE.ADMIN) {
-    // return <Navigate to="/" replace />;
     return (
       <div className="w-full min-h-screen flex justify-center items-center">
         <div className="flex justify-center items-center backdrop-blur-md border border-gray-300 bg-white px-5 py-5 shadow-lg rounded-lg">

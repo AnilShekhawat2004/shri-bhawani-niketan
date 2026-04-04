@@ -74,7 +74,7 @@ const TeacherPage = () => {
   if (loading > 0) {
     return (
       <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
-        <div className="loader"></div>
+        <div className=""></div>
       </div>
     );
   }
@@ -106,10 +106,7 @@ const TeacherPage = () => {
           <Link
             key={teacher._id}
             className="relative group w-full xl:aspect-[3/4] lg:aspect-[3/4] md:aspect-[3/4] sm:w-[280px] sm:h-[350px] xs:w-[80%] xs:h-[320px] cursor-pointer overflow-hidden hover:shadow-xl"
-            to={`/staff/${teachCatName}/${teacher.name
-              .split(" ")
-              .join("-")
-              .toLowerCase()}`}
+            to={`/staff/${teachCatName}/${teacher._id}`}
           >
             {/* Image */}
             <img

@@ -8,23 +8,47 @@ const teacherSubSectionSchema = new mongoose.Schema({
     type: String,
   },
   startingYear: {
-    type: String,
+    type: Number,
   },
   experience: {
-    type: String,
+    type: Number,
   },
-  educationHistory: {
-    type: String,
-  },
-  strengths: {
-    type: String,
-  },
-  hobbies: {
-    type: String,
-  },
-  professionalHistory: {
-    type: String,
-  },
+  educationHistory: [
+    {
+      institute: {
+        type: String,
+      },
+      degree: {
+        type: String,
+      },
+      year: {
+        type: Number,
+      },
+    },
+  ],
+  strengths: [
+    {
+      type: String,
+    },
+  ],
+  hobbies: [
+    {
+      type: String,
+    },
+  ],
+  professionalHistory: [
+    {
+      institute: {
+        type: String,
+      },
+      designation: {
+        type: String,
+      },
+      duration: {
+        type: Number,
+      },
+    },
+  ],
   love: {
     type: String,
   },

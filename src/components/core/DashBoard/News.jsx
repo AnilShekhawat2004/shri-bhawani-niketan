@@ -1,53 +1,72 @@
 import { useEffect, useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { getAllNews } from "../../../services/operations/newsAPI";
+import {
+  getAllNews,
+  getNewsCounts,
+} from "../../../services/operations/newsAPI";
 import Breadcrumb from "../../Common/Breadcrumb";
 import AddButton from "../../Common/Buttons/addButton";
 import Count from "../DashBoardNews/Count";
 import Table from "../DashBoardNews/Table";
 import AdminNavBar from "./AdminNavbar";
 import Sidebar from "./SideBar";
+import LoaderOverlay from "../../Common/LoaderOverlay";
 
 function News() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [counts, setCounts] = useState({
+    newsCount: 0,
+    publishedCount: 0,
+    draftCount: 0,
+  });
   const [loading, setLoading] = useState(0);
   const [newsDetails, setNewsDetails] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
 
+  const fetchNewsCount = async () => {
+    const res = await getNewsCounts();
+    if (res) {
+      setCounts(res);
+    }
+  };
+
+  useEffect(() => {
+    fetchNewsCount();
+  }, []);
+
   useEffect(() => {
     const fetchNews = async () => {
-      setLoading(prev => prev + 1)
+      setLoading((prev) => prev + 1);
       try {
         const res = await getAllNews();
         if (res && res.length > 0) {
           setNewsDetails(res);
         }
+
+        fetchNewsCount();
       } catch (error) {
         console.log("Error fetching news :", error);
       } finally {
-        setLoading(prev => prev - 1)
+        setLoading((prev) => prev - 1);
       }
     };
 
     fetchNews();
-  }, []);
+
+    if (location.state?.refresh) {
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
   };
 
-  if (loading > 0)
-    return (
-      <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
-        <div className="loader"></div>
-      </div>
-    );
-
-  const isAddNewsOpen = ["/addNews", "/editNews"].some((path) =>
-    location.pathname.includes(path)
-  );
+  const isAddNewsOpen =
+    location.pathname.includes("addNews") ||
+    location.pathname.includes("editNews");
 
   return (
     <div className="bg-violet-50 w-full h-full overflow-x-hidden">
@@ -81,7 +100,7 @@ function News() {
             </div>
           </div>
           <div className="mt-10">
-            <Count />
+            <Count counts={counts} />
           </div>
           <div>
             <Table newsDetails={newsDetails} setNewsDetails={setNewsDetails} />
@@ -109,6 +128,7 @@ function News() {
           )}
         </div>
       </div>
+      {loading > 0 && <LoaderOverlay />}
     </div>
   );
 }

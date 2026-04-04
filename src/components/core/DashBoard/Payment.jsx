@@ -6,6 +6,7 @@ import Count from "../DashBoardPayment/PaymentCount";
 import Table from "../DashBoardPayment/PaymentTable";
 import AdminNavBar from "./AdminNavbar";
 import Sidebar from "./SideBar";
+import LoaderOverlay from "../../Common/LoaderOverlay"
 
 function Payment() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -34,12 +35,6 @@ function Payment() {
     setIsSidebarOpen((prev) => !prev);
   };
 
-  if (loading > 0)
-    return (
-      <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
-        <div className="loader"></div>
-      </div>
-    );
 
   const isPaymentOpen = ["/payment/"].some((path) =>
     location.pathname.includes(path)
@@ -82,6 +77,7 @@ function Payment() {
           )}
         </div>
       </div>
+      {loading > 0 && <LoaderOverlay/>}
     </div>
   );
 }

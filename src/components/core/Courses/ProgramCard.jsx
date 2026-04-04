@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Error from "../../../Pages/Error";
 import { showAllCategoryPrograms } from "../../../services/operations/courseAPI";
 import RButton from "../../Common/Buttons/rButton";
+import LoaderOverlay from "../../Common/LoaderOverlay"
+
 
 function ProgramCard() {
   const [loading, setLoading] = useState(0);
@@ -26,12 +28,6 @@ function ProgramCard() {
     fetchData();
   }, []);
 
-  if (loading > 0)
-    return (
-      <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
-        <div className="loader"></div>
-      </div>
-    );
   if (catProgram.length === 0) return <Error />;
 
   return (
@@ -86,6 +82,7 @@ function ProgramCard() {
           </div>
         </div>
       ))}
+      {loading > 0 && <LoaderOverlay/>}
     </div>
   );
 }

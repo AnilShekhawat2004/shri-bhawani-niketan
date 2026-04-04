@@ -1,52 +1,68 @@
 import { useEffect, useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { getAllEvents } from "../../../services/operations/eventAPI";
+import {
+  getAllEvents,
+  getEventCounts,
+} from "../../../services/operations/eventAPI";
 import Breadcrumb from "../../Common/Breadcrumb";
 import AddButton from "../../Common/Buttons/addButton";
 import Count from "../DashBoardEvent/Count";
 import Table from "../DashBoardEvent/Table";
 import AdminNavBar from "./AdminNavbar";
 import Sidebar from "./SideBar";
+import LoaderOverlay from "../../Common/LoaderOverlay";
 
 function Event() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [counts, setCounts] = useState({ EventCount: 0 });
   const [loading, setLoading] = useState(0);
   const [eventDetails, setEventDetails] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
 
+  const fetchCount = async () => {
+    const res = await getEventCounts();
+    if (res) {
+      setCounts((prev) => ({ ...prev, EventCount: res.EventCount }));
+    }
+  };
+
+  useEffect(() => {
+    fetchCount()
+  }, [])
+
   useEffect(() => {
     const fetchEvent = async () => {
-      setLoading(prev => prev + 1)
+      setLoading((prev) => prev + 1);
       try {
         const res = await getAllEvents();
         if (res && res.length > 0) {
           setEventDetails(res);
         }
+
+        fetchCount()
       } catch (error) {
         console.error("Error Fetching events : ", error);
       } finally {
-        setLoading(prev => prev - 1)
+        setLoading((prev) => prev - 1);
       }
     };
+
     fetchEvent();
-  }, []);
+
+    if (location.state?.refresh) {
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
   };
 
-  if (loading > 0)
-    return (
-      <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
-        <div className="loader"></div>
-      </div>
-    );
-
-  const isAddEventOpen = ["/addEvent", "/editEvent"].some((path) =>
-    location.pathname.includes(path)
-  );
+  const isAddEventOpen =
+    location.pathname.includes("addEvent") ||
+    location.pathname.includes("editEvent");
 
   return (
     <div className="bg-violet-50 w-full h-full overflow-x-hidden">
@@ -79,7 +95,7 @@ function Event() {
             </div>
           </div>
           <div className="mt-10">
-            <Count />
+            <Count counts={counts}/>
           </div>
           <div>
             <Table
@@ -110,6 +126,7 @@ function Event() {
           )}
         </div>
       </div>
+      {loading > 0 && <LoaderOverlay />}
     </div>
   );
 }

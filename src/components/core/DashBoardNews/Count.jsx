@@ -1,25 +1,7 @@
-import { useEffect, useState } from "react";
 import { IoIosTrendingUp } from "react-icons/io";
 import { LuNewspaper } from "react-icons/lu";
-import { getNewsCounts } from "../../../services/operations/newsAPI";
 
-function Count() {
-  const [counts, setCounts] = useState({
-    newsCount: 0,
-    publishedCount: 0,
-    draftCount: 0,
-  });
-
-  useEffect(() => {
-    const fetchNewsCount = async () => {
-      const res = await getNewsCounts();
-      if (res) {
-        setCounts(res);
-      }
-    };
-    fetchNewsCount();
-  }, []);
-
+function Count({ counts }) {
   return (
     <div className="flex flex-row gap-10">
       <div className="w-[20%] h-auto flex justify-between items-center bg-orange-100 hover:bg-orange-200 shadow-md hover:shadow-lg transition-all duration-500 cursor-pointer rounded-lg pt-7 pb-7 pl-5 pr-5">

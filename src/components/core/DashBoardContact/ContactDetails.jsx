@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getContactDetails } from "../../../services/operations/contactUs";
+import LoaderOverlay from "../../Common/LoaderOverlay"
+
 
 function ContactDetails() {
   const [loading, setLoading] = useState(true);
@@ -24,14 +26,6 @@ function ContactDetails() {
 
     getContactUsDetails();
   }, [contactId, token]);
-
-  if (loading) {
-    return (
-      <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
-        <div className="loader"></div>
-      </div>
-    );
-  }
 
   return (
     <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50">
@@ -118,6 +112,7 @@ function ContactDetails() {
           </div>
         </div>
       </div>
+      {loading > 0 && <LoaderOverlay/>}
     </div>
   );
 }

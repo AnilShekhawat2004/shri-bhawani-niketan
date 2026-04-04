@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import CountryCode from "../../../data/countryCode.json";
 import { submitContactForm } from "../../../services/operations/contactUs";
 import SButton from "../../Common/Buttons/mButton";
+import LoaderOverlay from "../../Common/LoaderOverlay"
+
 
 const ContactForm = () => {
   const [loading, setLoading] = useState(false);
@@ -262,6 +264,7 @@ const ContactForm = () => {
           </SButton>
         </div>
       </div>
+      {loading > 0 && <LoaderOverlay/>}
     </form>
   );
 };

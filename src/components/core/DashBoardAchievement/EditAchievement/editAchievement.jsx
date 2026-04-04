@@ -7,6 +7,8 @@ import {
   setEditAchievement,
 } from "../../../../slices/achievementSlice";
 import AddAchievement from "../AddAchievement/addAchievement";
+import LoaderOverlay from "../../../Common/LoaderOverlay"
+
 
 export default function EditAchievement() {
   const dispatch = useDispatch();
@@ -33,13 +35,10 @@ export default function EditAchievement() {
     })();
   }, [achieveId, token, dispatch]);
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center">
-        <div className="loader"></div>
-      </div>
-    );
-  }
-
-  return <AddAchievement key={editAchievement ? "edit" : "create"} />;
+  return (
+    <>
+      <AddAchievement key={editAchievement ? "edit" : "create"} />
+      {loading > 0 && <LoaderOverlay/>}
+    </>
+  );
 }

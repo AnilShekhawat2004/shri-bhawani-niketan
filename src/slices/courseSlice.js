@@ -2,9 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   course: {},
+  courseDraft: {},
   editCourse: false,
-  courseDetails: null,
-  categories: [],
   loading: false,
   error: null,
 };
@@ -16,14 +15,14 @@ const courseSlice = createSlice({
     setCourse(state, action) {
       state.course = action.payload;
     },
+    setCourseDraft(state, action) {
+      state.courseDraft = {
+        ...state.courseDraft,
+        ...action.payload,
+      };
+    },
     setEditCourse(state, action) {
       state.editCourse = action.payload;
-    },
-    setCourseDetails(state, action) {
-      state.courseDetails = action.payload;
-    },
-    setCategories(state, action) {
-      state.categories = action.payload;
     },
     setLoading(state, action) {
       state.loading = action.payload;
@@ -31,15 +30,18 @@ const courseSlice = createSlice({
     setError(state, action) {
       state.error = action.payload;
     },
+    resetCourse() {
+      return initialState;
+    },
   },
 });
 
 export const {
   setCourse,
+  setCourseDraft,
   setEditCourse,
-  setCourseDetails,
-  setCategories,
   setLoading,
   setError,
+  resetCourse,
 } = courseSlice.actions;
 export default courseSlice.reducer;

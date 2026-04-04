@@ -11,7 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../../services/operations/authAPI";
 
 function Sidebar({ isOpen }) {
-  const { user } = useSelector((state) => state.profile);
+  const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -97,7 +97,7 @@ function Sidebar({ isOpen }) {
           onClick={() => navigate("/dashboard/profile")}
         >
           <img
-            src={user.image}
+            src={user?.image}
             alt={user.firstName}
             loading="lazy"
             className="rounded-full w-10 ring ring-bhawaniDark"
@@ -105,10 +105,10 @@ function Sidebar({ isOpen }) {
 
           <div>
             <p className="text-[12px] font-bold">
-              {user.firstName} {user.lastName}
+              {user?.firstName} {user?.lastName}
             </p>
 
-            <p className="text-sm">{user.email}</p>
+            <p className="text-sm">{user?.email}</p>
           </div>
         </div>
         <div className="flex w-full items-center h-12">

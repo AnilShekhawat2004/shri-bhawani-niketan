@@ -46,6 +46,14 @@ function AddPhoto() {
     getImageCat();
   }, [editPhoto, photo, setValue]);
 
+  const handleFileChange = (file) => {
+    setValue("thumbnail", file);
+  };
+
+  useEffect(() => {
+    register("thumbnail", { required: !editPhoto });
+  }, [register, editPhoto]);
+
   const isFormUpdated = () => {
     const currentValues = getValues();
     if (
@@ -67,7 +75,7 @@ function AddPhoto() {
         if (currentValues.name !== photo.name) {
           formData.append("name", data.name);
         }
-        if (currentValues.thumbnail !== photo.thumbnailImage) {
+        if (currentValues.thumbnail instanceof File) {
           formData.append("thumbnailImage", data.thumbnail);
         }
         if (currentValues.imageCategory !== photo.imageCategory) {
@@ -163,6 +171,7 @@ function AddPhoto() {
           setValue={setValue}
           errors={errors}
           editData={editPhoto ? photo?.thumbnail : null}
+          onFileChange={handleFileChange}
         />
       </div>
 

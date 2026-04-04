@@ -1,43 +1,66 @@
 import { useEffect, useState } from "react";
 import { IoMdAdd } from "react-icons/io";
+import { useDispatch } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { fetchCourseCategories, showAllCategoryPrograms } from "../../../services/operations/courseAPI";
+import {
+  fetchCourseCategories,
+  showAllCategoryPrograms,
+  getCourseCounts,
+} from "../../../services/operations/courseAPI";
+import { resetCourse } from "../../../slices/courseSlice";
 import Breadcrumb from "../../Common/Breadcrumb";
 import AddButton from "../../Common/Buttons/addButton";
 import Count from "../DashboardCourse/Count";
 import Table from "../DashboardCourse/Table";
 import AdminNavBar from "./AdminNavbar";
 import Sidebar from "./SideBar";
+import LoaderOverlay from "../../Common/LoaderOverlay";
 
 function Courses() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [loading, setLoading] = useState(0);
   const [courseCat, setCourseCat] = useState([]);
   const [courseDetails, setCourseDetails] = useState([]);
+  const [counts, setCounts] = useState({
+    courseCount: 0,
+    categoryCount: 0,
+  });
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  const fetchCount = async () => {
+    const res = await getCourseCounts();
+    if (res) {
+      setCounts(res);
+    }
+  };
 
   useEffect(() => {
-    const fetchCourseCat = async () => {
-      setLoading(prev => prev + 1)
-      try {
-        const res = await showAllCategoryPrograms();
-        if (res && res.length > 0) {
-          setCourseCat(res);
-        }
-      } catch (error) {
-        console.error("Error Fetching course categoires: ", error);
-      } finally {
-        setLoading(prev => prev - 1)
-      }
-    };
+    fetchCount();
+  }, []);
 
+  const fetchCourseCat = async () => {
+    setLoading(true);
+    try {
+      const res = await showAllCategoryPrograms();
+      if (res && res.length > 0) {
+        setCourseCat(res);
+      }
+    } catch (error) {
+      console.error("Error Fetching course categoires: ", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchCourseCat();
   }, []);
 
   useEffect(() => {
     const getCourseDetails = async () => {
-      setLoading(prev => prev + 1)
+      setLoading((prev) => prev + 1);
       try {
         const res = await fetchCourseCategories();
         if (res && res.length > 0) {
@@ -46,7 +69,7 @@ function Courses() {
       } catch (error) {
         console.log("Error in Fetching the Courses Data : ", error);
       } finally {
-        setLoading(prev => prev - 1)
+        setLoading((prev) => prev - 1);
       }
     };
     getCourseDetails();
@@ -60,16 +83,14 @@ function Courses() {
     setIsSidebarOpen((prev) => !prev);
   };
 
-  if (loading > 0)
-    return (
-      <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
-        <div className="loader"></div>
-      </div>
-    );
-
   const isAddCourseOpen = ["/addCourse", "/editCourse"].some((path) =>
-    location.pathname.includes(path)
+    location.pathname.includes(path),
   );
+
+  const handleCourse = () => {
+    dispatch(resetCourse());
+    navigate("/dashboard/courses/addCourse");
+  };
 
   return (
     <div className="bg-violet-50 w-full h-full overflow-x-hidden">
@@ -95,14 +116,14 @@ function Courses() {
               <AddButton
                 className="w-[150px]"
                 text="Add Courses"
-                onClick={() => navigate("/dashboard/courses/addCourse")}
+                onClick={handleCourse}
               >
                 <IoMdAdd />
               </AddButton>
             </div>
           </div>
           <div className="mt-10">
-            <Count />
+            <Count counts={counts} />
           </div>
           <div>
             <Table
@@ -134,6 +155,7 @@ function Courses() {
           )}
         </div>
       </div>
+      {loading > 0 && <LoaderOverlay />}
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   fetchPhotoCategories,
   getAllPhotos,
+  getPhotosCount,
 } from "../../../services/operations/imageAPI";
 import Breadcrumb from "../../Common/Breadcrumb";
 import AddButton from "../../Common/Buttons/addButton";
@@ -11,45 +12,66 @@ import Count from "../DashBoardPhotos/Count";
 import Table from "../DashBoardPhotos/Table";
 import AdminNavBar from "./AdminNavbar";
 import Sidebar from "./SideBar";
+import LoaderOverlay from "../../Common/LoaderOverlay";
 
 function Photos() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [counts, setCounts] = useState({
+    photoCount: 0,
+  });
   const [loading, setLoading] = useState(0);
   const [photoDetails, setPhotoDetails] = useState([]);
   const [imageCat, setImageCat] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    const fetchImageCat = async () => {
-      setLoading(prev => prev + 1)
-      try {
-        const res = await fetchPhotoCategories();
-        if (res && res.length > 0) {
-          setImageCat(res);
-        }
-      } catch (error) {
-        console.error("Error fetching image categoires : ", error);
-      } finally {
-        setLoading(prev => prev - 1)
-      }
-    };
+  const fetchPhotoCount = async () => {
+    const res = await getPhotosCount();
+    if (res) {
+      setCounts((prev) => ({
+        ...prev,
+        photoCount: res.photoCount,
+      }));
+    }
+  };
 
+  useEffect(() => {
+    fetchPhotoCount();
+  }, []);
+
+  const fetchImageCat = async () => {
+    setLoading((prev) => prev + 1);
+    try {
+      const res = await fetchPhotoCategories();
+      if (res && res.length > 0) {
+        setImageCat(res);
+      }
+    } catch (error) {
+      console.error("Error fetching image categoires : ", error);
+    } finally {
+      setLoading((prev) => prev - 1);
+    }
+  };
+
+  useEffect(() => {
     fetchImageCat();
   }, []);
 
   useEffect(() => {
     const getAllPhotosDetails = async () => {
-      setLoading(prev => prev + 1)
+      setLoading((prev) => prev + 1);
       try {
         const res = await getAllPhotos();
         if (res && res.length > 0) {
           setPhotoDetails(res);
         }
+
+        fetchPhotoCount();
+        fetchImageCat();
       } catch (error) {
         console.log("Error in Fetching the Photos Data : ", error);
       } finally {
-        setLoading(prev => prev - 1)
+        setLoading((prev) => prev - 1);
       }
     };
     getAllPhotosDetails();
@@ -63,16 +85,9 @@ function Photos() {
     setIsSidebarOpen((prev) => !prev);
   };
 
-  if (loading > 0)
-    return (
-      <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
-        <div className="loader"></div>
-      </div>
-    );
-
-  const isAddPhotoOpen = ["/addPhoto", "/editPhoto"].some((path) =>
-    location.pathname.includes(path)
-  );
+  const isAddPhotoOpen =
+    location.pathname.includes("addPhoto") ||
+    location.pathname.includes("editPhoto");
 
   return (
     <div className="bg-violet-50 w-full h-full overflow-x-hidden">
@@ -106,7 +121,7 @@ function Photos() {
             </div>
           </div>
           <div className="mt-10">
-            <Count />
+            <Count counts={counts} />
           </div>
           <div>
             <Table
@@ -138,6 +153,7 @@ function Photos() {
           )}
         </div>
       </div>
+      {loading > 0 && <LoaderOverlay />}
     </div>
   );
 }

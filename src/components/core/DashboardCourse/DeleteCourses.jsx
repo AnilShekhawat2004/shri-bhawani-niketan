@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { deleteCategory } from "../../../services/operations/courseAPI";
 import ConfirmationModal from "../../Common/ConfirmationModal";
 
 function DeleteCourses({ coursesId, setCourseDetails }) {
   const { token } = useSelector((state) => state.auth);
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [confirmationModal, setConfirmationModal] = useState(null);
 
@@ -20,7 +18,6 @@ function DeleteCourses({ coursesId, setCourseDetails }) {
         setCourseDetails((prev) =>
           prev.filter((course) => course._id !== coursesId)
         );
-        navigate("/dashboard/couses", { state: { refresh: true } });
       }
       setConfirmationModal(null);
     } catch (error) {

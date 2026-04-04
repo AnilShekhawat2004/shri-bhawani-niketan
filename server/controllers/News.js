@@ -30,7 +30,7 @@ exports.createNews = async (req, res) => {
 
     const thumbnailImage = await uploadImageToCloudinary(
       image,
-      process.env.FOLDER_NAME
+      process.env.FOLDER_NAME,
     );
 
     const newNews = await News.create({
@@ -143,7 +143,7 @@ exports.getRecentNews = async (req, res) => {
 // Edit News
 exports.editNews = async (req, res) => {
   try {
-    const { newsId, newsName, newsDescription } = req.body;
+    const { newsId, newsName, newsDescription, status } = req.body;
 
     const news = await News.findById(newsId);
     if (!news) {
@@ -155,12 +155,13 @@ exports.editNews = async (req, res) => {
 
     if (newsName !== undefined) news.newsName = newsName;
     if (newsDescription !== undefined) news.newsDescription = newsDescription;
+    if (status !== undefined) news.status = status;
 
     if (req.files) {
       const image = req.files.thumbnailImage;
       const thumbnailImage = await uploadImageToCloudinary(
         image,
-        process.env.FOLDER_NAME
+        process.env.FOLDER_NAME,
       );
       news.image = thumbnailImage.secure_url;
     }

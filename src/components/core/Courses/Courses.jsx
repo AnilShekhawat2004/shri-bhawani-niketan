@@ -8,6 +8,8 @@ import RButton from "../../Common/Buttons/rButton";
 import Footer from "../../Common/Footer/Footer";
 import LandingImage from "../../Common/landingImage";
 import RedBar from "../../Common/redBar";
+import LoaderOverlay from "../../Common/LoaderOverlay"
+
 
 function Courses() {
   const [loading, setLoading] = useState(0);
@@ -78,12 +80,6 @@ function Courses() {
     return words.slice(0, wordLimit).join(" ") + "...";
   };
 
-  if (loading > 0)
-    return (
-      <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
-        <div className="loader"></div>
-      </div>
-    );
   if (showError) return <Error />;
 
   return (
@@ -137,6 +133,7 @@ function Courses() {
         ))}
       </div>
       <Footer />
+      {loading > 0 && <LoaderOverlay/>}
     </div>
   );
 }

@@ -1,33 +1,55 @@
 import { useEffect, useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { getAllAchievements } from "../../../services/operations/achievementAPI";
+import {
+  getAllAchievements,
+  getAchievementCounts,
+} from "../../../services/operations/achievementAPI";
 import Breadcrumb from "../../Common/Breadcrumb";
 import AddButton from "../../Common/Buttons/addButton";
 import Count from "../DashBoardAchievement/Count";
 import Table from "../DashBoardAchievement/Table";
 import AdminNavBar from "./AdminNavbar";
 import Sidebar from "./SideBar";
+import LoaderOverlay from "../../Common/LoaderOverlay";
 
 function Achievement() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [counts, setCounts] = useState({
+    achievementCount: 0,
+  });
   const [loading, setLoading] = useState(0);
   const [achieveDetails, setAchieveDetails] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
 
+  const fetchCount = async () => {
+    const res = await getAchievementCounts();
+    if (res) {
+      setCounts((prev) => ({
+        ...prev,
+        achievementCount: res.achievementCount,
+      }));
+    }
+  };
+
+  useEffect(() => {
+    fetchCount();
+  }, []);
+
   useEffect(() => {
     const getAllAchievementDetails = async () => {
-      setLoading(prev => prev + 1)
+      setLoading((prev) => prev + 1);
       try {
         const res = await getAllAchievements();
         if (res && res.length > 0) {
           setAchieveDetails(res);
         }
+        fetchCount();
       } catch (error) {
         console.log("Error in Fetching the Achievement Data : ", error);
       } finally {
-        setLoading(prev => prev - 1)
+        setLoading((prev) => prev - 1);
       }
     };
     getAllAchievementDetails();
@@ -41,16 +63,9 @@ function Achievement() {
     setIsSidebarOpen((prev) => !prev);
   };
 
-  if (loading > 0)
-    return (
-      <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
-        <div className="loader"></div>
-      </div>
-    );
-
-  const isAddAchievementOpen = ["/addAchievement", "/editAchievement"].some(
-    (path) => location.pathname.includes(path)
-  );
+  const isAddAchievementOpen =
+    location.pathname.includes("addAchievement") ||
+    location.pathname.includes("editAchievement");
 
   return (
     <div className="bg-violet-50 w-full h-full overflow-x-hidden">
@@ -86,7 +101,7 @@ function Achievement() {
             </div>
           </div>
           <div className="mt-10">
-            <Count />
+            <Count counts={counts} />
           </div>
           <div>
             <Table
@@ -117,6 +132,7 @@ function Achievement() {
           )}
         </div>
       </div>
+      {loading > 0 && <LoaderOverlay />}
     </div>
   );
 }

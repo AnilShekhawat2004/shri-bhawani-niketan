@@ -10,8 +10,8 @@ export default function Upload({
   errors,
   viewData = null,
   editData = null,
+  onFileChange,
 }) {
-  const [selectedFile, setSelectedFile] = useState(null);
   const [previewSource, setPreviewSource] = useState(
     viewData ? viewData : editData ? editData : ""
   );
@@ -21,7 +21,7 @@ export default function Upload({
     const file = acceptedFiles[0];
     if (file) {
       previewFile(file);
-      setSelectedFile(file);
+      onFileChange?.(file)
     }
   };
 
@@ -43,6 +43,10 @@ export default function Upload({
   });
 
   const previewFile = (file) => {
+    if (!file) {
+      setPreviewSource("");
+      return;
+    }
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
@@ -51,15 +55,23 @@ export default function Upload({
   };
 
   useEffect(() => {
-    register(name, { required: !editData ? `${label} is required` : false });
-    if (editData && !selectedFile) {
-      setValue(name, editData);
+    if (viewData instanceof File || viewData instanceof Blob) {
+      previewFile(viewData);
+      return;
     }
-  }, [register, editData, label, name, selectedFile, setValue]);
 
-  useEffect(() => {
-    setValue(name, selectedFile);
-  }, [selectedFile, setValue, name]);
+    if (typeof viewData === "string" && viewData) {
+      setPreviewSource(viewData);
+      return;
+    }
+
+    if (typeof editData === "string" && editData) {
+      setPreviewSource(editData);
+      return;
+    }
+
+    setPreviewSource("");
+  }, [viewData, editData]);
 
   return (
     <div className="flex flex-col space-y-2">
@@ -84,8 +96,9 @@ export default function Upload({
                 onClick={(e) => {
                   e.stopPropagation(); // prevent reopening picker on cancel
                   setPreviewSource("");
-                  setSelectedFile(null);
-                  setValue(name, null);
+                  // setSelectedFile(null);
+                  // setValue(name, null);
+                  onFileChange?.(null);
                 }}
                 className="mt-3 text-bhawaniGray2 underline"
               >

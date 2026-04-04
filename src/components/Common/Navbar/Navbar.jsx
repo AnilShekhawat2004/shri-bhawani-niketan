@@ -69,9 +69,9 @@ function Navbar() {
               ))}
             </div>
 
-            <div className="translate-y-2 pr-8 text-[20px] xl:text-[20px] lg:text-[20px] md:text-[17px] text-white flex justify-end">
-              <BsSearch className="cursor-pointer textHover"/>
-            </div>
+            <Link to="/auth/login" className="text-[15px] xl:text-[15px] lg:text-[15px] md:text-[13px] text-white flex justify-end bg-bhawaniYellow px-4 py-1 rounded-full mr-8 my-1 hover:scale-110 transition-all duration-300 cursor-pointer">
+              Sign in
+            </Link>
           </div>
         </div>
 

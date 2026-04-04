@@ -46,10 +46,10 @@ export function logout(navigate) {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     toast.success("Logged Out");
-    navigate("/");
+    navigate("/auth/login");
   };
 }
-
+  
 export function getResetPasswordToken(email, setEmailSent) {
   return async (dispatch) => {
     dispatch(setLoading(true));

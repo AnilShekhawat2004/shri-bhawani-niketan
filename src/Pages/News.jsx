@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
-import { useSelector } from "react-redux";
 import NewsPaper from "../assets/News/News.webp";
 import Footer from "../components/Common/Footer/Footer";
 import LandingImage from "../components/Common/landingImage";
@@ -9,7 +8,7 @@ import NewsCard from "../components/core/HomePage/News/news_Card";
 import { getAllNews } from "../services/operations/newsAPI";
 
 function News() {
-  const { loading } = useSelector((state) => state.profile);
+  const [loading, setLoading] = useState(true)
   const [newsData, setNewsData] = useState(null);
   const [showAll, setShowAll] = useState(false);
 
@@ -21,6 +20,7 @@ function News() {
           item.status.includes("Published")
         );
         setNewsData(filteredData);
+        setLoading(false)
       } catch (error) {
         console.log("Error fetching news", error);
       }
@@ -28,7 +28,7 @@ function News() {
     fetchNews();
   }, []);
 
-  if (loading || !newsData) {
+  if (loading) {
     return (
       <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
         <div className="loader"></div>
@@ -59,7 +59,7 @@ function News() {
           textClassName="text-[25px] sm:text-[40px] lg:text-[50px] text-center uppercase font-bold"
         />
 
-        <div className="absolute bottom-0 left-0 w-full z-20 xs: sm:translate-y-10 md:translate-y-18 lg:translate-y-24">
+        <div className="absolute bottom-0 left-0 w-full z-20 sm:translate-y-10 md:translate-y-16 lg:translate-y-24">
           <RedBar
             className="font-m1"
             text="Stay informed, stay inspired Bhawani News brings you the latest achievements, events, and stories that celebrate the spirit, talent, and unstoppable energy of our vibrant college community."
@@ -74,9 +74,9 @@ function News() {
             Newsroom
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 mt-10 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 place-items-center gap-10 mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 mt-10 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 place-items-center gap-10 mx-auto px-8 md:px-0 lg:px-0">
             {visibleNews.map((news) => (
-              <NewsCard key={news._id} news={news} />
+              <NewsCard key={news._id} news={news} className="h-full"/>
             ))}
           </div>
 
