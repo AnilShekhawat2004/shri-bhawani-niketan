@@ -11,23 +11,29 @@ const News_Card = ({ news }) => {
   };
 
   return (
-    <div className="group bg-bhawaniShine rounded-xl shadow-lg shadow-gray-300 
-                    hover:shadow-xl hover:shadow-gray-400 transition-all duration-700
-                    overflow-hidden flex flex-col h-full">
+    <div
+      className="group relative bg-bhawaniShine rounded-xl shadow-lg shadow-gray-300 
+                hover:shadow-xl hover:shadow-gray-400 transition-all duration-700
+                overflow-hidden flex flex-col h-full"
+    >
       {/* Image */}
       <img
-        src={news?.image || "/fallback-image.webp"}
-        alt={news?.newsName || "News Image"}
+        src={news?.image}
+        alt={news?.newsName}
         loading="lazy"
         className="w-full aspect-[4/3] object-cover"
       />
 
-      {/* Progress bar hover effect */}
-      <div className="absolute bg-bhawaniDark w-0 h-[5px] group-hover:w-full transition-all duration-1000 ease-in-out" />
-
       {/* Content */}
-      <div className="flex flex-col justify-between flex-1 p-4">
-        <div>
+      <div className="flex flex-col justify-between flex-1 p-4 relative">
+        {/* Red line */}
+        <div
+          className="absolute top-0 left-0 h-[4px] w-0 bg-bhawaniDark 
+                  group-hover:w-full transition-all duration-700 ease-in-out"
+        />
+
+        <div className="pt-2">
+          {" "}
           <p className="font-m1 text-bhawaniDark text-[18px] sm:text-[25px] md:text-[30px] lg:text-[35px] font-bold mb-2">
             {news?.newsName}
           </p>
@@ -37,12 +43,14 @@ const News_Card = ({ news }) => {
         </div>
 
         <div className="mt-4">
-          <Link to={news?._id ? `/news/${news._id}` : "#"}>
-            <RButton
-              text="Read more"
-              className="text-white w-[120px] h-[50px] rounded-md"
-            />
-          </Link>
+          {news?._id && (
+            <Link to={`/news/${news._id}`}>
+              <RButton
+                text="Read more"
+                className="text-white w-[120px] h-[50px] rounded-md"
+              />
+            </Link>
+          )}
         </div>
       </div>
     </div>

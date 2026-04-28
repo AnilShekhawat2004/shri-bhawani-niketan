@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Error from "../../../Pages/Error";
 import { showAllCategoryPrograms } from "../../../services/operations/courseAPI";
 import RButton from "../../Common/Buttons/rButton";
-import LoaderOverlay from "../../Common/LoaderOverlay"
-
+import LoaderOverlay from "../../Common/LoaderOverlay";
 
 function ProgramCard() {
   const [loading, setLoading] = useState(0);
@@ -12,7 +10,7 @@ function ProgramCard() {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(prev => prev + 1)
+      setLoading((prev) => prev + 1);
       try {
         const res = await showAllCategoryPrograms();
         if (res && res.length > 0) {
@@ -21,14 +19,20 @@ function ProgramCard() {
       } catch (error) {
         console.log("Error fetching category program : ", error);
       } finally {
-        setLoading(prev => prev - 1)
+        setLoading((prev) => prev - 1);
       }
     };
 
     fetchData();
   }, []);
 
-  if (catProgram.length === 0) return <Error />;
+  if (loading) {
+    return (
+      <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
+        <div className="loader"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-20">
@@ -82,7 +86,7 @@ function ProgramCard() {
           </div>
         </div>
       ))}
-      {loading > 0 && <LoaderOverlay/>}
+      {loading > 0 && <LoaderOverlay />}
     </div>
   );
 }

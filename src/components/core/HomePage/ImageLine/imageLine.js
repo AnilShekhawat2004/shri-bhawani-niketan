@@ -18,7 +18,7 @@ function ImageLine({ text, buttonText, LineImage, LinkPage }) {
         initial={{ x: -200, y: -16, opacity: 0 }}
         whileInView={{ x: 0, y: -16, opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
-        viewport={{ once: true, amount: 0.5 }}
+        viewport={{ once: true, margin: "-50px" }}
         onAnimationComplete={() => setImageVisible(true)}
         className="absolute top-0 left-0 h-[130px] md:h-[150px] lg:h-[168px] sm:h-[130px] xs:h-[130px] xl:w-[1000px] lg:w-[900px] md:w-[700px] sm:w-full xs:w-full object-cover clip-parallelogram"
       />
